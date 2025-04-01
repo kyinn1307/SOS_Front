@@ -1,14 +1,17 @@
+import { useState } from "react";
 import styled from "styled-components";
 import ChatbotIcon from "../../assets/chatbot/ChatbotIcon";
 import QuestionBox from "../../assets/chatbot/QuestionBox";
 import ChatInput from "../../components/UI/Chatbot/ChatInput";
+import BlurLayer from "../../components/Layout/BlurLayer";
+import Modal from "../../components/UI/common/Modal";
 
 const ContentWrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 1;
+  z-index: 1; /* 기존 UI의 z-index */
   text-align: center;
 `;
 
@@ -23,26 +26,49 @@ const ChatbotWrapper = styled.div`
   position: relative;
   margin-top: 9px;
 `;
+
 const QuestionWrapper = styled.div`
   position: absolute;
   left: 100%;
   margin-left: 12px;
 `;
+
 const IntroText = styled.div`
   margin-top: 48px;
   font-size: 17px;
   line-height: 180%;
-
   text-align: center;
   letter-spacing: -0.011em;
-
   color: #2c2c2c;
 `;
 
+const ModalWrapper = styled.div`
+  position: absolute;
+  top: 33%;
+  left: 32%;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+`;
+
 const ChatContent = () => {
+  const [isError, setIsError] = useState(true);
+
+  const handleError = () => {
+    setIsError(true);
+  };
+
   return (
     <>
       <ContentWrapper>
+        {isError && (
+          <>
+            <ModalWrapper>
+              <BlurLayer />
+              <Modal isDone={!isError} />
+            </ModalWrapper>
+          </>
+        )}
         <IntroText>
           저, 센티와 함께 당신만을 위한 향을 찾아보고 싶군요!
           <br />
@@ -65,4 +91,5 @@ const ChatContent = () => {
     </>
   );
 };
+
 export default ChatContent;
