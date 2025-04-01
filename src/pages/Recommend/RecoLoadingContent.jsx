@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import GradientText from "../../components/UI/common/GradientText";
 import LoadingCommentLayer from "../../assets/loading/LoadingCommentLayer";
 import ProgressBar from "../../components/UI/Chatbot/ProgressBar";
-
+import Modal from "../../components/UI/common/Modal";
+import { StyledBtn } from "../../components/UI/common/StyledBtn";
+import BlurLayer from "../../components/Layout/BlurLayer";
 const ContentWrapper = styled.div`
   position: relative;
   display: flex;
@@ -52,26 +55,57 @@ const Text = styled.div`
   z-index: 1;
 `;
 
+const ModalWrapper = styled.div`
+  margin-top: 205px;
+  width: 442px;
+`;
+
+const BtnWrapper = styled.div`
+  margin-top: 183px;
+`;
+
 const RecoLoadingContent = () => {
   const [progress, setProgress] = useState(50);
+  const [isDone, setIsDone] = useState(true);
+  const navigate = useNavigate();
+
+  const handleComplete = () => {
+    navigate("/");
+  };
   return (
-    <>
-      <ContentWrapper>
-        <TextContainer>
-          <TextWrapper>
-            <Text>
-              🌿 당신을 위한 향을 <GradientText>연주</GradientText>하는 중... 🌿
-              <br />
-              감성과 향이 조화롭게 어우러지는 순간을 기다려주세요. ✨
-              <br />
-              당신의 이야기가 향기로 피어나는 중입니다. 💫🌸
-            </Text>
-          </TextWrapper>
-          <StyledLoadingCommentLayer />
-        </TextContainer>
-        <ProgressBar progress={progress} />
-      </ContentWrapper>
-    </>
+    <ContentWrapper>
+      {isDone ? (
+        <>
+          <BlurLayer />
+          <ModalWrapper>
+            <Modal isDone={isDone} />
+          </ModalWrapper>
+          <BtnWrapper>
+            <StyledBtn variant="black" onClick={handleComplete}>
+              체험 마무리하기 {">"}
+            </StyledBtn>
+          </BtnWrapper>
+        </>
+      ) : (
+        <>
+          <TextContainer>
+            <TextWrapper>
+              <Text>
+                🌿 당신을 위한 향을 <GradientText>연주</GradientText>하는 중...
+                🌿
+                <br />
+                감성과 향이 조화롭게 어우러지는 순간을 기다려주세요. ✨
+                <br />
+                당신의 이야기가 향기로 피어나는 중입니다. 💫🌸
+              </Text>
+            </TextWrapper>
+            <StyledLoadingCommentLayer />
+          </TextContainer>
+          <ProgressBar progress={progress} />
+        </>
+      )}
+    </ContentWrapper>
   );
 };
+
 export default RecoLoadingContent;
