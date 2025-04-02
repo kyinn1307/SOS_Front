@@ -1,8 +1,10 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
+import { StyledBtn } from "../../components/UI/common/StyledBtn";
 import ChoiceList from "../../components/UI/Chatbot/ChoiceList";
 import Checkbox from "../../components/UI/Reco/CheckBox";
-import { StyledBtn } from "../../components/UI/common/StyledBtn";
-import { useState, useEffect } from "react";
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -42,10 +44,14 @@ const BtnWrapper = styled.div`
   margin-top: 9px;
 `;
 const OriginalContent = () => {
+  const navigate = useNavigate();
   const [selectedItem, setSelectedItem] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
   const isBtnOn = selectedItem !== null && isChecked;
 
+  const handleBtnClick = () => {
+    navigate("/produceload");
+  };
   return (
     <>
       <ContentWrapper>
@@ -65,7 +71,11 @@ const OriginalContent = () => {
           />
         </BoxWrapper>
         <BtnWrapper>
-          <StyledBtn variant="black" disabled={!isBtnOn}>
+          <StyledBtn
+            variant="black"
+            disabled={!isBtnOn}
+            onClick={handleBtnClick}
+          >
             나만의 향 찾기 {">"}
           </StyledBtn>
         </BtnWrapper>

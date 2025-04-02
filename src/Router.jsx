@@ -10,11 +10,12 @@ import LoadingPage from "./pages/Choice/LoadingPage";
 import RecoPage from "./pages/Recommend/RecoPage";
 import ProduceLoadingPage from "./pages/Loading/ProduceLoadingPage";
 import OriginalPage from "./pages/Original/OriginalPage";
+import AdminPage from "./pages/Admin/AdminPage";
+
 const AppRouter = () => {
   return (
     <Router>
       <Routes>
-        {/* <Route path="/" element={isLoggedIn ? <MainPage /> : <LoginPage />} /> */}
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/info" element={<InfoPage />} />
@@ -25,6 +26,7 @@ const AppRouter = () => {
         <Route path="/reco" element={<RecoPage />} />
         <Route path="/produceload" element={<ProduceLoadingPage />} />
         <Route path="/original" element={<OriginalPage />} />
+        <Route path="/admin" element={<AdminPage />} />
       </Routes>
     </Router>
   );

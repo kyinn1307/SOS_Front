@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import SosLogo from "../../assets/sos_logo";
 
 const HeaderContainer = styled.div`
@@ -36,18 +36,21 @@ const SettingBtn = styled.button`
 
 const Header = () => {
   const location = useLocation();
-
-  const shouldShowSettings = location.pathname === "/";
-
+  const navigate = useNavigate();
+  const shouldShowSettings =
+    location.pathname === "/" || location.pathname === "/admin";
+  const handleBtnClick = (path) => () => {
+    navigate(path);
+  };
   return (
     <>
       <HeaderContainer>
-        <LogoWrapper>
+        <LogoWrapper onClick={handleBtnClick("/")}>
           <SosLogo />
         </LogoWrapper>
         {shouldShowSettings && (
           <SettingBtnField>
-            <SettingBtn>기기관리</SettingBtn>
+            <SettingBtn onClick={handleBtnClick("/admin")}>기기관리</SettingBtn>
             <SettingBtn>로그아웃</SettingBtn>
           </SettingBtnField>
         )}

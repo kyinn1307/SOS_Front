@@ -4,8 +4,12 @@ import Button from "./Button";
 export const StyledBtn = styled(Button)`
   position: relative;
   padding: 17px 0;
-  width: 268px;
-  height: 64px;
+  width: ${({ isAdmin }) => (!isAdmin ? "268px" : "230px")};
+  height: ${({ isAdmin }) => (!isAdmin ? "64px" : "52px")};
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   border-radius: 44px;
   font-size: 20px;
