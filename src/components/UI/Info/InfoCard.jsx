@@ -10,6 +10,15 @@ const InfoCardWrapper = styled.div`
   border-radius: 15px;
 `;
 
+const InfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 184.5px;
+  height: 190px;
+
+  border-bottom: 1px solid #d3d3d3;
+`;
+
 const TitleArea = styled.div`
   display: flex;
   flex-direction: column;
@@ -22,41 +31,63 @@ const Title = styled.div`
   font-weight: 700;
   font-size: 20px;
   line-height: 24px;
-
-  flex: none;
-  order: 0;
-  flex-grow: 0;
 `;
 
 const Info = styled.div`
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
-
   color: #9c9c9c;
-
-  flex: none;
-  order: 1;
-  flex-grow: 0;
 `;
 
 const ExArea = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100px;
   margin-top: 18px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 `;
 
-const InfoCard = () => {
+const ExItem = styled.div`
+  font-size: 16px;
+  line-height: 19px;
+  color: #2c2c2c;
+`;
+
+const VibeContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 6.5px;
+`;
+
+const VibeTag = styled.span`
+  font-size: 12px;
+  line-height: 14px;
+  color: #aaaaaa;
+`;
+
+const InfoCard = ({ title, info, ex, vibe }) => {
   return (
     <InfoCardWrapper>
-      <TitleArea>
-        <Title>Floral</Title>
-        <Info> 부드럽고 감성적인 향 🌷</Info>
-      </TitleArea>
-      <ExArea>
-        <div>밤나무</div>
-        <div>밤나무</div>
-      </ExArea>
+      <InfoContainer>
+        <TitleArea>
+          <Title>{title}</Title>
+          <Info>{info}</Info>
+        </TitleArea>
+        <ExArea>
+          {ex.map((item, index) => (
+            <ExItem key={index}>{item}</ExItem>
+          ))}
+        </ExArea>
+      </InfoContainer>
+      <VibeContainer>
+        {vibe.map((tag, index) => (
+          <VibeTag key={index}>{tag}</VibeTag>
+        ))}
+      </VibeContainer>
     </InfoCardWrapper>
   );
 };
