@@ -8,7 +8,6 @@ const CheckboxContainer = styled.div`
   gap: 7px;
   align-items: center;
   cursor: pointer;
-  margin-top: 18px;
 
   font-size: 15px;
   line-height: 180%;

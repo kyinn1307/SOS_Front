@@ -11,12 +11,28 @@ const ItemWrapper = styled.div`
 
   background: #fafaf8;
   box-shadow: 0px 0px 10px rgba(231, 221, 193, 0.5);
+  cursor: pointer;
+  transition: all 0.2s;
   border-radius: 15px;
+  box-shadow: ${(props) =>
+    props.selected
+      ? "0px 0px 10px #97d6dd"
+      : "0px 0px 10px rgba(231, 221, 193, 0.5);"};
+
   font-size: 20px;
+
+  &:hover {
+    background: #fafaf8;
+    box-shadow: 0px 0px 10px #97d6dd;
+  }
 `;
 
-const ChoiceItem = ({ title }) => {
-  return <ItemWrapper>{title}</ItemWrapper>;
+const ChoiceItem = ({ title, isSelected, onClick }) => {
+  return (
+    <ItemWrapper selected={isSelected} onClick={() => onClick(title)}>
+      {title}
+    </ItemWrapper>
+  );
 };
 
 export default ChoiceItem;

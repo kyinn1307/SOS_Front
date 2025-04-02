@@ -8,7 +8,8 @@ import ChatPage from "./pages/Chat/ChatPage";
 import ChoicePage from "./pages/Choice/ChoicePage";
 import LoadingPage from "./pages/Choice/LoadingPage";
 import RecoPage from "./pages/Recommend/RecoPage";
-import RecoLoadingPage from "./pages/Recommend/RecoLoadingPage";
+import ProduceLoadingPage from "./pages/Loading/ProduceLoadingPage";
+import OriginalPage from "./pages/Original/OriginalPage";
 const AppRouter = () => {
   return (
     <Router>
@@ -22,7 +23,8 @@ const AppRouter = () => {
         <Route path="/choice" element={<ChoicePage />} />
         <Route path="/loading" element={<LoadingPage />} />
         <Route path="/reco" element={<RecoPage />} />
-        <Route path="/recoload" element={<RecoLoadingPage />} />
+        <Route path="/produceload" element={<ProduceLoadingPage />} />
+        <Route path="/original" element={<OriginalPage />} />
       </Routes>
     </Router>
   );

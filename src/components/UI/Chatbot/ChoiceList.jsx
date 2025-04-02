@@ -24,11 +24,19 @@ const ItemContainer = styled.div`
   margin-top: 30px;
 `;
 
-const ChoiceList = () => {
+const ChoiceList = ({ selectedItem, setSelectedItem }) => {
+  const handleItemClick = (title) => {
+    setSelectedItem((prev) => (prev === title ? "" : title));
+  };
   return (
     <ItemContainer>
       {MockData.map((title, index) => (
-        <ChoiceItem key={index} title={title} />
+        <ChoiceItem
+          key={index}
+          title={title}
+          isSelected={selectedItem === title}
+          onClick={handleItemClick}
+        />
       ))}
     </ItemContainer>
   );
