@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import ChatbotIcon from "../../assets/chatbot/ChatbotIcon";
 import QuestionBox from "../../assets/chatbot/QuestionBox";
@@ -52,12 +52,19 @@ const ModalWrapper = styled.div`
 `;
 
 const ChatContent = () => {
-  const [isError, setIsError] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   const handleError = () => {
     setIsError(true);
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsError(true);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <>
       <ContentWrapper>

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { StyledBtn } from "../../components/UI/common/StyledBtn";
 import CardList from "../../components/UI/Info/CardList";
 
@@ -40,6 +41,11 @@ const BtnWrapper = styled.div`
   margin-top: 25px;
 `;
 const InfoContent = () => {
+  const navigate = useNavigate();
+
+  const handleBtnClick = () => {
+    navigate("/chatbot");
+  };
   return (
     <>
       <ContentWrapper>
@@ -50,7 +56,7 @@ const InfoContent = () => {
           지금부터 각 향기 그룹의 느낌을 하나씩 소개할게요. :{")"}
         </IntroText>
         <CardList />
-        <BtnWrapper>
+        <BtnWrapper onClick={handleBtnClick}>
           <StyledBtn variant="black">향기 여정 시작하기 {">"}</StyledBtn>
         </BtnWrapper>
       </ContentWrapper>

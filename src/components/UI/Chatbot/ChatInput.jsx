@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import ChatSendBtn from "../../../assets/chatbot/ChatSendBtn";
 
 const ChatInputContainer = styled.div`
@@ -49,10 +50,15 @@ const ChatSendBtnWrapper = styled.div`
 `;
 
 const ChatInput = () => {
+  const navigate = useNavigate();
+
+  const handleSendBtnClick = () => {
+    navigate("/choice");
+  };
   return (
     <ChatInputContainer>
       <ChatInputField placeholder="당신의 감정을 자유롭게 표현해보세요! (모르겠음, 별로와 같은 간단한 답변은 피해주세요.)" />
-      <ChatSendBtnWrapper>
+      <ChatSendBtnWrapper onClick={handleSendBtnClick}>
         <ChatSendBtn />
       </ChatSendBtnWrapper>
     </ChatInputContainer>

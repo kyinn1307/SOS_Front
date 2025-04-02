@@ -24,18 +24,27 @@ const ItemContainer = styled.div`
   margin-top: 30px;
 `;
 
-const ChoiceList = ({ selectedItem, setSelectedItem }) => {
+const ChoiceList = ({ selectedItems, setSelectedItems }) => {
   const handleItemClick = (title) => {
-    setSelectedItem((prev) => (prev === title ? "" : title));
+    setSelectedItems((prev) => {
+      if (prev.includes(title)) {
+        return prev.filter((item) => item !== title);
+      } else if (prev.length < 2) {
+        return [...prev, title];
+      }
+      return prev;
+    });
   };
+
   return (
     <ItemContainer>
       {MockData.map((title, index) => (
         <ChoiceItem
           key={index}
           title={title}
-          isSelected={selectedItem === title}
+          isSelected={selectedItems.includes(title)}
           onClick={handleItemClick}
+          disabled={selectedItems.length >= 2 && !selectedItems.includes(title)}
         />
       ))}
     </ItemContainer>

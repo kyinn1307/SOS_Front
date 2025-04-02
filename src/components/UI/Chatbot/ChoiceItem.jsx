@@ -11,7 +11,7 @@ const ItemWrapper = styled.div`
 
   background: #fafaf8;
   box-shadow: 0px 0px 10px rgba(231, 221, 193, 0.5);
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? "default" : "pointer")};
   transition: all 0.2s;
   border-radius: 15px;
   box-shadow: ${(props) =>
@@ -22,14 +22,18 @@ const ItemWrapper = styled.div`
   font-size: 20px;
 
   &:hover {
-    background: #fafaf8;
-    box-shadow: 0px 0px 10px #97d6dd;
+    box-shadow: ${(props) =>
+      props.disabled ? "none" : "0px 0px 10px #97d6dd"};
   }
 `;
 
-const ChoiceItem = ({ title, isSelected, onClick }) => {
+const ChoiceItem = ({ title, isSelected, onClick, disabled }) => {
   return (
-    <ItemWrapper selected={isSelected} onClick={() => onClick(title)}>
+    <ItemWrapper
+      selected={isSelected}
+      disabled={disabled}
+      onClick={() => !disabled && onClick(title)}
+    >
       {title}
     </ItemWrapper>
   );

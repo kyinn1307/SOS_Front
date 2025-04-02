@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { StyledBtn } from "../common/StyledBtn";
 
 const Container = styled.div`
@@ -23,6 +24,14 @@ const ButtonContainer = styled.div`
 `;
 
 const ChatbotChoice = () => {
+  const navigate = useNavigate();
+
+  const handleOriginBtnClick = () => {
+    navigate("/original");
+  };
+  const handleChatBtnClick = () => {
+    navigate("/chat");
+  };
   return (
     <Container>
       <TextWrapper>
@@ -32,8 +41,12 @@ const ChatbotChoice = () => {
         어떤 방법으로 나만의 향을 연주해 볼까요? 🎹🌸
       </TextWrapper>
       <ButtonContainer>
-        <StyledBtn variant="white">오리지널 향수 만들기 {">"}</StyledBtn>
-        <StyledBtn variant="black">센티와 나만의 향 찾기 {">"}</StyledBtn>
+        <StyledBtn variant="white" onClick={handleOriginBtnClick}>
+          오리지널 향수 만들기 {">"}
+        </StyledBtn>
+        <StyledBtn variant="black" onClick={handleChatBtnClick}>
+          센티와 나만의 향 찾기 {">"}
+        </StyledBtn>
       </ButtonContainer>
     </Container>
   );
