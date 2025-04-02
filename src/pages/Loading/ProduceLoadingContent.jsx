@@ -64,7 +64,7 @@ const BtnWrapper = styled.div`
   margin-top: 183px;
 `;
 
-const RecoLoadingContent = () => {
+const ProduceLoadingContent = () => {
   const [progress, setProgress] = useState(50);
   const [isDone, setIsDone] = useState(true);
   const navigate = useNavigate();
@@ -108,4 +108,4 @@ const RecoLoadingContent = () => {
   );
 };
 
-export default RecoLoadingContent;
+export default ProduceLoadingContent;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import recoLoadingBg from "../../assets/reco/reco_loading_layer.png";
+import ProduceLoadingBg from "../../assets/loading/produce_loading_layer.png";
 
 const LoadingBgWrapper = styled.div`
   position: fixed;
@@ -22,14 +22,14 @@ const StyledImg = styled.img`
   object-fit: contain;
 `;
 
-const RecoLoadingBackground = () => {
+const ProduceLoadingBackground = () => {
   return (
     <LoadingBgWrapper>
       <ImgWrapper>
-        <StyledImg src={recoLoadingBg} alt="배경화면" />
+        <StyledImg src={ProduceLoadingBg} alt="배경화면" />
       </ImgWrapper>
     </LoadingBgWrapper>
   );
 };
 
-export default RecoLoadingBackground;
+export default ProduceLoadingBackground;

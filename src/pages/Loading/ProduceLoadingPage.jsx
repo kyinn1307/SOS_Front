@@ -1,8 +1,8 @@
-import RecoLoadingContent from "./RecoLoadingContent";
-import RecoLoadingBackground from "./RecoLoadingBackground";
+import RecoLoadingContent from "./ProduceLoadingContent";
+import RecoLoadingBackground from "./ProduceLoadingBackground";
 import MainLayout from "../../components/Layout/MainLayout";
 
-const RecoLoadingPage = () => {
+const ProduceLoadingPage = () => {
   return (
     <>
       <MainLayout BackgroundComponent={RecoLoadingBackground}>
@@ -12,4 +12,4 @@ const RecoLoadingPage = () => {
   );
 };
 
-export default RecoLoadingPage;
+export default ProduceLoadingPage;
