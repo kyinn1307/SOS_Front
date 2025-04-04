@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import DeviceItem from "../../Admin/DeviceItem";
+import DeviceItem from "./DeviceItem";
 
 const DeviceContainer = styled.div`
   position: relative;

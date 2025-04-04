@@ -25,7 +25,6 @@ const SettingBtnField = styled.div`
 `;
 
 const SettingBtn = styled.button`
-  font-family: "Pretendard";
   border: none;
   background: none;
   width: 56px;

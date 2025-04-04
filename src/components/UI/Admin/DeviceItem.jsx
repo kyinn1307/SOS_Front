@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import EditBtn from "../../assets/admin/EditBtn";
-import DeleteBtn from "../../assets/admin/DeleteBtn";
+import EditBtn from "../../../assets/admin/EditBtn";
+import DeleteBtn from "../../../assets/admin/DeleteBtn";
 
 const Container = styled.div`
   position: relative;
