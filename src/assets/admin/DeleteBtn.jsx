@@ -1,4 +1,4 @@
-const DeleteBtn = () => {
+const DeleteBtn = ({ onClick }) => {
   return (
     <svg
       width="16"
@@ -7,20 +7,21 @@ const DeleteBtn = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       cursor="pointer"
+      onClick={onClick}
     >
       <path
         d="M14.5 1.5L1.5 14.5"
         stroke="#D3D3D3"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M1.5 1.5L14.5 14.5"
         stroke="#D3D3D3"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import DeviceItem from "./DeviceItem";
+import { useState } from "react";
+import BlurLayer from "../../Layout/BlurLayer";
+import DeleteModal from "./DeleteModal";
 
 const DeviceContainer = styled.div`
   position: relative;
@@ -30,15 +33,31 @@ const Bar = styled.div`
   margin-bottom: 14px;
 `;
 
-const DeviceList = () => {
+const DeviceList = ({ onDelete }) => {
   return (
     <DeviceContainer>
       <Text>내 기기</Text>
       <Bar />
-      <DeviceItem idx={"001"} name={"센트오브사운드 1호기 - 3748B5"} />
-      <DeviceItem idx={"002"} name={"센트오브사운드 2호기 - 3748B5"} />
-      <DeviceItem idx={"003"} name={"센트오브사운드 3호기 - 3748B5"} />
-      <DeviceItem idx={"004"} name={"센트오브사운드 4호기 - 3748B5"} />
+      <DeviceItem
+        idx={"001"}
+        name={"센트오브사운드 1호기 - 3748B5"}
+        onDelete={onDelete}
+      />
+      <DeviceItem
+        idx={"002"}
+        name={"센트오브사운드 2호기 - 3748B5"}
+        onDelete={onDelete}
+      />
+      <DeviceItem
+        idx={"003"}
+        name={"센트오브사운드 3호기 - 3748B5"}
+        onDelete={onDelete}
+      />
+      <DeviceItem
+        idx={"004"}
+        name={"센트오브사운드 4호기 - 3748B5"}
+        onDelete={onDelete}
+      />
     </DeviceContainer>
   );
 };

@@ -4,8 +4,10 @@ import Button from "./Button";
 export const StyledBtn = styled(Button)`
   position: relative;
   padding: 17px 0;
-  width: ${({ isAdmin }) => (!isAdmin ? "268px" : "230px")};
-  height: ${({ isAdmin }) => (!isAdmin ? "64px" : "52px")};
+  width: ${({ isAdmin, isModal }) =>
+    isModal ? "170px" : !isAdmin ? "268px" : "230px"};
+  height: ${({ isAdmin, isModal }) =>
+    isModal ? "40px" : !isAdmin ? "64px" : "52px"};
 
   display: flex;
   align-items: center;
@@ -13,6 +15,7 @@ export const StyledBtn = styled(Button)`
 
   border-radius: 44px;
   font-size: 20px;
+
   ${({ variant }) =>
     variant === "black" &&
     `
@@ -28,7 +31,7 @@ export const StyledBtn = styled(Button)`
     border: 1px solid #000;
   `}
 
-   &:disabled {
+  &:disabled {
     background-color: #ccc;
     color: #fafaf8;
     cursor: not-allowed;

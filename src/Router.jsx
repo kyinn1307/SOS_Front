@@ -1,17 +1,17 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { ROUTES } from "./routes";
+import { ROUTES } from "./constants/routes";
 
-import LoginPage from "../pages/Login/LoginPage";
-import MainPage from "../pages/Main/MainPage";
-import InfoPage from "../pages/Info/InfoPage";
-import ChatbotPage from "../pages/Chatbot/ChatbotPage";
-import ChatPage from "../pages/Chat/ChatPage";
-import ChoicePage from "../pages/Choice/ChoicePage";
-import LoadingPage from "../pages/Choice/LoadingPage";
-import RecoPage from "../pages/Recommend/RecoPage";
-import ProduceLoadingPage from "../pages/Loading/ProduceLoadingPage";
-import OriginalPage from "../pages/Original/OriginalPage";
-import AdminPage from "../pages/Admin/AdminPage";
+import LoginPage from "./pages/Login/LoginPage";
+import MainPage from "./pages/Main/MainPage";
+import InfoPage from "./pages/Info/InfoPage";
+import ChatbotPage from "./pages/Chatbot/ChatbotPage";
+import ChatPage from "./pages/Chat/ChatPage";
+import ChoicePage from "./pages/Choice/ChoicePage";
+import LoadingPage from "./pages/Choice/LoadingPage";
+import RecoPage from "./pages/Recommend/RecoPage";
+import ProduceLoadingPage from "./pages/Loading/ProduceLoadingPage";
+import OriginalPage from "./pages/Original/OriginalPage";
+import AdminPage from "./pages/Admin/AdminPage";
 
 const AppRouter = () => {
   return (

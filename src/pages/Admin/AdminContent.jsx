@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import SosLetterLogo from "../../assets/main/sos_letter_logo";
 import { StyledBtn } from "../../components/UI/common/StyledBtn";
-
+import { useState } from "react";
 import DeviceList from "../../components/UI/Admin/DeviceList";
+import BlurLayer from "../../components/Layout/BlurLayer";
+import DeleteModal from "../../components/UI/Admin/DeleteModal";
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -44,11 +45,29 @@ const BtnContainer = styled.div`
   gap: 30px;
   margin-top: 49px;
 `;
+
+const ModalWrapper = styled.div`
+  position: absolute;
+  top: 33%;
+  left: 32%;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+`;
+
 const AdminContent = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedDevice, setSelectedDevice] = useState(null);
+
+  const handleDeleteClick = (device) => {
+    setSelectedDevice(device);
+    setIsModalOpen(true);
+  };
+
   return (
     <ContentWrapper>
       <Title>관리할 기기를 선택해 주세요.</Title>
-      <DeviceList />
+      <DeviceList onDelete={handleDeleteClick} /> {/* ✅ onDelete 전달 */}
       <BtnContainer>
         <AddBtnContainer>
           <StyledBtn variant="white" isAdmin={true}>
@@ -60,6 +79,15 @@ const AdminContent = () => {
           기기 관리하기 {">"}
         </StyledBtn>
       </BtnContainer>
+      {isModalOpen && (
+        <ModalWrapper>
+          <BlurLayer />
+          <DeleteModal
+            deviceName={selectedDevice} // ✅ 기기명 전달
+            onClose={() => setIsModalOpen(false)}
+          />
+        </ModalWrapper>
+      )}
     </ContentWrapper>
   );
 };

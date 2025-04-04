@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import EditBtn from "../../../assets/admin/EditBtn";
 import DeleteBtn from "../../../assets/admin/DeleteBtn";
+import { useState } from "react";
 
 const Container = styled.div`
   position: relative;
@@ -35,14 +36,14 @@ const BtnContainer = styled.div`
   padding: 6px;
 `;
 
-const DeviceItem = ({ idx, name }) => {
+const DeviceItem = ({ idx, name, onDelete }) => {
   return (
     <Container>
       <Index>{idx}</Index>
       <Name>{name}</Name>
       <BtnContainer>
         <EditBtn />
-        <DeleteBtn />
+        <DeleteBtn onClick={() => onDelete(name)} />
       </BtnContainer>
     </Container>
   );
