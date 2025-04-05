@@ -59,15 +59,29 @@ const AdminContent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDevice, setSelectedDevice] = useState(null);
 
-  const handleDeleteClick = (device) => {
-    setSelectedDevice(device);
+  const handleSelectDevice = (deviceName) => {
+    setSelectedDevice((prev) => (prev === deviceName ? null : deviceName));
+  };
+
+  const handleDeleteDevice = (deviceName) => {
     setIsModalOpen(true);
   };
 
+  const handleManageClick = () => {
+    if (!selectedDevice) {
+      alert("기기를 선택해 주세요.");
+    } else {
+      console.log("기기 관리 페이지로 이동:", selectedDevice);
+    }
+  };
   return (
     <ContentWrapper>
       <Title>관리할 기기를 선택해 주세요.</Title>
-      <DeviceList onDelete={handleDeleteClick} /> {/* ✅ onDelete 전달 */}
+      <DeviceList
+        selectedDevice={selectedDevice}
+        onSelectDevice={handleSelectDevice}
+        onDeleteDevice={handleDeleteDevice}
+      />
       <BtnContainer>
         <AddBtnContainer>
           <StyledBtn variant="white" isAdmin={true}>
@@ -75,7 +89,7 @@ const AdminContent = () => {
           </StyledBtn>
           <IndicateText>등록되지 않은 기기를 추가해보세요!</IndicateText>
         </AddBtnContainer>
-        <StyledBtn variant="black" isAdmin={true}>
+        <StyledBtn variant="black" isAdmin={true} onClick={handleManageClick}>
           기기 관리하기 {">"}
         </StyledBtn>
       </BtnContainer>
@@ -83,7 +97,7 @@ const AdminContent = () => {
         <ModalWrapper>
           <BlurLayer />
           <DeleteModal
-            deviceName={selectedDevice} // ✅ 기기명 전달
+            deviceName={selectedDevice}
             onClose={() => setIsModalOpen(false)}
           />
         </ModalWrapper>

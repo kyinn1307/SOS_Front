@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import EditBtn from "../../../assets/admin/EditBtn";
 import DeleteBtn from "../../../assets/admin/DeleteBtn";
-import { useState } from "react";
 
 const Container = styled.div`
   position: relative;
@@ -9,6 +8,8 @@ const Container = styled.div`
   flex-direction: row;
   margin-bottom: 16px;
   justify-content: space-between;
+  cursor: pointer;
+  background-color: "#FAFAF8";
 `;
 
 const Index = styled.div`
@@ -23,9 +24,11 @@ const Index = styled.div`
 `;
 
 const Name = styled.div`
+  width: 465px;
   font-size: 18px;
   line-height: 150%;
   letter-spacing: 0.01em;
+  background-color: ${({ selected }) => (selected ? "#ECF3F2" : "transparent")};
 `;
 
 const BtnContainer = styled.div`
@@ -36,12 +39,13 @@ const BtnContainer = styled.div`
   padding: 6px;
 `;
 
-const DeviceItem = ({ idx, name, onDelete }) => {
+const DeviceItem = ({ idx, name, selected, onSelect, onDelete }) => {
+  const handleClick = () => onSelect(name);
   return (
-    <Container>
+    <Container selected={selected} onClick={handleClick}>
       <Index>{idx}</Index>
-      <Name>{name}</Name>
-      <BtnContainer>
+      <Name selected={selected}>{name}</Name>
+      <BtnContainer onClick={(e) => e.stopPropagation()}>
         <EditBtn />
         <DeleteBtn onClick={() => onDelete(name)} />
       </BtnContainer>

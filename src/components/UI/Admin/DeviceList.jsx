@@ -1,8 +1,5 @@
 import styled from "styled-components";
 import DeviceItem from "./DeviceItem";
-import { useState } from "react";
-import BlurLayer from "../../Layout/BlurLayer";
-import DeleteModal from "./DeleteModal";
 
 const DeviceContainer = styled.div`
   position: relative;
@@ -15,6 +12,7 @@ const DeviceContainer = styled.div`
   padding: 35px 31.15px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(151, 214, 221, 0.4);
+  background: #fafaf8;
 `;
 
 const Text = styled.div`
@@ -33,31 +31,27 @@ const Bar = styled.div`
   margin-bottom: 14px;
 `;
 
-const DeviceList = ({ onDelete }) => {
+const DeviceList = ({ selectedDevice, onSelectDevice, onDeleteDevice }) => {
+  const devices = [
+    { idx: "001", name: "센트오브사운드 1호기 - 3748B5" },
+    { idx: "002", name: "센트오브사운드 2호기 - 3748B5" },
+    { idx: "003", name: "센트오브사운드 3호기 - 3748B5" },
+    { idx: "004", name: "센트오브사운드 4호기 - 3748B5" },
+  ];
   return (
     <DeviceContainer>
       <Text>내 기기</Text>
       <Bar />
-      <DeviceItem
-        idx={"001"}
-        name={"센트오브사운드 1호기 - 3748B5"}
-        onDelete={onDelete}
-      />
-      <DeviceItem
-        idx={"002"}
-        name={"센트오브사운드 2호기 - 3748B5"}
-        onDelete={onDelete}
-      />
-      <DeviceItem
-        idx={"003"}
-        name={"센트오브사운드 3호기 - 3748B5"}
-        onDelete={onDelete}
-      />
-      <DeviceItem
-        idx={"004"}
-        name={"센트오브사운드 4호기 - 3748B5"}
-        onDelete={onDelete}
-      />
+      {devices.map((device) => (
+        <DeviceItem
+          key={device.idx}
+          idx={device.idx}
+          name={device.name}
+          selected={selectedDevice === device.name}
+          onSelect={onSelectDevice}
+          onDelete={() => onDeleteDevice(device.name)}
+        />
+      ))}
     </DeviceContainer>
   );
 };

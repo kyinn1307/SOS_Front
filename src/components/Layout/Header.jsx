@@ -31,6 +31,7 @@ const SettingBtn = styled.button`
   height: 19px;
   font-size: 16px;
   cursor: pointer;
+  font-weight: ${({ active }) => (active ? "bold" : "normal")};
 `;
 
 const Header = () => {
@@ -49,7 +50,12 @@ const Header = () => {
         </LogoWrapper>
         {shouldShowSettings && (
           <SettingBtnField>
-            <SettingBtn onClick={handleBtnClick("/admin")}>기기관리</SettingBtn>
+            <SettingBtn
+              onClick={handleBtnClick("/admin")}
+              active={location.pathname === "/admin"}
+            >
+              기기관리
+            </SettingBtn>
             <SettingBtn>로그아웃</SettingBtn>
           </SettingBtnField>
         )}
