@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import RefillModalBtn from "./RefillModalBtn";
+import DeleteBtn from "../../../assets/manage/DeleteBtn";
 
 const Container = styled.div`
   display: flex;
@@ -84,6 +85,13 @@ const BtnWrapper = styled.div`
   margin-top: 20px;
 `;
 
+const DeleteBtnWrapper = styled.div`
+  position: absolute;
+  top: 24px;
+  left: 396px;
+  cursor: pointer;
+`;
+
 const RefillContentModal = ({ flavor, onClose, onComplete }) => {
   const [mode, setMode] = useState("refill");
 
@@ -94,12 +102,13 @@ const RefillContentModal = ({ flavor, onClose, onComplete }) => {
   return (
     <Container>
       <Title>향료 추가하기</Title>
-
+      <DeleteBtnWrapper onClick={onClose}>
+        <DeleteBtn />
+      </DeleteBtnWrapper>{" "}
       <Row mt="16px">
         <Text>선택한 향료</Text>
         <Input value={flavor?.name || ""} disabled />
       </Row>
-
       <ChoiceBtnContainer>
         <ChoiceBtnWrapper>
           <CircleInput
@@ -122,7 +131,6 @@ const RefillContentModal = ({ flavor, onClose, onComplete }) => {
           <Text>카트리지 교체</Text>
         </ChoiceBtnWrapper>
       </ChoiceBtnContainer>
-
       <Row>
         <Text>추가할 용량(ml)</Text>
         <Input
@@ -130,12 +138,10 @@ const RefillContentModal = ({ flavor, onClose, onComplete }) => {
           disabled={mode !== "refill"}
         />
       </Row>
-
       <Row mt="11px">
         <Text>총 용량(ml)</Text>
         <Input disabled={mode !== "refill"} />
       </Row>
-
       <BtnWrapper>
         <RefillModalBtn onClick={handleClick} />
       </BtnWrapper>
