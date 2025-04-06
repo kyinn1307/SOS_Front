@@ -57,23 +57,13 @@ const FlavorItem = ({ flavor, openModalWithFlavor }) => {
   const [isEmpty, setIsEmpty] = useState(false);
 
   useEffect(() => {
-    if (rest <= 10) {
-      setIsAlert(true);
-    }
-    if (rest === 0) {
-      setIsEmpty(true);
-    } else {
-      setIsEmpty(false);
-    }
+    setIsAlert(rest <= 10);
+    setIsEmpty(rest === 0);
   }, [rest]);
-
-  const handleRefillClick = () => {
-    openModalWithFlavor(flavor, isAlert);
-  };
 
   return (
     <Container>
-      <AlertWrapper>{isAlert ? <VolumeAlert /> : <></>}</AlertWrapper>
+      <AlertWrapper>{isAlert && <VolumeAlert />}</AlertWrapper>
       <FlavorName>{flavor.name}</FlavorName>
       <VolumeContainer>
         <Ongoing rest={rest / 2}></Ongoing>
@@ -81,7 +71,10 @@ const FlavorItem = ({ flavor, openModalWithFlavor }) => {
       <VolumeText isEmpty={isEmpty}>
         {rest}/{flavor.total}(ml)
       </VolumeText>
-      <RefillBtn isAlert={isAlert} onClick={handleRefillClick} />
+      <RefillBtn
+        isAlert={isAlert}
+        onClick={() => openModalWithFlavor(flavor, isAlert)}
+      />
     </Container>
   );
 };

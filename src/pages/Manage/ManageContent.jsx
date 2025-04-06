@@ -4,7 +4,7 @@ import BlurLayer from "../../components/Layout/BlurLayer";
 import DeleteModal from "../../components/UI/Admin/DeleteModal";
 import FlavorList from "../../components/UI/Manage/FlavorList";
 import RefillContentModal from "../../components/UI/Manage/RefillContentModal";
-
+import RefillCompleteModal from "../../components/UI/Manage/RefillCompleteModal";
 const ContentWrapper = styled.div`
   position: relative;
   display: flex;
@@ -44,8 +44,15 @@ const ModalWrapper = styled.div`
   z-index: 10;
 `;
 
+const CompleteModalWrapper = styled.div`
+  position: absolute;
+  top: 40%;
+  left: 35%;
+  z-index: 10;
+`;
 const ManageContent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCompleteOpen, setIsCompleteOpen] = useState(false);
   const [selectedFlavor, setSelectedFlavor] = useState(null);
 
   const openModalWithFlavor = (flavor, isAlert) => {
@@ -53,6 +60,12 @@ const ManageContent = () => {
     setSelectedFlavor(flavor);
     setIsModalOpen(true);
   };
+
+  const handleComplete = () => {
+    setIsModalOpen(false);
+    setIsCompleteOpen(true);
+  };
+
   return (
     <ContentWrapper>
       <Title>센트오브사운드 1호기</Title>
@@ -65,8 +78,21 @@ const ManageContent = () => {
           <RefillContentModal
             flavor={selectedFlavor}
             onClose={() => setIsModalOpen(false)}
+            onComplete={handleComplete}
           />
         </ModalWrapper>
+      )}
+
+      {isCompleteOpen && (
+        <CompleteModalWrapper>
+          <BlurLayer />
+          <RefillCompleteModal
+            beforeAmount={selectedFlavor.rest}
+            afterAmount={200}
+            flavorName={selectedFlavor.name}
+            onClose={() => setIsCompleteOpen(false)}
+          />
+        </CompleteModalWrapper>
       )}
     </ContentWrapper>
   );

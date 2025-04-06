@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState, useEffect } from "react";
 import RefillModalBtn from "./RefillModalBtn";
 
 const Container = styled.div`
@@ -16,129 +17,127 @@ const Container = styled.div`
 `;
 
 const ChoiceBtnContainer = styled.div`
-  position: relative;
   display: flex;
-  flex-direction: row;
+  gap: 20px;
+  justify-content: flex-end;
   width: 100%;
   height: 31px;
   margin-top: 14px;
-  gap: 20px;
-  justify-content: flex-end;
   margin-right: 130px;
 `;
 
-const ChoiceBtnWrapper = styled.div`
-  position: relative;
+const ChoiceBtnWrapper = styled.label`
   display: flex;
   gap: 7px;
   align-items: center;
+  cursor: pointer;
 `;
+
 const CircleInput = styled.input`
-  position: relative;
   width: 18px;
   height: 18px;
   margin: 0;
 `;
 
 const Input = styled.input`
-  position: relative;
   width: 257px;
   height: 39px;
-  box-sizing: border-box;
   background: #fafaf8;
   border: 1px solid #d3d3d3;
   border-radius: 3px;
   font-size: 18px;
-  line-height: 170%;
-  letter-spacing: -0.011em;
   color: #aaaaaa;
   padding: 4px 12px;
+  box-sizing: border-box;
+
+  &:disabled {
+    background: #efefef;
+    color: #cccccc;
+  }
+  &:disabled::placeholder {
+    color: #cccccc;
+  }
 `;
 
 const Title = styled.div`
-  width: 109px;
-  height: 22px;
   font-weight: 600;
   font-size: 20px;
-  line-height: 22px;
-  text-align: center;
-  color: #2c2c2c;
   margin-top: 20px;
-  align-items: center;
+  color: #2c2c2c;
 `;
 
 const Text = styled.div`
-  position: relative;
+  font-size: 16px;
 `;
 
-const Name = styled.div`
-  position: relative;
+const Row = styled.div`
   display: flex;
   width: 100%;
-  flex-direction: row;
   justify-content: flex-end;
-  margin-top: 16px;
   align-items: center;
   gap: 18px;
   margin-right: 53px;
-`;
-
-const Refill = styled.div`
-  position: relative;
-  display: flex;
-  width: 100%;
-  flex-direction: row;
-  gap: 18px;
-  justify-content: flex-end;
-  align-items: center;
-  margin-top: 14px;
-  margin-right: 53px;
-`;
-
-const Total = styled.div`
-  position: relative;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  gap: 18px;
-  justify-content: flex-end;
-  margin-top: 11px;
-  align-items: center;
-  margin-right: 53px;
+  margin-top: ${({ mt }) => mt || "14px"};
 `;
 
 const BtnWrapper = styled.div`
   margin-top: 20px;
 `;
 
-const RefillContentModal = ({ flavor, onClose }) => {
+const RefillContentModal = ({ flavor, onClose, onComplete }) => {
+  const [mode, setMode] = useState("refill");
+
+  const handleClick = () => {
+    onComplete();
+  };
+
   return (
     <Container>
       <Title>향료 추가하기</Title>
-      <Name>
+
+      <Row mt="16px">
         <Text>선택한 향료</Text>
-        <Input placeholder="향료이름" />
-      </Name>
+        <Input value={flavor?.name || ""} disabled />
+      </Row>
+
       <ChoiceBtnContainer>
         <ChoiceBtnWrapper>
-          <CircleInput type="radio" />
+          <CircleInput
+            type="radio"
+            name="mode"
+            value="refill"
+            checked={mode === "refill"}
+            onChange={() => setMode("refill")}
+          />
           <Text>용액추가</Text>
         </ChoiceBtnWrapper>
         <ChoiceBtnWrapper>
-          <CircleInput type="radio" />
+          <CircleInput
+            type="radio"
+            name="mode"
+            value="replace"
+            checked={mode === "replace"}
+            onChange={() => setMode("replace")}
+          />
           <Text>카트리지 교체</Text>
         </ChoiceBtnWrapper>
       </ChoiceBtnContainer>
-      <Refill>
+
+      <Row>
         <Text>추가할 용량(ml)</Text>
-        <Input placeholder="용량을 정확히 입력해 주세요." />
-      </Refill>
-      <Total>
+        <Input
+          placeholder="용량을 정확히 입력해 주세요."
+          disabled={mode !== "refill"}
+        />
+      </Row>
+
+      <Row mt="11px">
         <Text>총 용량(ml)</Text>
-        <Input />
-      </Total>
+        <Input disabled={mode !== "refill"} />
+      </Row>
+
       <BtnWrapper>
-        <RefillModalBtn onClick={onClose} />
+        <RefillModalBtn onClick={handleClick} />
       </BtnWrapper>
     </Container>
   );
