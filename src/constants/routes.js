@@ -10,4 +10,5 @@ export const ROUTES = {
   PRODUCE_LOADING: "/produceload",
   ORIGINAL: "/original",
   ADMIN: "/admin",
+  MANAGE: "/manage",
 };

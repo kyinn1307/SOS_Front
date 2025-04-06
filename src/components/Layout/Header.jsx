@@ -38,7 +38,9 @@ const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const shouldShowSettings =
-    location.pathname === "/" || location.pathname === "/admin";
+    location.pathname === "/" ||
+    location.pathname === "/admin" ||
+    location.pathname === "/manage";
   const handleBtnClick = (path) => () => {
     navigate(path);
   };
@@ -52,7 +54,10 @@ const Header = () => {
           <SettingBtnField>
             <SettingBtn
               onClick={handleBtnClick("/admin")}
-              active={location.pathname === "/admin"}
+              active={
+                location.pathname === "/admin" ||
+                location.pathname === "/manage"
+              }
             >
               기기관리
             </SettingBtn>

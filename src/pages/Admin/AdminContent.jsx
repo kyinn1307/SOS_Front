@@ -4,6 +4,8 @@ import { useState } from "react";
 import DeviceList from "../../components/UI/Admin/DeviceList";
 import BlurLayer from "../../components/Layout/BlurLayer";
 import DeleteModal from "../../components/UI/Admin/DeleteModal";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../constants/routes";
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -59,6 +61,8 @@ const AdminContent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDevice, setSelectedDevice] = useState(null);
 
+  const navigate = useNavigate();
+
   const handleSelectDevice = (deviceName) => {
     setSelectedDevice((prev) => (prev === deviceName ? null : deviceName));
   };
@@ -71,7 +75,7 @@ const AdminContent = () => {
     if (!selectedDevice) {
       alert("기기를 선택해 주세요.");
     } else {
-      console.log("기기 관리 페이지로 이동:", selectedDevice);
+      navigate(ROUTES.MANAGE);
     }
   };
   return (
