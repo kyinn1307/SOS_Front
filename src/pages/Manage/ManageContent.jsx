@@ -55,8 +55,7 @@ const ManageContent = () => {
   const [isCompleteOpen, setIsCompleteOpen] = useState(false);
   const [selectedFlavor, setSelectedFlavor] = useState(null);
 
-  const openModalWithFlavor = (flavor, isAlert) => {
-    if (!isAlert) return;
+  const openModalWithFlavor = (flavor) => {
     setSelectedFlavor(flavor);
     setIsModalOpen(true);
   };

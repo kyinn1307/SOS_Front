@@ -73,7 +73,7 @@ const FlavorItem = ({ flavor, openModalWithFlavor }) => {
       </VolumeText>
       <RefillBtn
         isAlert={isAlert}
-        onClick={() => openModalWithFlavor(flavor, isAlert)}
+        onClick={() => openModalWithFlavor(flavor)}
       />
     </Container>
   );
