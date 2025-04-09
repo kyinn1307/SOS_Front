@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import FlavorChoice from "../FlavorChoice";
 import DeleteBtn from "../../../../assets/admin/DeleteBtn";
+
 const Overlay = styled.div`
   position: fixed;
   top: 0;
@@ -93,7 +94,10 @@ const ChangeBtnWrapper = styled.div`
   margin-top: 20px;
 `;
 
-const ChangeFlavorModal = ({ onClose }) => {
+const ChangeFlavorModal = ({ onClose, onChangeComplete }) => {
+  const handleChangeComplete = () => {
+    onChangeComplete();
+  };
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -119,7 +123,7 @@ const ChangeFlavorModal = ({ onClose }) => {
           <Text>용량(ml)</Text>
           <Input placeholder="용량을 정확히 입력해 주세요." />
         </Row>
-        <ChangeBtnWrapper>
+        <ChangeBtnWrapper onClick={handleChangeComplete}>
           <ChangeBtn>교체하기 {">"}</ChangeBtn>
         </ChangeBtnWrapper>
       </Container>

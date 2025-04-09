@@ -7,6 +7,7 @@ import RefillContentModal from "../../components/UI/Manage/Modals/RefillContentM
 import RefillCompleteModal from "../../components/UI/Manage/Modals/RefillCompleteModal";
 import ChangeFlavorBtn from "../../components/UI/Manage/Buttons/ChangeFlavorBtn";
 import ChangeFlavorModal from "../../components/UI/Manage/Modals/ChangeFlavorModal";
+import ChangeCompleteModal from "../../components/UI/Manage/Modals/ChangeCompleteModal";
 const ContentWrapper = styled.div`
   position: relative;
   display: flex;
@@ -76,11 +77,19 @@ const ManageContent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChangeModalOpen, setIsChangeModalOpen] = useState(false);
   const [isCompleteOpen, setIsCompleteOpen] = useState(false);
+  const [isChangeCompleteOpen, setIsChangeCompleteOpen] = useState(false);
   const [selectedFlavor, setSelectedFlavor] = useState(null);
 
   const handleChangeBtn = () => {
     setIsChangeModalOpen(true);
+    setIsChangeCompleteOpen(false);
   };
+
+  const handleChangeComplete = () => {
+    setIsChangeModalOpen(false);
+    setIsChangeCompleteOpen(true);
+  };
+
   const openModalWithFlavor = (flavor) => {
     setSelectedFlavor(flavor);
     setIsModalOpen(true);
@@ -107,9 +116,20 @@ const ManageContent = () => {
       {isChangeModalOpen && (
         <ModalWrapper>
           <BlurLayer />
-          <ChangeFlavorModal onClose={() => setIsChangeModalOpen(false)} />
+          <ChangeFlavorModal
+            onClose={() => setIsChangeModalOpen(false)}
+            onChangeComplete={handleChangeComplete}
+          />
         </ModalWrapper>
       )}
+
+      {isChangeCompleteOpen && (
+        <CompleteModalWrapper>
+          <BlurLayer />
+          <ChangeCompleteModal onClose={() => setIsChangeCompleteOpen(false)} />
+        </CompleteModalWrapper>
+      )}
+
       {isModalOpen && (
         <ModalWrapper>
           <BlurLayer />
