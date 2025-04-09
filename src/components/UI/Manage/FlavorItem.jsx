@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import RefillBtn from "./RefillBtn";
+import RefillBtn from "./Buttons/RefillBtn";
 import VolumeAlert from "../../../assets/manage/volume_alert";
 
 const Container = styled.div`
@@ -55,11 +55,14 @@ const FlavorItem = ({ flavor, openModalWithFlavor }) => {
   const [rest, setRest] = useState(flavor.rest);
   const [isAlert, setIsAlert] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
+  const [neverFilled, setNeverFilled] = useState(
+    rest === null || rest === undefined
+  );
 
   useEffect(() => {
-    setIsAlert(rest <= 10);
-    setIsEmpty(rest === 0);
-  }, [rest]);
+    setIsAlert(rest <= 10 && !neverFilled);
+    setIsEmpty(rest === 0 && !neverFilled);
+  }, [rest, neverFilled]);
 
   return (
     <Container>
@@ -72,6 +75,7 @@ const FlavorItem = ({ flavor, openModalWithFlavor }) => {
         {rest}/{flavor.total}(ml)
       </VolumeText>
       <RefillBtn
+        neverFilled={neverFilled}
         isAlert={isAlert}
         onClick={() => openModalWithFlavor(flavor)}
       />
