@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { StyledBtn } from "../../components/UI/common/StyledBtn";
 import Checkbox from "../../components/UI/Reco/CheckBox";
 import RecoCard from "../../components/UI/Reco/RecoCard";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../constants/routes";
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -33,6 +35,11 @@ const BtnWrapper = styled.div`
 const RecoContent = () => {
   const [isBtnOn, setIsBtnOn] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const navigate = useNavigate();
+
+  const handleBtnClick = () => {
+    navigate(ROUTES.PRODUCE_LOADING);
+  };
   useEffect(() => {
     setIsBtnOn(isChecked);
   }, [isChecked]);
@@ -52,7 +59,7 @@ const RecoContent = () => {
             content="투입구에 공병을 넣으셨나요?"
           />
         </BoxWrapper>
-        <BtnWrapper>
+        <BtnWrapper onClick={handleBtnClick}>
           <StyledBtn variant="black" disabled={!isBtnOn}>
             오늘의 향 연주하기 {">"}
           </StyledBtn>
