@@ -1,4 +1,21 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const dramaticFlyIn = keyframes`
+  0% {
+    transform: perspective(1200px) rotateY(270deg) scale(0.4) translateZ(-300px);
+    opacity: 0;
+  }
+  60% {
+    transform: perspective(1200px) rotateY(15deg) scale(1.05) translateZ(30px);
+    opacity: 1;
+  }
+  80% {
+    transform: perspective(1200px) rotateY(-5deg) scale(1.02) translateZ(10px);
+  }
+  100% {
+    transform: perspective(1200px) rotateY(0deg) scale(1) translateZ(0);
+  }
+`;
 
 const Container = styled.div`
   position: relative;
@@ -14,6 +31,10 @@ const Container = styled.div`
 
   box-shadow: 0px 0px 10px rgba(231, 221, 193, 0.5);
   border-radius: 15px;
+
+  animation: ${dramaticFlyIn} 1.3s ease-out;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
 `;
 
 const Main = styled.div`
