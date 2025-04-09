@@ -50,10 +50,8 @@ const BtnContainer = styled.div`
 
 const ModalWrapper = styled.div`
   position: absolute;
-  top: 33%;
-  left: 32%;
-  width: 100%;
-  height: 100%;
+  top: 28vh;
+  left: 32vw;
   z-index: 10;
 `;
 

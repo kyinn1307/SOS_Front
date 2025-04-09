@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import RefillModalBtn from "./RefillModalBtn";
-import DeleteBtn from "../../../assets/manage/DeleteBtn";
+import RefillModalBtn from "../Buttons/RefillModalBtn";
+import DeleteBtn from "../../../../assets/manage/DeleteBtn";
 
 const Container = styled.div`
   display: flex;
@@ -50,6 +50,10 @@ const Input = styled.input`
   color: #aaaaaa;
   padding: 4px 12px;
   box-sizing: border-box;
+
+  ::placeholder {
+    color: #cccccc;
+  }
 
   &:disabled {
     background: #efefef;

@@ -18,7 +18,7 @@ const Container = styled.div`
 
 const IconWrapper = styled.div`
   position: relative;
-  margin-top: 30px;
+  margin-top: 28px;
 `;
 
 const Text = styled.div`
