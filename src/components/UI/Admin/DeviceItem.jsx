@@ -38,14 +38,24 @@ const BtnContainer = styled.div`
   padding: 6px;
 `;
 
-const DeviceItem = ({ idx, name, selected, onSelect, onDelete }) => {
+const DeviceItem = ({
+  idx,
+  name,
+  number,
+  selected,
+  onSelect,
+  onEdit,
+  onDelete,
+}) => {
   const handleClick = () => onSelect(name);
   return (
     <Container selected={selected} onClick={handleClick}>
       <Index>{idx}</Index>
-      <Name>{name}</Name>
+      <Name>
+        {name} - {number}
+      </Name>
       <BtnContainer onClick={(e) => e.stopPropagation()}>
-        <EditBtn />
+        <EditBtn onClick={onEdit} />
         <DeleteBtn onClick={() => onDelete(name)} />
       </BtnContainer>
     </Container>

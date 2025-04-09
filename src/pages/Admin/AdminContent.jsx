@@ -1,11 +1,13 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { StyledBtn } from "../../components/UI/common/StyledBtn";
 import { useState } from "react";
+import { ROUTES } from "../../constants/routes";
 import DeviceList from "../../components/UI/Admin/DeviceList";
 import BlurLayer from "../../components/Layout/BlurLayer";
 import DeleteModal from "../../components/UI/Admin/DeleteModal";
-import { useNavigate } from "react-router-dom";
-import { ROUTES } from "../../constants/routes";
+import DeviceEditModal from "../../components/UI/Admin/DeviceEditModal";
+import DeviceRegisterModal from "../../components/UI/Admin/DeviceRegisterModal";
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -56,7 +58,9 @@ const ModalWrapper = styled.div`
 `;
 
 const AdminContent = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedDevice, setSelectedDevice] = useState(null);
 
   const navigate = useNavigate();
@@ -66,7 +70,16 @@ const AdminContent = () => {
   };
 
   const handleDeleteDevice = (deviceName) => {
-    setIsModalOpen(true);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleRegisterDevice = () => {
+    setIsRegisterModalOpen(true);
+  };
+
+  const handleEditDevice = (device) => {
+    setSelectedDevice(device);
+    setIsEditModalOpen(true);
   };
 
   const handleManageClick = () => {
@@ -76,6 +89,7 @@ const AdminContent = () => {
       navigate(ROUTES.MANAGE);
     }
   };
+
   return (
     <ContentWrapper>
       <Title>관리할 기기를 선택해 주세요.</Title>
@@ -83,10 +97,15 @@ const AdminContent = () => {
         selectedDevice={selectedDevice}
         onSelectDevice={handleSelectDevice}
         onDeleteDevice={handleDeleteDevice}
+        onEditDevice={handleEditDevice}
       />
       <BtnContainer>
         <AddBtnContainer>
-          <StyledBtn variant="white" isAdmin={true}>
+          <StyledBtn
+            variant="white"
+            isAdmin={true}
+            onClick={handleRegisterDevice}
+          >
             기기 추가하기 {">"}
           </StyledBtn>
           <IndicateText>등록되지 않은 기기를 추가해보세요!</IndicateText>
@@ -95,12 +114,30 @@ const AdminContent = () => {
           기기 관리하기 {">"}
         </StyledBtn>
       </BtnContainer>
-      {isModalOpen && (
+
+      {isDeleteModalOpen && (
         <ModalWrapper>
           <BlurLayer />
           <DeleteModal
             deviceName={selectedDevice}
-            onClose={() => setIsModalOpen(false)}
+            onClose={() => setIsDeleteModalOpen(false)}
+          />
+        </ModalWrapper>
+      )}
+
+      {isRegisterModalOpen && (
+        <ModalWrapper>
+          <BlurLayer />
+          <DeviceRegisterModal onClose={() => setIsRegisterModalOpen(false)} />
+        </ModalWrapper>
+      )}
+
+      {isEditModalOpen && selectedDevice && (
+        <ModalWrapper>
+          <BlurLayer />
+          <DeviceEditModal
+            onClose={() => setIsEditModalOpen(false)}
+            device={selectedDevice}
           />
         </ModalWrapper>
       )}

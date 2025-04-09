@@ -31,12 +31,17 @@ const Bar = styled.div`
   margin-bottom: 14px;
 `;
 
-const DeviceList = ({ selectedDevice, onSelectDevice, onDeleteDevice }) => {
+const DeviceList = ({
+  selectedDevice,
+  onSelectDevice,
+  onDeleteDevice,
+  onEditDevice,
+}) => {
   const devices = [
-    { idx: "001", name: "센트오브사운드 1호기 - 3748B5" },
-    { idx: "002", name: "센트오브사운드 2호기 - 3748B5" },
-    { idx: "003", name: "센트오브사운드 3호기 - 3748B5" },
-    { idx: "004", name: "센트오브사운드 4호기 - 3748B5" },
+    { idx: "001", name: "센트오브사운드 1호기", number: "3748B5" },
+    { idx: "002", name: "센트오브사운드 2호기", number: "3748B6" },
+    { idx: "003", name: "센트오브사운드 3호기", number: "3748B7" },
+    { idx: "004", name: "센트오브사운드 4호기", number: "3748B8" },
   ];
   return (
     <DeviceContainer>
@@ -47,8 +52,10 @@ const DeviceList = ({ selectedDevice, onSelectDevice, onDeleteDevice }) => {
           key={device.idx}
           idx={device.idx}
           name={device.name}
+          number={device.number}
           selected={selectedDevice === device.name}
           onSelect={onSelectDevice}
+          onEdit={() => onEditDevice(device)}
           onDelete={() => onDeleteDevice(device.name)}
         />
       ))}
