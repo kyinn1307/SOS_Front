@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
+import ScrollBtn from "../../../assets/scroll_btn";
 
 const Container = styled.div`
   position: relative;
@@ -8,11 +9,13 @@ const Container = styled.div`
 `;
 
 const SelectBox = styled.div`
-  padding: 10px;
+  padding: 9px 12px;
   border: 1px solid #ccc;
   background-color: #fafaf8;
+  border-radius: 3px;
   cursor: pointer;
   user-select: none;
+  text-align: left;
 `;
 
 const Dropdown = styled.ul`
@@ -24,6 +27,7 @@ const Dropdown = styled.ul`
   max-height: 191px;
   overflow-y: auto;
   z-index: 10;
+  text-align: left;
 `;
 
 const Option = styled.li`
@@ -31,7 +35,13 @@ const Option = styled.li`
   cursor: pointer;
   &:hover {
     background-color: #f1f1f1;
-  }4
+  }
+`;
+
+const BtnWrapper = styled.div`
+  position: absolute;
+  top: 9px;
+  right: 10.54px;
 `;
 
 const FlavorChoice = () => {
@@ -73,6 +83,9 @@ const FlavorChoice = () => {
     <Container ref={containerRef}>
       <SelectBox onClick={() => setIsOpen((prev) => !prev)}>
         {selectedFlavor || "향료이름"}
+        <BtnWrapper>
+          <ScrollBtn />
+        </BtnWrapper>
       </SelectBox>
       {isOpen && (
         <Dropdown>

@@ -51,7 +51,11 @@ const AlertWrapper = styled.div`
   height: 45px;
 `;
 
-const FlavorItem = ({ flavor, openModalWithFlavor }) => {
+const FlavorItem = ({
+  flavor,
+  openModalWithFlavor,
+  openRefillModalWithFlavor,
+}) => {
   const [rest, setRest] = useState(flavor.rest);
   const [isAlert, setIsAlert] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
@@ -59,8 +63,16 @@ const FlavorItem = ({ flavor, openModalWithFlavor }) => {
     rest === null || rest === undefined
   );
 
+  const handleClick = () => {
+    if (neverFilled) {
+      openRefillModalWithFlavor(flavor);
+    } else {
+      openModalWithFlavor(flavor);
+    }
+  };
+
   useEffect(() => {
-    setIsAlert(rest <= 10 && !neverFilled);
+    setIsAlert(rest <= 50 && !neverFilled);
     setIsEmpty(rest === 0 && !neverFilled);
   }, [rest, neverFilled]);
 
@@ -71,13 +83,17 @@ const FlavorItem = ({ flavor, openModalWithFlavor }) => {
       <VolumeContainer>
         <Ongoing rest={rest / 2}></Ongoing>
       </VolumeContainer>
-      <VolumeText isEmpty={isEmpty}>
-        {rest}/{flavor.total}(ml)
-      </VolumeText>
+      {neverFilled ? (
+        <VolumeText>0/0(ml)</VolumeText>
+      ) : (
+        <VolumeText isEmpty={isEmpty}>
+          {rest}/{flavor.total}(ml)
+        </VolumeText>
+      )}
       <RefillBtn
         neverFilled={neverFilled}
         isAlert={isAlert}
-        onClick={() => openModalWithFlavor(flavor)}
+        onClick={handleClick}
       />
     </Container>
   );

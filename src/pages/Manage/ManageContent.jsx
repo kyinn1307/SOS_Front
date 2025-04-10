@@ -1,13 +1,15 @@
 import styled from "styled-components";
 import { useState } from "react";
 import BlurLayer from "../../components/Layout/BlurLayer";
-import DeleteModal from "../../components/UI/Admin/DeleteModal";
 import FlavorList from "../../components/UI/Manage/FlavorList";
 import RefillContentModal from "../../components/UI/Manage/Modals/RefillContentModal";
 import RefillCompleteModal from "../../components/UI/Manage/Modals/RefillCompleteModal";
 import ChangeFlavorBtn from "../../components/UI/Manage/Buttons/ChangeFlavorBtn";
 import ChangeFlavorModal from "../../components/UI/Manage/Modals/ChangeFlavorModal";
 import ChangeCompleteModal from "../../components/UI/Manage/Modals/ChangeCompleteModal";
+import FillFlavorModal from "../../components/UI/Manage/Modals/FillFlavorModal";
+import FillCompleteModal from "../../components/UI/Manage/Modals/FillCompleteModal";
+
 const ContentWrapper = styled.div`
   position: relative;
   display: flex;
@@ -74,9 +76,11 @@ const CompleteModalWrapper = styled.div`
   z-index: 10;
 `;
 const ManageContent = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRefillModalOpen, setIsRefillModalOpen] = useState(false);
+  const [isFillModalOpen, setIsFillModalOpen] = useState(false);
+  const [isFillCompleteModalOpen, setIsFillCompleteModalOpen] = useState(false);
   const [isChangeModalOpen, setIsChangeModalOpen] = useState(false);
-  const [isCompleteOpen, setIsCompleteOpen] = useState(false);
+  const [isRefillCompleteOpen, setIsRefillCompleteOpen] = useState(false);
   const [isChangeCompleteOpen, setIsChangeCompleteOpen] = useState(false);
   const [selectedFlavor, setSelectedFlavor] = useState(null);
 
@@ -92,12 +96,22 @@ const ManageContent = () => {
 
   const openModalWithFlavor = (flavor) => {
     setSelectedFlavor(flavor);
-    setIsModalOpen(true);
+    setIsRefillModalOpen(true);
   };
 
-  const handleComplete = () => {
-    setIsModalOpen(false);
-    setIsCompleteOpen(true);
+  const openRefillModalWithFlavor = (flavor) => {
+    setSelectedFlavor(flavor);
+    setIsFillModalOpen(true);
+  };
+
+  const handleFillComplete = () => {
+    setIsFillModalOpen(false);
+    setIsFillCompleteModalOpen(true);
+  };
+
+  const handleRefillComplete = () => {
+    setIsRefillModalOpen(false);
+    setIsRefillCompleteOpen(true);
   };
 
   return (
@@ -111,7 +125,30 @@ const ManageContent = () => {
           <ChangeFlavorBtn />
         </ChangeBtnWrapper>
       </HeaderWrapper>
-      <FlavorList openModalWithFlavor={openModalWithFlavor} />
+      <FlavorList
+        openModalWithFlavor={openModalWithFlavor}
+        openRefillModalWithFlavor={openRefillModalWithFlavor}
+      />
+
+      {isFillModalOpen && (
+        <ModalWrapper>
+          <BlurLayer />
+          <FillFlavorModal
+            flavor={selectedFlavor}
+            onClose={() => setIsFillModalOpen(false)}
+            onComplete={handleFillComplete}
+          />
+        </ModalWrapper>
+      )}
+
+      {isFillCompleteModalOpen && (
+        <CompleteModalWrapper>
+          <BlurLayer />
+          <FillCompleteModal
+            onClose={() => setIsFillCompleteModalOpen(false)}
+          />
+        </CompleteModalWrapper>
+      )}
 
       {isChangeModalOpen && (
         <ModalWrapper>
@@ -130,25 +167,25 @@ const ManageContent = () => {
         </CompleteModalWrapper>
       )}
 
-      {isModalOpen && (
+      {isRefillModalOpen && (
         <ModalWrapper>
           <BlurLayer />
           <RefillContentModal
             flavor={selectedFlavor}
-            onClose={() => setIsModalOpen(false)}
-            onComplete={handleComplete}
+            onClose={() => setIsRefillModalOpen(false)}
+            onComplete={handleRefillComplete}
           />
         </ModalWrapper>
       )}
 
-      {isCompleteOpen && (
+      {isRefillCompleteOpen && (
         <CompleteModalWrapper>
           <BlurLayer />
           <RefillCompleteModal
             beforeAmount={selectedFlavor.rest}
             afterAmount={200}
             flavorName={selectedFlavor.name}
-            onClose={() => setIsCompleteOpen(false)}
+            onClose={() => setIsRefillCompleteOpen(false)}
           />
         </CompleteModalWrapper>
       )}
