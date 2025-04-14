@@ -7,7 +7,7 @@ import InfoPage from "./pages/Info/InfoPage";
 import ChatbotPage from "./pages/Chatbot/ChatbotPage";
 import ChatPage from "./pages/Chat/ChatPage";
 import ChoicePage from "./pages/Choice/ChoicePage";
-import LoadingPage from "./pages/Choice/LoadingPage";
+import LoadingPage from "./pages/Loading/LoadingPage";
 import RecoPage from "./pages/Recommend/RecoPage";
 import ProduceLoadingPage from "./pages/Loading/ProduceLoadingPage";
 import AdminPage from "./pages/Admin/AdminPage";
@@ -22,7 +22,6 @@ const AppRouter = () => {
         <Route path={ROUTES.INFO} element={<InfoPage />} />
         <Route path={ROUTES.CHATBOT} element={<ChatbotPage />} />
         <Route path={ROUTES.CHAT} element={<ChatPage />} />
-        <Route path={ROUTES.CHOICE} element={<ChoicePage />} />
         <Route path={ROUTES.LOADING} element={<LoadingPage />} />
         <Route path={ROUTES.RECOMMEND} element={<RecoPage />} />
         <Route path={ROUTES.PRODUCE_LOADING} element={<ProduceLoadingPage />} />

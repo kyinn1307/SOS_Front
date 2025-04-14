@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import GradientText from "../../components/UI/common/GradientText";
@@ -7,6 +7,7 @@ import ProgressBar from "../../components/UI/Chatbot/ProgressBar";
 import Modal from "../../components/UI/common/Modal";
 import { StyledBtn } from "../../components/UI/common/StyledBtn";
 import BlurLayer from "../../components/Layout/BlurLayer";
+import { ROUTES } from "../../constants/routes";
 const ContentWrapper = styled.div`
   position: relative;
   display: flex;
@@ -65,13 +66,44 @@ const BtnWrapper = styled.div`
 `;
 
 const ProduceLoadingContent = () => {
-  const [progress, setProgress] = useState(50);
-  const [isDone, setIsDone] = useState(true);
+  const [progress, setProgress] = useState(0);
+  const [isDone, setIsDone] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const duration = 3000;
+    const intervalTime = 30;
+    const steps = duration / intervalTime;
+    const increment = 100 / steps;
+
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        const next = prev + increment;
+        if (next >= 100) {
+          clearInterval(interval);
+          return 100;
+        }
+        return next;
+      });
+    }, intervalTime);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (progress >= 100) {
+      const timeout = setTimeout(() => {
+        setIsDone(true);
+      }, 500);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [progress, navigate]);
+
   const handleComplete = () => {
-    navigate("/");
+    navigate(ROUTES.INFO);
   };
+
   return (
     <ContentWrapper>
       {isDone ? (

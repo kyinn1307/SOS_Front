@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Routes, useNavigate } from "react-router-dom";
 import ChatSendBtn from "../../../assets/chatbot/ChatSendBtn";
+import { ROUTES } from "../../../constants/routes";
 
 const ChatInputContainer = styled.div`
   position: relative;
@@ -53,7 +54,7 @@ const ChatInput = () => {
   const navigate = useNavigate();
 
   const handleSendBtnClick = () => {
-    navigate("/choice");
+    navigate(ROUTES.LOADING);
   };
   return (
     <ChatInputContainer>
