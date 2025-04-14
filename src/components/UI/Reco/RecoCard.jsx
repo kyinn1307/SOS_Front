@@ -17,6 +17,21 @@ const dramaticFlyIn = keyframes`
   }
 `;
 
+const flyIn = keyframes`
+  0% {
+    transform: perspective(1000px) rotateY(90deg) scale(0.5) translateZ(-300px);
+    opacity: 0;
+  }
+  60% {
+    transform: perspective(1000px) rotateY(-10deg) scale(1.05) translateZ(30px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: perspective(1000px) rotateY(0deg) scale(1) translateZ(0);
+    opacity: 1;
+  }
+`;
+
 const Container = styled.div`
   position: relative;
   display: flex;

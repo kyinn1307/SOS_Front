@@ -9,6 +9,8 @@ import ChangeFlavorModal from "../../components/UI/Manage/Modals/ChangeFlavorMod
 import ChangeCompleteModal from "../../components/UI/Manage/Modals/ChangeCompleteModal";
 import FillFlavorModal from "../../components/UI/Manage/Modals/FillFlavorModal";
 import FillCompleteModal from "../../components/UI/Manage/Modals/FillCompleteModal";
+import ScrollBtn from "../../assets/scroll_btn";
+import DeviceChoice from "../../components/UI/Manage/DeviceChoice";
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -26,6 +28,13 @@ const HeaderWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+const BtnWrapper = styled.div`
+  position: absolute;
+  top: 3px;
+  right: 333.81px;
+`;
+
 const ChangeBtnWrapper = styled.div`
   position: absolute;
   bottom: 0;
@@ -69,6 +78,13 @@ const ModalWrapper = styled.div`
   z-index: 10;
 `;
 
+const DeviceModalWrapper = styled.div`
+  position: absolute;
+  top: 20%;
+  left: 31%;
+  z-index: 10;
+`;
+
 const CompleteModalWrapper = styled.div`
   position: absolute;
   top: 40%;
@@ -76,6 +92,7 @@ const CompleteModalWrapper = styled.div`
   z-index: 10;
 `;
 const ManageContent = () => {
+  const [showDeviceChoice, setShowDeviceChoice] = useState(false);
   const [isRefillModalOpen, setIsRefillModalOpen] = useState(false);
   const [isFillModalOpen, setIsFillModalOpen] = useState(false);
   const [isFillCompleteModalOpen, setIsFillCompleteModalOpen] = useState(false);
@@ -87,6 +104,10 @@ const ManageContent = () => {
   const handleChangeBtn = () => {
     setIsChangeModalOpen(true);
     setIsChangeCompleteOpen(false);
+  };
+
+  const handleScrollBtnClick = () => {
+    setShowDeviceChoice((prev) => !prev);
   };
 
   const handleChangeComplete = () => {
@@ -119,6 +140,9 @@ const ManageContent = () => {
       <HeaderWrapper>
         <TextWrapper>
           <Title>센트오브사운드 1호기</Title>
+          <BtnWrapper>
+            <ScrollBtn onClick={handleScrollBtnClick} />
+          </BtnWrapper>
           <DeviceId>3748B5</DeviceId>
         </TextWrapper>
         <ChangeBtnWrapper onClick={handleChangeBtn}>
@@ -129,6 +153,13 @@ const ManageContent = () => {
         openModalWithFlavor={openModalWithFlavor}
         openRefillModalWithFlavor={openRefillModalWithFlavor}
       />
+
+      {showDeviceChoice && (
+        <DeviceModalWrapper>
+          <BlurLayer />
+          <DeviceChoice onClose={() => setShowDeviceChoice(false)} />
+        </DeviceModalWrapper>
+      )}
 
       {isFillModalOpen && (
         <ModalWrapper>

@@ -14,7 +14,7 @@ export const StyledBtn = styled(Button)`
   justify-content: center;
 
   border-radius: 44px;
-  font-size: 20px;
+  font-size: ${({ isModal }) => (isModal ? "18px" : "20px")};
 
   ${({ variant }) =>
     variant === "black" &&
