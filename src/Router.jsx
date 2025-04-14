@@ -10,7 +10,6 @@ import ChoicePage from "./pages/Choice/ChoicePage";
 import LoadingPage from "./pages/Choice/LoadingPage";
 import RecoPage from "./pages/Recommend/RecoPage";
 import ProduceLoadingPage from "./pages/Loading/ProduceLoadingPage";
-import OriginalPage from "./pages/Original/OriginalPage";
 import AdminPage from "./pages/Admin/AdminPage";
 import ManagePage from "./pages/Manage/ManagePage";
 
@@ -27,7 +26,6 @@ const AppRouter = () => {
         <Route path={ROUTES.LOADING} element={<LoadingPage />} />
         <Route path={ROUTES.RECOMMEND} element={<RecoPage />} />
         <Route path={ROUTES.PRODUCE_LOADING} element={<ProduceLoadingPage />} />
-        <Route path={ROUTES.ORIGINAL} element={<OriginalPage />} />
         <Route path={ROUTES.ADMIN} element={<AdminPage />} />
         <Route path={ROUTES.MANAGE} element={<ManagePage />} />
       </Routes>

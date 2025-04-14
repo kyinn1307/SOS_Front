@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import ChatbotIcon from "../../assets/chatbot/ChatbotIcon";
 import QuestionBox from "../../assets/chatbot/QuestionBox";
 import ChatInput from "../../components/UI/Chatbot/ChatInput";
 import BlurLayer from "../../components/Layout/BlurLayer";
 import Modal from "../../components/UI/common/Modal";
+import BoldText from "../../components/UI/common/BoldText";
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -19,7 +20,7 @@ const ChatbotField = styled.div`
   position: relative;
   display: flex;
   flex-direction: row;
-  margin-top: 73px;
+  margin-top: 54px;
 `;
 
 const ChatbotWrapper = styled.div`
@@ -58,13 +59,13 @@ const ChatContent = () => {
     setIsError(true);
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsError(true);
-    }, 5000);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setIsError(true);
+  //   }, 5000);
 
-    return () => clearTimeout(timer);
-  }, []);
+  //   return () => clearTimeout(timer);
+  // }, []);
   return (
     <>
       <ContentWrapper>
@@ -82,8 +83,8 @@ const ChatContent = () => {
           그러려면 먼저 당신의 감정을 깊이 이해하고, 오늘의 기분과 분위기를
           세심하게 들여다봐야 해요. :{")"}
           <br />
-          오늘의 이야기를 들려주시면, 그 감성을 담아 어울리는 향을
-          연주해드릴게요. 💫🎵
+          <BoldText>오늘의 이야기</BoldText>를 들려주시면, 그 감성을 담아
+          어울리는 향을 연주해드릴게요. 💫🎵
         </IntroText>
         <ChatbotField>
           <ChatbotWrapper>

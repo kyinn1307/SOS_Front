@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { StyledBtn } from "../common/StyledBtn";
+import { ROUTES } from "../../../constants/routes";
+import BoldText from "../common/BoldText";
 
 const Container = styled.div`
   position: fixed;
@@ -11,9 +13,16 @@ const Container = styled.div`
   width: 100%;
   align-items: center;
   bottom: 0;
+  margin-top: 46px;
 `;
 
-const TextWrapper = styled.div``;
+const TextWrapper = styled.div`
+  font-size: 17px;
+  line-height: 180%;
+  text-align: center;
+  letter-spacing: -0.011em;
+  color: #2c2c2c;
+`;
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -27,16 +36,17 @@ const ChatbotChoice = () => {
   const navigate = useNavigate();
 
   const handleOriginBtnClick = () => {
-    navigate("/original");
+    navigate(ROUTES.CHAT);
   };
   const handleChatBtnClick = () => {
-    navigate("/chat");
+    navigate(ROUTES.CHAT);
   };
   return (
     <Container>
       <TextWrapper>
-        간단한 질문을 통해 오늘의 감성을 담은 향을 만들어볼 수도, 원하는 향만
-        담은 오리지널 향수를 만들 수도 있어요. 😊
+        간단한 질문을 통해 <BoldText>오늘의 감성을 담은 향</BoldText>을 만들어볼
+        수도, 원하는 향만 담은 <BoldText>오리지널 향수</BoldText>를 만들 수도
+        있어요. 😊
         <br />
         어떤 방법으로 나만의 향을 연주해 볼까요? 🎹🌸
       </TextWrapper>
