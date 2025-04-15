@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { StyledBtn } from "../common/StyledBtn";
+import StyledBtn from "../common/StyledBtn";
 import { ROUTES } from "../../../constants/routes";
 import BoldText from "../common/BoldText";
 
@@ -52,10 +52,10 @@ const ChatbotChoice = () => {
       </TextWrapper>
       <ButtonContainer>
         <StyledBtn variant="white" onClick={handleOriginBtnClick}>
-          오리지널 향수 만들기 {">"}
+          오리지널 향수 만들기
         </StyledBtn>
         <StyledBtn variant="black" onClick={handleChatBtnClick}>
-          센티와 나만의 향 찾기 {">"}
+          센티와 나만의 향 찾기
         </StyledBtn>
       </ButtonContainer>
     </Container>

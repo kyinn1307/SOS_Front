@@ -5,7 +5,7 @@ import GradientText from "../../components/UI/common/GradientText";
 import LoadingCommentLayer from "../../assets/loading/LoadingCommentLayer";
 import ProgressBar from "../../components/UI/Chatbot/ProgressBar";
 import Modal from "../../components/UI/common/Modal";
-import { StyledBtn } from "../../components/UI/common/StyledBtn";
+import StyledBtn from "../../components/UI/common/StyledBtn";
 import BlurLayer from "../../components/Layout/BlurLayer";
 import { ROUTES } from "../../constants/routes";
 const ContentWrapper = styled.div`
@@ -114,7 +114,7 @@ const ProduceLoadingContent = () => {
           </ModalWrapper>
           <BtnWrapper>
             <StyledBtn variant="black" onClick={handleComplete}>
-              체험 마무리하기 {">"}
+              체험 마무리하기
             </StyledBtn>
           </BtnWrapper>
         </>

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { StyledBtn } from "../../components/UI/common/StyledBtn";
+import StyledBtn from "../../components/UI/common/StyledBtn";
 import CardList from "../../components/UI/Info/CardList";
 
 const ContentWrapper = styled.div`
@@ -57,7 +57,7 @@ const InfoContent = () => {
         </IntroText>
         <CardList />
         <BtnWrapper onClick={handleBtnClick}>
-          <StyledBtn variant="black">향기 여정 시작하기 {">"}</StyledBtn>
+          <StyledBtn variant="black">향기 여정 시작하기</StyledBtn>
         </BtnWrapper>
       </ContentWrapper>
     </>

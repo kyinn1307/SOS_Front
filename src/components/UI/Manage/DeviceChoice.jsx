@@ -1,10 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
-import ScrollBtn from "../../../assets/scroll_btn";
-import { StyledBtn } from "../common/StyledBtn";
+import StyledBtn from "../common/StyledBtn";
 
 const Container = styled.div`
-  position: absolute;
   display: flex;
 
   flex-direction: column;
@@ -92,7 +90,7 @@ const DeviceChoice = ({ onClose }) => {
       </DeviceList>
       <BtnWrapper>
         <StyledBtn variant="black" isModal={true} onClick={onClose}>
-          변경하기 {">"}
+          변경하기
         </StyledBtn>
       </BtnWrapper>
     </Container>

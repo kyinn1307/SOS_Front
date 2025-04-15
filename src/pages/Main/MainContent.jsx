@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import SosLetterLogo from "../../assets/main/sos_letter_logo";
-import { StyledBtn } from "../../components/UI/common/StyledBtn";
+import StyledBtn from "../../components/UI/common/StyledBtn";
 import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../constants/routes";
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -45,7 +46,7 @@ const MainContent = () => {
   const navigate = useNavigate();
 
   const handleBtnClick = () => {
-    navigate("/info");
+    navigate(ROUTES.INFO);
   };
   return (
     <ContentWrapper>
@@ -61,7 +62,7 @@ const MainContent = () => {
       </IntroText>
       <GradientText>오늘도 힘차게! 수고하시는 당신을 응원합니다!</GradientText>
       <BtnWrapper onClick={handleBtnClick}>
-        <StyledBtn variant="black">향기 여정 시작하기 {">"}</StyledBtn>
+        <StyledBtn variant="black">향기 여정 시작하기</StyledBtn>
       </BtnWrapper>
     </ContentWrapper>
   );

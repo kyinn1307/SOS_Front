@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import FlavorChoice from "../FlavorChoice";
 import DeleteBtn from "../../../../assets/admin/DeleteBtn";
+import StyledBtn from "../../common/StyledBtn";
 
 const Container = styled.div`
   display: flex;
@@ -60,23 +61,6 @@ const Input = styled.input`
   outline: none;
 `;
 
-const ChangeBtn = styled.button`
-  position: relative;
-  width: 185px;
-  height: 40px;
-
-  background: #2c2c2c;
-  box-shadow: 0px 0px 8.55464px rgba(255, 255, 255, 0.25);
-  border-radius: 37.6404px;
-
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 150%;
-  letter-spacing: -0.011em;
-  color: #fafaf8;
-  cursor: pointer;
-`;
-
 const ChangeBtnWrapper = styled.div`
   margin-top: 20px;
 `;
@@ -97,7 +81,9 @@ const FillFlavorModal = ({ onClose, onComplete }) => {
         <Input placeholder="용량을 정확히 입력해 주세요." />
       </Row>
       <ChangeBtnWrapper onClick={onComplete}>
-        <ChangeBtn>추가하기 {">"}</ChangeBtn>
+        <StyledBtn variant="black" isModal={true}>
+          추가하기
+        </StyledBtn>
       </ChangeBtnWrapper>
     </Container>
   );

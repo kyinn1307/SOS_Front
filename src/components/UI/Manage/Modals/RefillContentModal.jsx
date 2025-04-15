@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import RefillModalBtn from "../Buttons/RefillModalBtn";
 import DeleteBtn from "../../../../assets/manage/DeleteBtn";
+import StyledBtn from "../../common/StyledBtn";
 
 const Container = styled.div`
   display: flex;
@@ -147,7 +148,14 @@ const RefillContentModal = ({ flavor, onClose, onComplete }) => {
         <Input disabled={mode !== "refill"} />
       </Row>
       <BtnWrapper>
-        <RefillModalBtn onClick={handleClick} />
+        <StyledBtn
+          variant="black"
+          isModal={true}
+          onClick={handleClick}
+          width="250px"
+        >
+          용액 추가 및 교체하기
+        </StyledBtn>
       </BtnWrapper>
     </Container>
   );

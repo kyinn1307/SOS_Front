@@ -1,14 +1,11 @@
 import styled from "styled-components";
 import FlavorChoice from "../FlavorChoice";
 import DeleteBtn from "../../../../assets/admin/DeleteBtn";
+import StyledBtn from "../../common/StyledBtn";
 
 const Overlay = styled.div`
-  position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,23 +63,6 @@ const Row = styled.div`
   margin-top: ${({ mt }) => mt || "10px"};
 `;
 
-const ChangeBtn = styled.button`
-  position: relative;
-  width: 185px;
-  height: 40px;
-
-  background: #2c2c2c;
-  box-shadow: 0px 0px 8.55464px rgba(255, 255, 255, 0.25);
-  border-radius: 37.6404px;
-
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 150%;
-  letter-spacing: -0.011em;
-  color: #fafaf8;
-  cursor: pointer;
-`;
-
 const DeleteBtnWrapper = styled.div`
   position: absolute;
   top: 24px;
@@ -98,14 +78,9 @@ const ChangeFlavorModal = ({ onClose, onChangeComplete }) => {
   const handleChangeComplete = () => {
     onChangeComplete();
   };
-  const handleOverlayClick = (e) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
 
   return (
-    <Overlay onClick={handleOverlayClick}>
+    <Overlay>
       <Container>
         <Title>향료 교체하기</Title>
         <DeleteBtnWrapper onClick={onClose}>
@@ -124,7 +99,9 @@ const ChangeFlavorModal = ({ onClose, onChangeComplete }) => {
           <Input placeholder="용량을 정확히 입력해 주세요." />
         </Row>
         <ChangeBtnWrapper onClick={handleChangeComplete}>
-          <ChangeBtn>교체하기 {">"}</ChangeBtn>
+          <StyledBtn variant="black" isModal={true}>
+            교체하기
+          </StyledBtn>
         </ChangeBtnWrapper>
       </Container>
     </Overlay>

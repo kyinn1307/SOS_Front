@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { StyledBtn } from "../../components/UI/common/StyledBtn";
+import StyledBtn from "../../components/UI/common/StyledBtn";
 import { useState } from "react";
 import { ROUTES } from "../../constants/routes";
 import DeviceList from "../../components/UI/Admin/DeviceList";
 import BlurLayer from "../../components/Layout/BlurLayer";
-import DeleteModal from "../../components/UI/Admin/DeleteModal";
+import DeviceDeleteModal from "../../components/UI/Admin/DeviceDeleteModal";
 import DeviceEditModal from "../../components/UI/Admin/DeviceEditModal";
 import DeviceRegisterModal from "../../components/UI/Admin/DeviceRegisterModal";
 
@@ -50,11 +50,21 @@ const BtnContainer = styled.div`
   margin-top: 49px;
 `;
 
-const ModalWrapper = styled.div`
-  position: absolute;
-  top: 28vh;
-  left: 32vw;
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   z-index: 10;
+`;
+
+const ModalContainer = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 11;
 `;
 
 const AdminContent = () => {
@@ -106,40 +116,48 @@ const AdminContent = () => {
             isAdmin={true}
             onClick={handleRegisterDevice}
           >
-            기기 추가하기 {">"}
+            기기 추가하기
           </StyledBtn>
           <IndicateText>등록되지 않은 기기를 추가해보세요!</IndicateText>
         </AddBtnContainer>
         <StyledBtn variant="black" isAdmin={true} onClick={handleManageClick}>
-          기기 관리하기 {">"}
+          기기 관리하기
         </StyledBtn>
       </BtnContainer>
 
       {isDeleteModalOpen && (
-        <ModalWrapper>
+        <ModalOverlay>
           <BlurLayer />
-          <DeleteModal
-            deviceName={selectedDevice}
-            onClose={() => setIsDeleteModalOpen(false)}
-          />
-        </ModalWrapper>
+          <ModalContainer>
+            <DeviceDeleteModal
+              deviceName={selectedDevice}
+              onClose={() => setIsDeleteModalOpen(false)}
+            />
+          </ModalContainer>
+        </ModalOverlay>
       )}
 
       {isRegisterModalOpen && (
-        <ModalWrapper>
+        <ModalOverlay>
           <BlurLayer />
-          <DeviceRegisterModal onClose={() => setIsRegisterModalOpen(false)} />
-        </ModalWrapper>
+          <ModalContainer>
+            <DeviceRegisterModal
+              onClose={() => setIsRegisterModalOpen(false)}
+            />
+          </ModalContainer>
+        </ModalOverlay>
       )}
 
       {isEditModalOpen && selectedDevice && (
-        <ModalWrapper>
+        <ModalOverlay>
           <BlurLayer />
-          <DeviceEditModal
-            onClose={() => setIsEditModalOpen(false)}
-            device={selectedDevice}
-          />
-        </ModalWrapper>
+          <ModalContainer>
+            <DeviceEditModal
+              onClose={() => setIsEditModalOpen(false)}
+              device={selectedDevice}
+            />
+          </ModalContainer>
+        </ModalOverlay>
       )}
     </ContentWrapper>
   );

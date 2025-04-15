@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { useState } from "react";
 import DeleteBtn from "../../../assets/admin/DeleteBtn";
 import DeviceSettingBtn from "./DeviceSettingBtn";
+import StyledBtn from "../common/StyledBtn";
 
 const Container = styled.div`
-  position: absolute;
   display: flex;
   flex-direction: column;
   width: 389px;
@@ -116,7 +116,9 @@ const DeviceRegisterModal = ({ onClose }) => {
       </Row>
 
       <BtnWrapper>
-        <DeviceSettingBtn text="추가하기 >" disabled={!isValid} />
+        <StyledBtn variant="black" isModal={true} disabled={!isValid}>
+          추가하기
+        </StyledBtn>
       </BtnWrapper>
     </Container>
   );

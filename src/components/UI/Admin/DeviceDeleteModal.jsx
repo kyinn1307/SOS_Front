@@ -3,7 +3,6 @@ import AlertIcon from "../../../assets/admin/AlertIcon";
 import StyledBtn from "../common/StyledBtn";
 
 const Container = styled.div`
-  position: absolute;
   display: flex;
   flex-direction: column;
   width: 442px;
@@ -18,7 +17,7 @@ const Container = styled.div`
 
 const IconWrapper = styled.div`
   position: relative;
-  margin-top: 28px;
+  margin-top: 29px;
 `;
 
 const Text = styled.div`
@@ -30,7 +29,7 @@ const Text = styled.div`
   letter-spacing: -0.011em;
 
   color: #000000;
-  margin-top: 14px;
+  margin-top: 13px;
 `;
 
 const SubText = styled.div`

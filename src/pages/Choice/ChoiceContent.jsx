@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ChoiceList from "../../components/UI/Chatbot/ChoiceList";
-import { StyledBtn } from "../../components/UI/common/StyledBtn";
+import StyledBtn from "../../components/UI/common/StyledBtn";
 
 const ContentWrapper = styled.div`
   position: relative;
