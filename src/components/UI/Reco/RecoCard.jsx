@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import RecoCardImage from "./RecoCardImage";
 
 const dramaticFlyIn = keyframes`
   0% {
@@ -62,7 +63,7 @@ const Main = styled.div`
   border-bottom: 0.5px solid #d3d3d3;
 `;
 
-const PhotoWrapper = styled.img`
+const PhotoWrapper = styled.div`
   margin-top: 3px;
 
   width: 286px;
@@ -82,7 +83,6 @@ const TextWrapper = styled.div`
 `;
 
 const Title = styled.div`
-  width: 99px;
   height: 40px;
 
   font-weight: 700;
@@ -130,13 +130,15 @@ const FooterContent = styled.div`
   flex-grow: 0;
 `;
 
-const RecoCard = () => {
+const RecoCard = ({ title, content, top, middle, base }) => {
   return (
     <Container>
       <Main>
-        <PhotoWrapper />
+        <PhotoWrapper>
+          <RecoCardImage title={title} />
+        </PhotoWrapper>
         <TextWrapper>
-          <Title>데이트 전날</Title>
+          <Title>{title}</Title>
           <Content>
             프루티, 민트, 플로럴이 어우러져
             <br />
