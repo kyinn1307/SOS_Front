@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import AlertIcon from "../../../assets/admin/AlertIcon";
-import { StyledBtn } from "../common/StyledBtn";
+import StyledBtn from "../common/StyledBtn";
 
 const Container = styled.div`
   position: absolute;
@@ -50,7 +50,7 @@ const BtnContainer = styled.div`
   gap: 15px;
 `;
 
-const DeleteModal = ({ onClose }) => {
+const DeviceDeleteModal = ({ onClose }) => {
   return (
     <Container>
       <IconWrapper>
@@ -59,10 +59,20 @@ const DeleteModal = ({ onClose }) => {
       <Text>기기를 삭제하시겠습니까?</Text>
       <SubText>한번 삭제된 기기는 복구할 수 없습니다.</SubText>
       <BtnContainer>
-        <StyledBtn variant="white" isModal={true} onClick={onClose}>
+        <StyledBtn
+          variant="white"
+          isModal={true}
+          onClick={onClose}
+          isDeleteModal={true}
+        >
           아니오
         </StyledBtn>
-        <StyledBtn variant="black" isModal={true} onClick={onClose}>
+        <StyledBtn
+          variant="black"
+          isModal={true}
+          onClick={onClose}
+          isDeleteModal={true}
+        >
           예
         </StyledBtn>
       </BtnContainer>
@@ -70,4 +80,4 @@ const DeleteModal = ({ onClose }) => {
   );
 };
 
-export default DeleteModal;
+export default DeviceDeleteModal;
