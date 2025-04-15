@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import SosLogo from "../../assets/sos_logo";
 
@@ -34,16 +35,24 @@ const SettingBtn = styled.button`
   font-weight: ${({ active }) => (active ? "bold" : "normal")};
 `;
 
-const Header = () => {
+const Header = ({ openLogoutModal }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+
   const shouldShowSettings =
     location.pathname === "/" ||
     location.pathname === "/admin" ||
     location.pathname === "/manage";
+
   const handleBtnClick = (path) => () => {
     navigate(path);
   };
+
+  const handleCloseModal = () => {
+    setShowLogoutModal(false);
+  };
+
   return (
     <>
       <HeaderContainer>
@@ -61,7 +70,7 @@ const Header = () => {
             >
               기기관리
             </SettingBtn>
-            <SettingBtn>로그아웃</SettingBtn>
+            <SettingBtn onClick={openLogoutModal}>로그아웃</SettingBtn>
           </SettingBtnField>
         )}
       </HeaderContainer>
