@@ -1,15 +1,17 @@
 import { postData } from "./apiClient";
 
-export const startChatSession = (data) => postData("/chatbot/session", data);
+export const createCustomPerfume = (data) => postData("/perfumes/custom", data);
 
-export const sendChatMessage = (sessionId, message) => {
+export const createOriginalPerfume = (data) =>
+  postData("/perfumes/original", data);
+
+export const checkPerfumeStatus = (perfumeId) => {
   const socket = new WebSocket(
-    `wss://api.scentofsound.com/ws/chatbot${sessionId}`
+    `wss://api.scentofsound.com/ws/perfumes/${perfumeId}`
   );
 
   socket.onopen = () => {
     console.log("WebSocket 연결 성공!");
-    socket.send(JSON.stringify({ message }));
   };
 
   socket.onmessage = (event) => {
