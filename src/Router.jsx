@@ -26,7 +26,7 @@ const AppRouter = () => {
         <Route path={ROUTES.RECOMMEND} element={<RecoPage />} />
         <Route path={ROUTES.PRODUCE_LOADING} element={<ProduceLoadingPage />} />
         <Route path={ROUTES.ADMIN} element={<AdminPage />} />
-        <Route path={ROUTES.MANAGE} element={<ManagePage />} />
+        <Route path={`${ROUTES.MANAGE}/:deviceId`} element={<ManagePage />} />
       </Routes>
     </Router>
   );
