@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import StyledBtn from "../../components/UI/common/StyledBtn";
 import { useState } from "react";
@@ -8,66 +7,17 @@ import BlurLayer from "../../components/Layout/BlurLayer";
 import DeviceDeleteModal from "../../components/UI/Admin/DeviceDeleteModal";
 import DeviceEditModal from "../../components/UI/Admin/DeviceEditModal";
 import DeviceRegisterModal from "../../components/UI/Admin/DeviceRegisterModal";
+import {
+  ContentWrapper,
+  Title,
+  AddBtnContainer,
+  IndicateText,
+  BtnContainer,
+  ModalOverlay,
+  ModalContainer,
+} from "./AdminContent.styles";
 
-const ContentWrapper = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 1;
-  padding: 20px;
-  text-align: center;
-`;
-
-const Title = styled.div`
-  position: relative;
-  width: 400px;
-  font-weight: 500;
-  font-size: 30px;
-  line-height: 36px;
-  color: #2c2c2c;
-  margin-top: 16px;
-`;
-
-const AddBtnContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const IndicateText = styled.div`
-  position: relative;
-  font-size: 12px;
-  line-height: 14px;
-  text-align: center;
-  color: #999999;
-  margin-top: 13px;
-`;
-
-const BtnContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 30px;
-  margin-top: 49px;
-`;
-
-const ModalOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 10;
-`;
-
-const ModalContainer = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 11;
-`;
-
-const AdminContent = ({ devices }) => {
+const AdminContent = () => {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -130,7 +80,7 @@ const AdminContent = ({ devices }) => {
           <BlurLayer />
           <ModalContainer>
             <DeviceDeleteModal
-              deviceName={selectedDevice}
+              deviceId={selectedDevice.id}
               onClose={() => setIsDeleteModalOpen(false)}
             />
           </ModalContainer>

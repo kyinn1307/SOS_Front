@@ -1,7 +1,8 @@
 import styled from "styled-components";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteDevice } from "../../../api/apis/device";
 import AlertIcon from "../../../assets/admin/AlertIcon";
 import StyledBtn from "../common/StyledBtn";
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -49,7 +50,24 @@ const BtnContainer = styled.div`
   gap: 15px;
 `;
 
-const DeviceDeleteModal = ({ onClose }) => {
+const DeviceDeleteModal = ({ deviceId, onClose }) => {
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: deleteDevice,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["devices"]);
+      onClose();
+    },
+    onError: (error) => {
+      alert("기기 삭제에 실패했습니다.");
+      console.error(error);
+    },
+  });
+
+  const handleDelete = () => {
+    mutate(deviceId);
+  };
   return (
     <Container>
       <IconWrapper>
@@ -69,7 +87,7 @@ const DeviceDeleteModal = ({ onClose }) => {
         <StyledBtn
           variant="black"
           isModal={true}
-          onClick={onClose}
+          onClick={handleDelete}
           isDeleteModal={true}
         >
           예
