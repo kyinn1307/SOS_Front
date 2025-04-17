@@ -69,22 +69,22 @@ const VibeTag = styled.span`
   color: #aaaaaa;
 `;
 
-const InfoCard = ({ title, info, ex, vibe }) => {
+const InfoCard = ({ name, description, fragrances, hashtags }) => {
   return (
     <InfoCardWrapper>
       <InfoContainer>
         <TitleArea>
-          <Title>{title}</Title>
-          <Info>{info}</Info>
+          <Title>{name}</Title>
+          <Info>{description}</Info>
         </TitleArea>
         <ExArea>
-          {ex.map((item, index) => (
+          {fragrances.map((item, index) => (
             <ExItem key={index}>{item}</ExItem>
           ))}
         </ExArea>
       </InfoContainer>
       <VibeContainer>
-        {vibe.map((tag, index) => (
+        {hashtags.map((tag, index) => (
           <VibeTag key={index}>{tag}</VibeTag>
         ))}
       </VibeContainer>

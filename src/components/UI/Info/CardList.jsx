@@ -1,3 +1,5 @@
+import { useQuery } from "@tanstack/react-query";
+import { fetchFragranceCategories } from "../../../api/apis/fragrance";
 import styled from "styled-components";
 import InfoCard from "./InfoCard";
 
@@ -14,59 +16,67 @@ const CardContainer = styled.div`
 
 const MockData = [
   {
-    title: "Floral",
-    info: "부드럽고 감성적인 향 🌷",
-    ex: ["밤장미", "벚꽃", "배롱나무", "차수국"],
-    vibe: ["#감미로운", "#설렘", "#로맨틱"],
+    name: "Floral",
+    description: "부드럽고 감성적인 향 🌷",
+    fragrances: ["밤장미", "벚꽃", "배롱나무", "차수국"],
+    hashtags: ["#감미로운", "#설렘", "#로맨틱"],
   },
   {
-    title: "Herbal",
-    info: "신선하고 깨끗한 향 🫧",
-    ex: ["은행나무"],
-    vibe: ["#차분한", "#균형 잡힌"],
+    name: "Herbal",
+    description: "신선하고 깨끗한 향 🫧",
+    fragrances: ["은행나무"],
+    hashtags: ["#차분한", "#균형 잡힌"],
   },
   {
-    title: "Green",
-    info: "자연과 가까운 향 🍃",
-    ex: ["은행나무", "경포대", "배롱나무"],
-    vibe: ["#깨끗한"],
+    name: "Green",
+    description: "자연과 가까운 향 🍃",
+    fragrances: ["은행나무", "경포대", "배롱나무"],
+    hashtags: ["#깨끗한"],
   },
   {
-    title: "Fruity",
-    info: "달콤하고 따뜻한 향 🍯",
-    ex: ["감나무"],
-    vibe: ["#따뜻한", "#편안한"],
+    name: "Fruity",
+    description: "달콤하고 따뜻한 향 🍯",
+    fragrances: ["감나무"],
+    hashtags: ["#따뜻한", "#편안한"],
   },
   {
-    title: "Woody",
-    info: "깊고 안정적인 향 🪵",
-    ex: ["소나무"],
-    vibe: ["#고요한", "#깊은"],
+    name: "Woody",
+    description: "깊고 안정적인 향 🪵",
+    fragrances: ["소나무"],
+    hashtags: ["#고요한", "#깊은"],
   },
   {
-    title: "Citrus",
-    info: "상쾌하고 경쾌한 향 🍊",
-    ex: ["태백산맥", "경포대", "안목해변"],
-    vibe: ["#신선", "#경쾌"],
+    name: "Citrus",
+    description: "상쾌하고 경쾌한 향 🍊",
+    fragrances: ["태백산맥", "경포대", "안목해변"],
+    hashtags: ["#신선", "#경쾌"],
   },
   {
-    title: "Amber",
-    info: "따뜻하고 무게감 있는 향 🕯️",
-    ex: ["소나무"],
-    vibe: ["#안정적", "#깊이 있는"],
+    name: "Amber",
+    description: "따뜻하고 무게감 있는 향 🕯️",
+    fragrances: ["소나무"],
+    hashtags: ["#안정적", "#깊이 있는"],
   },
 ];
 
 const CardList = () => {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["fragranceCategories"],
+    queryFn: fetchFragranceCategories,
+  });
+
+  // if (isLoading) return <div>로딩 중...</div>;
+  // if (error) return <div>데이터를 불러오는 중 오류가 발생했어요.</div>;
+
   return (
     <CardContainer>
-      {MockData.map((item, index) => (
+      {data.map((item, index) => (
         <InfoCard
           key={index}
-          title={item.title}
-          info={item.info}
-          ex={item.ex}
-          vibe={item.vibe}
+          name={item.name}
+          description={item.description}
+          fragrances={item.fragrances}
+          hashtags={item.hashtags}
         />
       ))}
     </CardContainer>

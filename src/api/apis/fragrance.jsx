@@ -1,4 +1,4 @@
-import { getData } from "./apiClient";
+import { getData } from "../apiClient";
 
 export const fetchFragranceCategories = () => getData("/fragrances/category");
 
