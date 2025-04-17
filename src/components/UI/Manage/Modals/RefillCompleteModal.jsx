@@ -40,16 +40,21 @@ const Text = styled.div`
   color: #000000;
 `;
 
-const RefillCompleteModal = ({ flavorName, onClose }) => {
+const RefillCompleteModal = ({
+  flavorName,
+  beforeAmount,
+  afterAmount,
+  onClose,
+}) => {
   return (
     <Container>
       <BtnWrapper onClick={onClose}>
         <DeleteBtn />
       </BtnWrapper>
       <Row mt="28px">
-        <Text>00(ml)</Text>
+        <Text>{beforeAmount}(ml)</Text>
         <ChangeIcon />
-        <Text>00(ml)</Text>
+        <Text>{afterAmount}(ml)</Text>
       </Row>
       <Row>
         <Text>

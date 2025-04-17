@@ -99,6 +99,10 @@ const ManageContent = ({ deviceId }) => {
   const [isRefillCompleteOpen, setIsRefillCompleteOpen] = useState(false);
   const [isChangeCompleteOpen, setIsChangeCompleteOpen] = useState(false);
   const [selectedFlavor, setSelectedFlavor] = useState(null);
+  const [refillResult, setRefillResult] = useState({
+    beforeAmount: 0,
+    afterAmount: 0,
+  });
 
   const handleChangeBtn = () => {
     setIsChangeModalOpen(true);
@@ -129,8 +133,9 @@ const ManageContent = ({ deviceId }) => {
     setIsFillCompleteModalOpen(true);
   };
 
-  const handleRefillComplete = () => {
+  const handleRefillComplete = ({ beforeAmount, afterAmount }) => {
     setIsRefillModalOpen(false);
+    setRefillResult({ beforeAmount, afterAmount });
     setIsRefillCompleteOpen(true);
   };
 
@@ -238,8 +243,8 @@ const ManageContent = ({ deviceId }) => {
           <BlurLayer />
           <ModalContainer>
             <RefillCompleteModal
-              beforeAmount={selectedFlavor.rest}
-              afterAmount={200}
+              beforeAmount={refillResult.beforeAmount}
+              afterAmount={refillResult.afterAmount}
               flavorName={selectedFlavor.name}
               onClose={() => setIsRefillCompleteOpen(false)}
             />

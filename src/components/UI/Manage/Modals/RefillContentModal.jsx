@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import RefillModalBtn from "../Buttons/RefillModalBtn";
 import DeleteBtn from "../../../../assets/manage/DeleteBtn";
 import StyledBtn from "../../common/StyledBtn";
+import { refillCartridge } from "../../../../api/apis/cartridge";
+import { replaceCartridge } from "../../../../api/apis/cartridge";
 
 const Container = styled.div`
   display: flex;
@@ -99,9 +101,63 @@ const DeleteBtnWrapper = styled.div`
 
 const RefillContentModal = ({ flavor, onClose, onComplete }) => {
   const [mode, setMode] = useState("refill");
+  const [amount, setAmount] = useState("");
 
-  const handleClick = () => {
-    onComplete();
+  const handleClick = async () => {
+    if (!flavor?.deviceId || !flavor?.cartridgeId) {
+      alert("기기 또는 카트리지 정보가 없습니다.");
+      return;
+    }
+
+    const beforeAmount = flavor.remainingAmount;
+    const totalAmount = flavor.totalAmount;
+
+    if (mode === "refill") {
+      if (!amount || isNaN(amount)) {
+        alert("추가할 용량을 숫자로 입력해 주세요.");
+        return;
+      }
+
+      const addAmount = Number(amount);
+      const afterAmount = beforeAmount + addAmount;
+
+      try {
+        await refillCartridge(flavor.deviceId, {
+          cartridgeId: flavor.cartridgeId,
+          amount: addAmount,
+        });
+
+        alert("용액이 성공적으로 추가되었습니다!");
+        if (onComplete) {
+          onComplete({
+            beforeAmount,
+            afterAmount,
+            totalAmount,
+          });
+        }
+      } catch (error) {
+        const msg = error?.response?.data?.message || "추가에 실패했습니다.";
+        alert(msg);
+      }
+    } else if (mode === "replace") {
+      try {
+        await replaceCartridge(flavor.deviceId, {
+          cartridgeId: flavor.cartridgeId,
+        });
+
+        alert("카트리지가 성공적으로 교체되었습니다!");
+        if (onComplete) {
+          onComplete({
+            beforeAmount,
+            afterAmount: 0,
+            totalAmount,
+          });
+        }
+      } catch (error) {
+        const msg = error?.response?.data?.message || "교체에 실패했습니다.";
+        alert(msg);
+      }
+    }
   };
 
   return (
@@ -141,6 +197,8 @@ const RefillContentModal = ({ flavor, onClose, onComplete }) => {
         <Input
           placeholder="용량을 정확히 입력해 주세요."
           disabled={mode !== "refill"}
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
         />
       </Row>
       <Row mt="11px">
