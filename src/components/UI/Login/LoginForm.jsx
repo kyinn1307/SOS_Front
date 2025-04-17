@@ -1,44 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useMutation } from "@tanstack/react-query";
+import { login } from "../../../api/apis/auth";
+import { useAuthStore } from "../../../store/authStore";
+
 import Button from "../common/Button";
 import Input from "../common/Input";
-const LoginForm = () => {
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    if (id === "1234" && password === "1234") {
-      navigate("/");
-    } else {
-      alert("아이디 또는 비밀번호가 일치하지 않습니다.");
-    }
-  };
-
-  return (
-    <LoginFormContainer onSubmit={handleLogin}>
-      <LoginInputContainer>
-        <Input
-          type="text"
-          placeholder="ID를 입력하세요."
-          value={id}
-          onChange={(e) => setId(e.target.value)}
-        />
-        <Input
-          type="password"
-          placeholder="비밀번호를 입력하세요."
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </LoginInputContainer>
-      <LoginButton type="submit">로그인</LoginButton>
-    </LoginFormContainer>
-  );
-};
-
-export default LoginForm;
 
 const LoginFormContainer = styled.form`
   display: flex;
@@ -66,3 +34,51 @@ const LoginButton = styled(Button)`
   font-size: 18px;
   font-family: "Pretendard", sans-serif;
 `;
+
+const LoginForm = () => {
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const loginAuth = useAuthStore((state) => state.login);
+
+  const { mutate } = useMutation({
+    mutationFn: login,
+    onSuccess: (data) => {
+      const { accessToken, refreshToken } = data;
+      loginAuth({ accessToken, refreshToken });
+      console.log("로그인 성공");
+      navigate("/");
+    },
+    onError: (error) => {
+      alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+    },
+  });
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    mutate({ id, password });
+  };
+
+  return (
+    <LoginFormContainer onSubmit={handleLogin}>
+      <LoginInputContainer>
+        <Input
+          type="text"
+          placeholder="ID를 입력하세요."
+          value={id}
+          onChange={(e) => setId(e.target.value)}
+        />
+        <Input
+          type="password"
+          placeholder="비밀번호를 입력하세요."
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </LoginInputContainer>
+      <LoginButton type="submit">로그인</LoginButton>
+    </LoginFormContainer>
+  );
+};
+
+export default LoginForm;
