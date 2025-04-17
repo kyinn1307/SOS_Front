@@ -1,4 +1,4 @@
-import { getData, patchData } from "./apiClient";
+import { getData, patchData } from "../apiClient";
 
 export const getCartridges = (deviceId) =>
   getData(`/devices/${deviceId}/cartridges`);

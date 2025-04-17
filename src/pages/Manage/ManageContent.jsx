@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getCartridges } from "../../api/apis/cartridge";
 import BlurLayer from "../../components/Layout/BlurLayer";
 import FlavorList from "../../components/UI/Manage/FlavorList";
 import RefillContentModal from "../../components/UI/Manage/Modals/RefillContentModal";
@@ -88,7 +90,7 @@ const ModalContainer = styled.div`
   z-index: 11;
 `;
 
-const ManageContent = () => {
+const ManageContent = ({ deviceId }) => {
   const [showDeviceChoice, setShowDeviceChoice] = useState(false);
   const [isRefillModalOpen, setIsRefillModalOpen] = useState(false);
   const [isFillModalOpen, setIsFillModalOpen] = useState(false);
@@ -132,21 +134,32 @@ const ManageContent = () => {
     setIsRefillCompleteOpen(true);
   };
 
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["cartridges", deviceId],
+    queryFn: () => getCartridges(deviceId),
+    enabled: !!deviceId,
+  });
+
+  if (isLoading) return <div>로딩 중...</div>;
+  if (error) return <div>카트리지 정보를 불러오는 데 실패했어요.</div>;
+
   return (
     <ContentWrapper>
       <HeaderWrapper>
         <TextWrapper>
-          <Title>센트오브사운드 1호기</Title>
+          <Title>센트오브사운드 {deviceId}호기</Title>
           <BtnWrapper>
             <ScrollBtn onClick={handleScrollBtnClick} />
           </BtnWrapper>
-          <DeviceId>3748B5</DeviceId>
+          <DeviceId>{deviceId}</DeviceId>
         </TextWrapper>
         <ChangeBtnWrapper onClick={handleChangeBtn}>
           <ChangeFlavorBtn />
         </ChangeBtnWrapper>
       </HeaderWrapper>
       <FlavorList
+        deviceId={deviceId}
+        flavorList={data?.data?.cartridgeDetails}
         openModalWithFlavor={openModalWithFlavor}
         openRefillModalWithFlavor={openRefillModalWithFlavor}
       />

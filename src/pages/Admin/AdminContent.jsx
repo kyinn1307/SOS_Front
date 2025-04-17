@@ -67,7 +67,7 @@ const ModalContainer = styled.div`
   z-index: 11;
 `;
 
-const AdminContent = () => {
+const AdminContent = ({ devices }) => {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -96,7 +96,7 @@ const AdminContent = () => {
     if (!selectedDevice) {
       alert("기기를 선택해 주세요.");
     } else {
-      navigate(ROUTES.MANAGE);
+      navigate(ROUTES.MANAGE.replace(":deviceId", selectedDevice.deviceId));
     }
   };
 

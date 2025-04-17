@@ -1,3 +1,5 @@
+import { useQuery } from "@tanstack/react-query";
+import { fetchDevices } from "../../../api/apis/device";
 import styled from "styled-components";
 import DeviceItem from "./DeviceItem";
 
@@ -37,26 +39,39 @@ const DeviceList = ({
   onDeleteDevice,
   onEditDevice,
 }) => {
-  const devices = [
-    { idx: "001", name: "센트오브사운드 1호기", number: "3748B5" },
-    { idx: "002", name: "센트오브사운드 2호기", number: "3748B6" },
-    { idx: "003", name: "센트오브사운드 3호기", number: "3748B7" },
-    { idx: "004", name: "센트오브사운드 4호기", number: "3748B8" },
-  ];
+  // const devices = [
+  //   { idx: "001", name: "센트오브사운드 1호기", number: "3748B5" },
+  //   { idx: "002", name: "센트오브사운드 2호기", number: "3748B6" },
+  //   { idx: "003", name: "센트오브사운드 3호기", number: "3748B7" },
+  //   { idx: "004", name: "센트오브사운드 4호기", number: "3748B8" },
+  // ];
+
+  const {
+    data: devices,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["devices"],
+    queryFn: fetchDevices,
+  });
+
+  if (isLoading) return <div>로딩 중...</div>;
+  if (error) return <div>기기 정보를 불러오는 데 실패했어요.</div>;
+
   return (
     <DeviceContainer>
       <Text>내 기기</Text>
       <Bar />
       {devices.map((device) => (
         <DeviceItem
-          key={device.idx}
-          idx={device.idx}
-          name={device.name}
-          number={device.number}
-          selected={selectedDevice === device.name}
+          key={device.id}
+          idx={device.id}
+          name={device.deviceName}
+          number={device.devicePhysicalId}
+          selected={selectedDevice === device.deviceName}
           onSelect={onSelectDevice}
           onEdit={() => onEditDevice(device)}
-          onDelete={() => onDeleteDevice(device.name)}
+          onDelete={() => onDeleteDevice(device.deviceName)}
         />
       ))}
     </DeviceContainer>

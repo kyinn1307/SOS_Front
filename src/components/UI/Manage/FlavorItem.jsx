@@ -79,15 +79,15 @@ const FlavorItem = ({
   return (
     <Container>
       <AlertWrapper>{isAlert && <VolumeAlert />}</AlertWrapper>
-      <FlavorName>{flavor.name}</FlavorName>
+      <FlavorName>{flavor.fragranceName}</FlavorName>
       <VolumeContainer>
-        <Ongoing rest={rest / 2}></Ongoing>
+        <Ongoing rest={(rest / flavor.totalCapacity) * 100}></Ongoing>
       </VolumeContainer>
       {neverFilled ? (
         <VolumeText>0/0(ml)</VolumeText>
       ) : (
         <VolumeText isEmpty={isEmpty}>
-          {rest}/{flavor.total}(ml)
+          {rest}/{flavor.totalCapacity}(ml)
         </VolumeText>
       )}
       <RefillBtn
