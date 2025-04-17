@@ -19,13 +19,13 @@ const InfoContainer = styled.div`
   border-bottom: 1px solid #d3d3d3;
 `;
 
-const TitleArea = styled.div`
+const NameArea = styled.div`
   display: flex;
   flex-direction: column;
   gap: 7px;
 `;
 
-const Title = styled.div`
+const Name = styled.div`
   font-family: "Pretendard";
   font-style: normal;
   font-weight: 700;
@@ -40,30 +40,29 @@ const Info = styled.div`
   color: #9c9c9c;
 `;
 
-const ExArea = styled.div`
+const FragranceArea = styled.div`
   display: flex;
   flex-direction: column;
   height: 100px;
   margin-top: 18px;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
+  justify-content: space-evenly;
 `;
 
-const ExItem = styled.div`
+const FragranceItem = styled.div`
   font-size: 16px;
   line-height: 19px;
   color: #2c2c2c;
 `;
 
-const VibeContainer = styled.div`
+const HashTagContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
   margin-top: 6.5px;
 `;
 
-const VibeTag = styled.span`
+const HashTag = styled.span`
   font-size: 12px;
   line-height: 14px;
   color: #aaaaaa;
@@ -73,21 +72,21 @@ const InfoCard = ({ name, description, fragrances, hashtags }) => {
   return (
     <InfoCardWrapper>
       <InfoContainer>
-        <TitleArea>
-          <Title>{name}</Title>
+        <NameArea>
+          <Name>{name}</Name>
           <Info>{description}</Info>
-        </TitleArea>
-        <ExArea>
+        </NameArea>
+        <FragranceArea>
           {fragrances.map((item, index) => (
-            <ExItem key={index}>{item}</ExItem>
+            <FragranceItem key={index}>{item}</FragranceItem>
           ))}
-        </ExArea>
+        </FragranceArea>
       </InfoContainer>
-      <VibeContainer>
+      <HashTagContainer>
         {hashtags.map((tag, index) => (
-          <VibeTag key={index}>{tag}</VibeTag>
+          <HashTag key={index}>{tag}</HashTag>
         ))}
-      </VibeContainer>
+      </HashTagContainer>
     </InfoCardWrapper>
   );
 };

@@ -60,17 +60,17 @@ const MockData = [
 ];
 
 const CardList = () => {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["fragranceCategories"],
-    queryFn: fetchFragranceCategories,
-  });
+  // const { data, isLoading, error } = useQuery({
+  //   queryKey: ["fragranceCategories"],
+  //   queryFn: fetchFragranceCategories,
+  // });
 
   // if (isLoading) return <div>로딩 중...</div>;
   // if (error) return <div>데이터를 불러오는 중 오류가 발생했어요.</div>;
 
   return (
     <CardContainer>
-      {data.map((item, index) => (
+      {MockData.map((item, index) => (
         <InfoCard
           key={index}
           name={item.name}
