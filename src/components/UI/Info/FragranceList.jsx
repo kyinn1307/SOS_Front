@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchFragranceCategories } from "../../../api/apis/fragrance";
 import styled from "styled-components";
-import InfoCard from "./InfoCard";
+import FragranceCard from "./FragranceCard";
 
 const CardContainer = styled.div`
   display: flex;
@@ -59,7 +59,7 @@ const MockData = [
   },
 ];
 
-const CardList = () => {
+const FragranceList = () => {
   // const { data, isLoading, error } = useQuery({
   //   queryKey: ["fragranceCategories"],
   //   queryFn: fetchFragranceCategories,
@@ -71,7 +71,7 @@ const CardList = () => {
   return (
     <CardContainer>
       {MockData.map((item, index) => (
-        <InfoCard
+        <FragranceCard
           key={index}
           name={item.name}
           description={item.description}
@@ -83,4 +83,4 @@ const CardList = () => {
   );
 };
 
-export default CardList;
+export default FragranceList;

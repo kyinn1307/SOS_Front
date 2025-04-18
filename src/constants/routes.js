@@ -1,7 +1,7 @@
 export const ROUTES = {
   HOME: "/",
   LOGIN: "/login",
-  INFO: "/info",
+  FRAGRANCE: "/fragrance",
   CHATBOT: "/chatbot",
   CHAT: "/chat",
   CHOICE: "/choice",

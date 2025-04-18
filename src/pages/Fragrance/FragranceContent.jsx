@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import StyledBtn from "../../components/UI/common/StyledBtn";
-import CardList from "../../components/UI/Info/CardList";
+import CardList from "../../components/UI/Info/FragranceList";
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -40,7 +40,7 @@ const GradientText = styled.span`
 const BtnWrapper = styled.div`
   margin-top: 25px;
 `;
-const InfoContent = () => {
+const FragranceContent = () => {
   const navigate = useNavigate();
 
   const handleBtnClick = () => {
@@ -63,4 +63,4 @@ const InfoContent = () => {
     </>
   );
 };
-export default InfoContent;
+export default FragranceContent;

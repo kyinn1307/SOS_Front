@@ -68,7 +68,7 @@ const HashTag = styled.span`
   color: #aaaaaa;
 `;
 
-const InfoCard = ({ name, description, fragrances, hashtags }) => {
+const FragranceCard = ({ name, description, fragrances, hashtags }) => {
   return (
     <InfoCardWrapper>
       <InfoContainer>
@@ -91,4 +91,4 @@ const InfoCard = ({ name, description, fragrances, hashtags }) => {
   );
 };
 
-export default InfoCard;
+export default FragranceCard;

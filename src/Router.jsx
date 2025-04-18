@@ -3,7 +3,7 @@ import { ROUTES } from "./constants/routes";
 
 import LoginPage from "./pages/Login/LoginPage";
 import MainPage from "./pages/Main/MainPage";
-import InfoPage from "./pages/Info/InfoPage";
+import FragrancePage from "./pages/Fragrance/FragrancePage";
 import ChatbotPage from "./pages/Chatbot/ChatbotPage";
 import ChatPage from "./pages/Chat/ChatPage";
 import ChoicePage from "./pages/Choice/ChoicePage";
@@ -19,7 +19,7 @@ const AppRouter = () => {
       <Routes>
         <Route path={ROUTES.HOME} element={<MainPage />} />
         <Route path={ROUTES.LOGIN} element={<LoginPage />} />
-        <Route path={ROUTES.INFO} element={<InfoPage />} />
+        <Route path={ROUTES.FRAGRANCE} element={<FragrancePage />} />
         <Route path={ROUTES.CHATBOT} element={<ChatbotPage />} />
         <Route path={ROUTES.CHAT} element={<ChatPage />} />
         <Route path={ROUTES.LOADING} element={<LoadingPage />} />
