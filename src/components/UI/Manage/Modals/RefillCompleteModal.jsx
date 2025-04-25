@@ -41,7 +41,7 @@ const Text = styled.div`
 `;
 
 const RefillCompleteModal = ({
-  flavorName,
+  catridgeName,
   beforeAmount,
   afterAmount,
   onClose,
@@ -58,7 +58,7 @@ const RefillCompleteModal = ({
       </Row>
       <Row>
         <Text>
-          {flavorName} 향료의 용액이 충전되었습니다 :{")"}
+          {catridgeName} 향료의 용액이 충전되었습니다 :{")"}
         </Text>
       </Row>
     </Container>

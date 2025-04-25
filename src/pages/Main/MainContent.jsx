@@ -46,7 +46,7 @@ const MainContent = () => {
   const navigate = useNavigate();
 
   const handleBtnClick = () => {
-    navigate(ROUTES.INFO);
+    navigate(ROUTES.FRAGRANCE);
   };
   return (
     <ContentWrapper>

@@ -31,7 +31,8 @@ const ChatbotWrapper = styled.div`
 const QuestionWrapper = styled.div`
   position: absolute;
   left: 100%;
-  margin-left: 12px;
+  top: -18px;
+  margin-left: 5px;
 `;
 
 const IntroText = styled.div`
@@ -66,6 +67,7 @@ const ChatContent = () => {
 
   //   return () => clearTimeout(timer);
   // }, []);
+
   return (
     <>
       <ContentWrapper>

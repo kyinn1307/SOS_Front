@@ -99,18 +99,18 @@ const DeleteBtnWrapper = styled.div`
   cursor: pointer;
 `;
 
-const RefillContentModal = ({ flavor, onClose, onComplete }) => {
+const RefillContentModal = ({ catridge, onClose, onComplete }) => {
   const [mode, setMode] = useState("refill");
   const [amount, setAmount] = useState("");
 
   const handleClick = async () => {
-    if (!flavor?.deviceId || !flavor?.cartridgeId) {
+    if (!catridge?.deviceId || !catridge?.cartridgeId) {
       alert("기기 또는 카트리지 정보가 없습니다.");
       return;
     }
 
-    const beforeAmount = flavor.remainingAmount;
-    const totalAmount = flavor.totalAmount;
+    const beforeAmount = catridge.remainingAmount;
+    const totalAmount = catridge.totalAmount;
 
     if (mode === "refill") {
       if (!amount || isNaN(amount)) {
@@ -122,12 +122,12 @@ const RefillContentModal = ({ flavor, onClose, onComplete }) => {
       const afterAmount = beforeAmount + addAmount;
 
       try {
-        await refillCartridge(flavor.deviceId, {
-          cartridgeId: flavor.cartridgeId,
+        await refillCartridge(catridge.deviceId, {
+          cartridgeId: catridge.cartridgeId,
           amount: addAmount,
         });
 
-        alert("용액이 성공적으로 추가되었습니다!");
+        console.log("용액이 성공적으로 추가되었습니다!");
         if (onComplete) {
           onComplete({
             beforeAmount,
@@ -137,12 +137,12 @@ const RefillContentModal = ({ flavor, onClose, onComplete }) => {
         }
       } catch (error) {
         const msg = error?.response?.data?.message || "추가에 실패했습니다.";
-        alert(msg);
+        console.log(msg);
       }
     } else if (mode === "replace") {
       try {
-        await replaceCartridge(flavor.deviceId, {
-          cartridgeId: flavor.cartridgeId,
+        await replaceCartridge(catridge.deviceId, {
+          cartridgeId: catridge.cartridgeId,
         });
 
         alert("카트리지가 성공적으로 교체되었습니다!");
@@ -155,7 +155,7 @@ const RefillContentModal = ({ flavor, onClose, onComplete }) => {
         }
       } catch (error) {
         const msg = error?.response?.data?.message || "교체에 실패했습니다.";
-        alert(msg);
+        console.log(msg);
       }
     }
   };
@@ -168,7 +168,7 @@ const RefillContentModal = ({ flavor, onClose, onComplete }) => {
       </DeleteBtnWrapper>{" "}
       <Row mt="16px">
         <Text>선택한 향료</Text>
-        <Input value={flavor?.name || ""} disabled />
+        <Input value={catridge?.name || ""} disabled />
       </Row>
       <ChoiceBtnContainer>
         <ChoiceBtnWrapper>

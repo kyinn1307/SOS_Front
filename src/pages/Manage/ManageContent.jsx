@@ -92,25 +92,28 @@ const ModalContainer = styled.div`
 
 const ManageContent = ({ deviceId }) => {
   const [showDeviceChoice, setShowDeviceChoice] = useState(false);
+  // modal 상태 관리
   const [isRefillModalOpen, setIsRefillModalOpen] = useState(false);
+  const [isRefillCompleteOpen, setIsRefillCompleteOpen] = useState(false);
   const [isFillModalOpen, setIsFillModalOpen] = useState(false);
   const [isFillCompleteModalOpen, setIsFillCompleteModalOpen] = useState(false);
   const [isChangeModalOpen, setIsChangeModalOpen] = useState(false);
-  const [isRefillCompleteOpen, setIsRefillCompleteOpen] = useState(false);
   const [isChangeCompleteOpen, setIsChangeCompleteOpen] = useState(false);
-  const [selectedFlavor, setSelectedFlavor] = useState(null);
+  // 선택된 catridge 상태 관리
+  const [selectedCatridge, setSelectedCatridge] = useState(null);
+  // complete modal 전달 props
   const [refillResult, setRefillResult] = useState({
     beforeAmount: 0,
     afterAmount: 0,
   });
 
+  const handleScrollBtnClick = () => {
+    setShowDeviceChoice((prev) => !prev);
+  };
+
   const handleChangeBtn = () => {
     setIsChangeModalOpen(true);
     setIsChangeCompleteOpen(false);
-  };
-
-  const handleScrollBtnClick = () => {
-    setShowDeviceChoice((prev) => !prev);
   };
 
   const handleChangeComplete = () => {
@@ -119,12 +122,12 @@ const ManageContent = ({ deviceId }) => {
   };
 
   const openModalWithFlavor = (flavor) => {
-    setSelectedFlavor(flavor);
+    setSelectedCatridge(flavor);
     setIsRefillModalOpen(true);
   };
 
   const openRefillModalWithFlavor = (flavor) => {
-    setSelectedFlavor(flavor);
+    setSelectedCatridge(flavor);
     setIsFillModalOpen(true);
   };
 
@@ -183,7 +186,7 @@ const ManageContent = ({ deviceId }) => {
           <BlurLayer />
           <ModalContainer>
             <FillFlavorModal
-              flavor={selectedFlavor}
+              catridgeName={selectedCatridge.name}
               onClose={() => setIsFillModalOpen(false)}
               onComplete={handleFillComplete}
             />
@@ -230,7 +233,7 @@ const ManageContent = ({ deviceId }) => {
           <BlurLayer />
           <ModalContainer>
             <RefillContentModal
-              flavor={selectedFlavor}
+              catridge={selectedCatridge}
               onClose={() => setIsRefillModalOpen(false)}
               onComplete={handleRefillComplete}
             />
@@ -245,7 +248,7 @@ const ManageContent = ({ deviceId }) => {
             <RefillCompleteModal
               beforeAmount={refillResult.beforeAmount}
               afterAmount={refillResult.afterAmount}
-              flavorName={selectedFlavor.name}
+              catridgeName={selectedCatridge.name}
               onClose={() => setIsRefillCompleteOpen(false)}
             />
           </ModalContainer>

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 const QuestionContainer = styled.div`
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,6 +10,7 @@ const QuestionContainer = styled.div`
 
 const QuestionWrapper = styled.div`
   position: absolute;
+  margin-left: 12px;
   font-weight: 500;
   font-size: 20px;
   line-height: 170%;

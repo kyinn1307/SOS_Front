@@ -65,7 +65,7 @@ const ChangeBtnWrapper = styled.div`
   margin-top: 20px;
 `;
 
-const FillFlavorModal = ({ onClose, onComplete }) => {
+const FillFlavorModal = ({ catridgeName, onClose, onComplete }) => {
   return (
     <Container>
       <Title>향료 추가하기</Title>
@@ -73,7 +73,7 @@ const FillFlavorModal = ({ onClose, onComplete }) => {
         <DeleteBtn onClick={onClose} />
       </BtnWrapper>
       <Row mt="16px">
-        <Text>향료 이름</Text>
+        <Text>{catridgeName}</Text>
         <FlavorChoice />
       </Row>
       <Row>

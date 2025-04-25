@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StyledBtn from "../../components/UI/common/StyledBtn";
-import CardList from "../../components/UI/Info/FragranceList";
+import FragranceList from "../../components/UI/Fragrance/FragranceList";
+import FragranceQrCard from "../../components/UI/Fragrance/FragranceQrCard";
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -40,12 +42,34 @@ const GradientText = styled.span`
 const BtnWrapper = styled.div`
   margin-top: 25px;
 `;
+
+const QrArea = styled.div`
+  position: fixed; /* 오버레이처럼 */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100; /* Content 위에 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(2px);
+  background-color: rgba(0, 0, 0, 0.3);
+`;
+
 const FragranceContent = () => {
+  const [showQrCard, setShowQrCard] = useState(false);
+
   const navigate = useNavigate();
 
   const handleBtnClick = () => {
     navigate("/chatbot");
   };
+
+  const handleQr = () => {
+    setShowQrCard(true);
+  };
+
   return (
     <>
       <ContentWrapper>
@@ -55,10 +79,17 @@ const FragranceContent = () => {
           <br />
           지금부터 각 향기 그룹의 느낌을 하나씩 소개할게요. :{")"}
         </IntroText>
-        <CardList />
+        <FragranceList />
         <BtnWrapper onClick={handleBtnClick}>
           <StyledBtn variant="black">향기 여정 시작하기</StyledBtn>
         </BtnWrapper>
+        {/* qr 카드 확인용 버튼 */}
+        <button onClick={handleQr}></button>
+        {showQrCard && (
+          <QrArea>
+            <FragranceQrCard onClose={() => setShowQrCard(false)} />
+          </QrArea>
+        )}
       </ContentWrapper>
     </>
   );
