@@ -89,6 +89,18 @@ const ModalContainer = styled.div`
   transform: translate(-50%, -50%);
   z-index: 11;
 `;
+const mockCartridge = [
+  { fragranceName: "배롱나무", currentAmount: 8, totalCapacity: 200 },
+  { fragranceName: "감나무", currentAmount: 200, totalCapacity: 200 },
+  { fragranceName: "경포대", currentAmount: 0, totalCapacity: 200 },
+  { fragranceName: "은행나무", currentAmount: 3, totalCapacity: 200 },
+  { fragranceName: "차수국", currentAmount: 0, totalCapacity: 200 },
+  { fragranceName: "태백산맥", currentAmount: 123, totalCapacity: 200 },
+  { fragranceName: "밤장미", currentAmount: 145, totalCapacity: 200 },
+  { fragranceName: "벚꽃", currentAmount: 123, totalCapacity: 200 },
+  { fragranceName: "안목해변", currentAmount: 123, totalCapacity: 200 },
+  { fragranceName: "소나무", currentAmount: 123, totalCapacity: 200 },
+];
 
 const ManageContent = ({ deviceId }) => {
   const [showDeviceChoice, setShowDeviceChoice] = useState(false);
@@ -149,13 +161,15 @@ const ManageContent = ({ deviceId }) => {
   });
 
   if (isLoading) return <div>로딩 중...</div>;
-  if (error) return <div>카트리지 정보를 불러오는 데 실패했어요.</div>;
+
+  const cartridgeList =
+    !error && data ? data.data?.cartridgeDetails : mockCartridge;
 
   return (
     <ContentWrapper>
       <HeaderWrapper>
         <TextWrapper>
-          <Title>센트오브사운드 {deviceId}호기</Title>
+          <Title>센트오브사운드 1호기</Title>
           <BtnWrapper>
             <ScrollBtn onClick={handleScrollBtnClick} />
           </BtnWrapper>
@@ -167,7 +181,7 @@ const ManageContent = ({ deviceId }) => {
       </HeaderWrapper>
       <FlavorList
         deviceId={deviceId}
-        flavorList={data?.data?.cartridgeDetails}
+        cartridgeList={cartridgeList}
         openModalWithFlavor={openModalWithFlavor}
         openRefillModalWithFlavor={openRefillModalWithFlavor}
       />

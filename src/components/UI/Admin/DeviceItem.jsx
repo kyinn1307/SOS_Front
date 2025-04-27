@@ -47,7 +47,7 @@ const DeviceItem = ({
   onEdit,
   onDelete,
 }) => {
-  const handleClick = () => onSelect(name);
+  const handleClick = () => onSelect({ id: idx, name, number });
   return (
     <Container selected={selected} onClick={handleClick}>
       <Index>{idx}</Index>

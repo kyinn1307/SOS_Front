@@ -39,15 +39,31 @@ const DeviceList = ({
   onDeleteDevice,
   onEditDevice,
 }) => {
-  // const devices = [
-  //   { idx: "001", name: "센트오브사운드 1호기", number: "3748B5" },
-  //   { idx: "002", name: "센트오브사운드 2호기", number: "3748B6" },
-  //   { idx: "003", name: "센트오브사운드 3호기", number: "3748B7" },
-  //   { idx: "004", name: "센트오브사운드 4호기", number: "3748B8" },
-  // ];
+  const mockDevices = [
+    {
+      id: "001",
+      deviceName: "센트오브사운드 1호기",
+      devicePhysicalId: "3748B5",
+    },
+    {
+      id: "002",
+      deviceName: "센트오브사운드 2호기",
+      devicePhysicalId: "3748B6",
+    },
+    {
+      id: "003",
+      deviceName: "센트오브사운드 3호기",
+      devicePhysicalId: "3748B7",
+    },
+    {
+      id: "004",
+      deviceName: "센트오브사운드 4호기",
+      devicePhysicalId: "3748B8",
+    },
+  ];
 
   const {
-    data: devices,
+    data: devicesData,
     isLoading,
     error,
   } = useQuery({
@@ -55,8 +71,9 @@ const DeviceList = ({
     queryFn: fetchDevices,
   });
 
+  const devices = !error && devicesData ? devicesData : mockDevices;
+
   if (isLoading) return <div>로딩 중...</div>;
-  if (error) return <div>기기 정보를 불러오는 데 실패했어요.</div>;
 
   return (
     <DeviceContainer>
@@ -68,7 +85,7 @@ const DeviceList = ({
           idx={device.id}
           name={device.deviceName}
           number={device.devicePhysicalId}
-          selected={selectedDevice === device.deviceName}
+          selected={selectedDevice?.number === device.devicePhysicalId}
           onSelect={onSelectDevice}
           onEdit={() => onEditDevice(device)}
           onDelete={() => onDeleteDevice(device.deviceName)}

@@ -25,12 +25,13 @@ const AdminContent = () => {
 
   const navigate = useNavigate();
 
-  const handleSelectDevice = (deviceName) => {
-    setSelectedDevice((prev) => (prev === deviceName ? null : deviceName));
+  const handleSelectDevice = (device) => {
+    setSelectedDevice((prev) => (prev?.id === device.id ? null : device));
   };
 
   const handleDeleteDevice = (deviceName) => {
     setIsDeleteModalOpen(true);
+    console.log(deviceName);
   };
 
   const handleRegisterDevice = () => {
@@ -46,7 +47,7 @@ const AdminContent = () => {
     if (!selectedDevice) {
       alert("기기를 선택해 주세요.");
     } else {
-      navigate(ROUTES.MANAGE.replace(":deviceId", selectedDevice.deviceId));
+      navigate(ROUTES.MANAGE.replace(":deviceId", selectedDevice.number));
     }
   };
 
