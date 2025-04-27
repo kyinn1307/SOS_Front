@@ -79,7 +79,7 @@ const RecoContent = () => {
       <ContentWrapper>
         <IntroText>
           🌟 당신을 위한 오늘의 향이 완성됐어요! 🌟
-          <br />이 향이 오늘의 당신을 더욱 빛나게 해줄 거예요! 💖💫{" "}
+          <br />이 향이 오늘의 당신을 더욱 빛나게 해줄 거예요! 💖💫
         </IntroText>
         <RecoCard title={titles[currentIndex]} />
 

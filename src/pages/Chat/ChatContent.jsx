@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import ChatbotIcon from "../../assets/chatbot/ChatbotIcon";
 import QuestionBox from "../../assets/chatbot/QuestionBox";
@@ -53,32 +53,62 @@ const ModalWrapper = styled.div`
   z-index: 10;
 `;
 
+const WS_URL = "ws://localhost:8080/ws/chat";
+
 const ChatContent = () => {
   const [isError, setIsError] = useState(false);
+  const [question, setQuestion] = useState("");
+  const socketRef = useRef(null);
 
-  const handleError = () => {
-    setIsError(true);
+  useEffect(() => {
+    const socket = new WebSocket(WS_URL);
+    socketRef.current = socket;
+
+    socket.onopen = () => {
+      console.log("WebSocket 연결");
+    };
+
+    socket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.question) {
+        setQuestion(data.question);
+      }
+    };
+
+    socket.onerror = (error) => {
+      console.error("WebSocket 에러 발생", error);
+      setIsError(true);
+    };
+
+    socket.onclose = () => {
+      console.log("WebSocket 연결 종료");
+    };
+
+    return () => {
+      socket.close();
+    };
+  }, []);
+
+  const sendAnswer = (answer) => {
+    if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
+      socketRef.current.send(JSON.stringify({ answer }));
+    } else {
+      console.error("WebSocket이 연결되어 있지 않습니다.");
+      setIsError(true);
+    }
   };
-
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setIsError(true);
-  //   }, 5000);
-
-  //   return () => clearTimeout(timer);
-  // }, []);
 
   return (
     <>
       <ContentWrapper>
-        {isError && (
+        {/* {isError && (
           <>
             <ModalWrapper>
               <BlurLayer />
               <Modal isDone={!isError} />
             </ModalWrapper>
           </>
-        )}
+        )} */}
         <IntroText>
           저, 센티와 함께 당신만을 위한 향을 찾아보고 싶군요!
           <br />
@@ -92,11 +122,12 @@ const ChatContent = () => {
           <ChatbotWrapper>
             <ChatbotIcon size="small" />
           </ChatbotWrapper>
+          {/* 질문 말풍선 */}
           <QuestionWrapper>
-            <QuestionBox>오늘 기분이 어떻게 변했으면 좋겠나요?</QuestionBox>
+            <QuestionBox>{question || "잠시만 기다려주세요..."}</QuestionBox>
           </QuestionWrapper>
         </ChatbotField>
-        <ChatInput />
+        <ChatInput onSend={sendAnswer} />
       </ContentWrapper>
     </>
   );
