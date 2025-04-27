@@ -101,7 +101,7 @@ const ProduceLoadingContent = () => {
   }, [progress, navigate]);
 
   const handleComplete = () => {
-    navigate(ROUTES.INFO);
+    navigate(ROUTES.FRAGRANCE);
   };
 
   return (

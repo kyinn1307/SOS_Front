@@ -51,12 +51,12 @@ const AlertWrapper = styled.div`
   height: 45px;
 `;
 
-const FlavorItem = ({
-  flavor,
+const CartridgeItem = ({
+  cartridge,
   openModalWithFlavor,
   openRefillModalWithFlavor,
 }) => {
-  const [rest, setRest] = useState(flavor.rest);
+  const [rest, setRest] = useState(cartridge.currentAmount);
   const [isAlert, setIsAlert] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
   const [neverFilled, setNeverFilled] = useState(
@@ -65,9 +65,9 @@ const FlavorItem = ({
 
   const handleClick = () => {
     if (neverFilled) {
-      openRefillModalWithFlavor(flavor);
+      openRefillModalWithFlavor(cartridge);
     } else {
-      openModalWithFlavor(flavor);
+      openModalWithFlavor(cartridge);
     }
   };
 
@@ -79,15 +79,15 @@ const FlavorItem = ({
   return (
     <Container>
       <AlertWrapper>{isAlert && <VolumeAlert />}</AlertWrapper>
-      <FlavorName>{flavor.fragranceName}</FlavorName>
+      <FlavorName>{cartridge.fragranceName}</FlavorName>
       <VolumeContainer>
-        <Ongoing rest={(rest / flavor.totalCapacity) * 100}></Ongoing>
+        <Ongoing rest={(rest / cartridge.totalCapacity) * 100}></Ongoing>
       </VolumeContainer>
       {neverFilled ? (
         <VolumeText>0/0(ml)</VolumeText>
       ) : (
         <VolumeText isEmpty={isEmpty}>
-          {rest}/{flavor.totalCapacity}(ml)
+          {cartridge.currentAmount}/{cartridge.totalCapacity}(ml)
         </VolumeText>
       )}
       <RefillBtn
@@ -99,4 +99,4 @@ const FlavorItem = ({
   );
 };
 
-export default FlavorItem;
+export default CartridgeItem;

@@ -83,8 +83,8 @@ const FragranceContent = () => {
         <BtnWrapper onClick={handleBtnClick}>
           <StyledBtn variant="black">향기 여정 시작하기</StyledBtn>
         </BtnWrapper>
-        {/* qr 카드 확인용 버튼 */}
-        <button onClick={handleQr}></button>
+        {/* qr 카드 테스트 확인용 버튼 */}
+        {/* <button onClick={handleQr}></button> */}
         {showQrCard && (
           <QrArea>
             <FragranceQrCard onClose={() => setShowQrCard(false)} />

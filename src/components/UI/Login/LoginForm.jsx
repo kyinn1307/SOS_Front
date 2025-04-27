@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "../../../api/apis/auth";
-import { useAuthStore } from "../../../store/authStore";
+import { useAuthStore } from "../../../context/authStore";
 
 import Button from "../common/Button";
 import Input from "../common/Input";
