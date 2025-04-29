@@ -7,14 +7,19 @@ const CommentWrapper = styled.div`
   justify-content: center;
   width: 400px;
   height: 116px;
+  margin-bottom: 27px;
+  z-index: 5;
 `;
 
 const TextContainer = styled.div`
   position: absolute;
+  width: 100%;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   font-size: 17px;
   line-height: 170%;
-  letter-spacing: -0.011em;
 `;
 
 const CommentBox = ({ children }) => {

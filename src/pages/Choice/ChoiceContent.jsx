@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import ChoiceList from "../../components/UI/Chatbot/ChoiceList";
-import { StyledBtn } from "../../components/UI/common/StyledBtn";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ChoiceList from "../../components/UI/Chatbot/ChoiceList";
+import StyledBtn from "../../components/UI/common/StyledBtn";
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -40,7 +41,13 @@ const BtnWrapper = styled.div`
 `;
 const ChoiceContent = () => {
   const [isBtnOn, setIsBtnOn] = useState(false);
+  const [selectedItems, setSelectedItems] = useState([]);
 
+  const navigate = useNavigate();
+
+  const handleBtnClick = () => {
+    navigate("/loading");
+  };
   return (
     <>
       <ContentWrapper>
@@ -48,9 +55,14 @@ const ChoiceContent = () => {
           🌿 방금 시향한 향 중에서 가장 마음을 사로잡은 향을 골라주세요! 🌿
         </IntroText>
         <IndicateText>최대 2개까지 선택할 수 있어요. :{")"}</IndicateText>
-        <ChoiceList />
-        <BtnWrapper>
-          <StyledBtn variant="black" disabled={!isBtnOn}>
+        <ChoiceList
+          selectedItems={selectedItems}
+          setSelectedItems={setSelectedItems}
+        />
+        <BtnWrapper
+          onClick={selectedItems.length > 0 ? handleBtnClick : undefined}
+        >
+          <StyledBtn variant="black" disabled={selectedItems.length === 0}>
             나만의 향 찾기 {">"}
           </StyledBtn>
         </BtnWrapper>

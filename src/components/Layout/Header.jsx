@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import SosLogo from "../../assets/sos_logo";
 
 const HeaderContainer = styled.div`
@@ -25,30 +26,51 @@ const SettingBtnField = styled.div`
 `;
 
 const SettingBtn = styled.button`
-  font-family: "Pretendard";
   border: none;
   background: none;
   width: 56px;
   height: 19px;
   font-size: 16px;
   cursor: pointer;
+  font-weight: ${({ active }) => (active ? "bold" : "normal")};
 `;
 
-const Header = () => {
+const Header = ({ openLogoutModal }) => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
-  const shouldShowSettings = location.pathname === "/";
+  const shouldShowSettings =
+    location.pathname === "/" ||
+    location.pathname === "/admin" ||
+    location.pathname === "/manage";
+
+  const handleBtnClick = (path) => () => {
+    navigate(path);
+  };
+
+  const handleCloseModal = () => {
+    setShowLogoutModal(false);
+  };
 
   return (
     <>
       <HeaderContainer>
-        <LogoWrapper>
+        <LogoWrapper onClick={handleBtnClick("/")}>
           <SosLogo />
         </LogoWrapper>
         {shouldShowSettings && (
           <SettingBtnField>
-            <SettingBtn>기기관리</SettingBtn>
-            <SettingBtn>로그아웃</SettingBtn>
+            <SettingBtn
+              onClick={handleBtnClick("/admin")}
+              active={
+                location.pathname === "/admin" ||
+                location.pathname === "/manage"
+              }
+            >
+              기기관리
+            </SettingBtn>
+            <SettingBtn onClick={openLogoutModal}>로그아웃</SettingBtn>
           </SettingBtnField>
         )}
       </HeaderContainer>

@@ -1,28 +1,32 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ROUTES } from "./constants/routes";
 
 import LoginPage from "./pages/Login/LoginPage";
 import MainPage from "./pages/Main/MainPage";
-import InfoPage from "./pages/Info/InfoPage";
+import FragrancePage from "./pages/Fragrance/FragrancePage";
 import ChatbotPage from "./pages/Chatbot/ChatbotPage";
 import ChatPage from "./pages/Chat/ChatPage";
 import ChoicePage from "./pages/Choice/ChoicePage";
-import LoadingPage from "./pages/Choice/LoadingPage";
+import LoadingPage from "./pages/Loading/LoadingPage";
 import RecoPage from "./pages/Recommend/RecoPage";
-import RecoLoadingPage from "./pages/Recommend/RecoLoadingPage";
+import ProduceLoadingPage from "./pages/Loading/ProduceLoadingPage";
+import AdminPage from "./pages/Admin/AdminPage";
+import ManagePage from "./pages/Manage/ManagePage";
+
 const AppRouter = () => {
   return (
     <Router>
       <Routes>
-        {/* <Route path="/" element={isLoggedIn ? <MainPage /> : <LoginPage />} /> */}
-        <Route path="/" element={<MainPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/info" element={<InfoPage />} />
-        <Route path="/chatbot" element={<ChatbotPage />} />
-        <Route path="/chat" element={<ChatPage />} />
-        <Route path="/choice" element={<ChoicePage />} />
-        <Route path="/loading" element={<LoadingPage />} />
-        <Route path="/reco" element={<RecoPage />} />
-        <Route path="/recoload" element={<RecoLoadingPage />} />
+        <Route path={ROUTES.HOME} element={<MainPage />} />
+        <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+        <Route path={ROUTES.FRAGRANCE} element={<FragrancePage />} />
+        <Route path={ROUTES.CHATBOT} element={<ChatbotPage />} />
+        <Route path={ROUTES.CHAT} element={<ChatPage />} />
+        <Route path={ROUTES.LOADING} element={<LoadingPage />} />
+        <Route path={ROUTES.RECOMMEND} element={<RecoPage />} />
+        <Route path={ROUTES.PRODUCE_LOADING} element={<ProduceLoadingPage />} />
+        <Route path={ROUTES.ADMIN} element={<AdminPage />} />
+        <Route path={`${ROUTES.MANAGE}/:deviceId`} element={<ManagePage />} />
       </Routes>
     </Router>
   );

@@ -1,4 +1,37 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+import RecoCardImage from "./RecoCardImage";
+
+const dramaticFlyIn = keyframes`
+  0% {
+    transform: perspective(1200px) rotateY(270deg) scale(0.4) translateZ(-300px);
+    opacity: 0;
+  }
+  60% {
+    transform: perspective(1200px) rotateY(15deg) scale(1.05) translateZ(30px);
+    opacity: 1;
+  }
+  80% {
+    transform: perspective(1200px) rotateY(-5deg) scale(1.02) translateZ(10px);
+  }
+  100% {
+    transform: perspective(1200px) rotateY(0deg) scale(1) translateZ(0);
+  }
+`;
+
+const flyIn = keyframes`
+  0% {
+    transform: perspective(1000px) rotateY(90deg) scale(0.5) translateZ(-300px);
+    opacity: 0;
+  }
+  60% {
+    transform: perspective(1000px) rotateY(-10deg) scale(1.05) translateZ(30px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: perspective(1000px) rotateY(0deg) scale(1) translateZ(0);
+    opacity: 1;
+  }
+`;
 
 const Container = styled.div`
   position: relative;
@@ -14,6 +47,10 @@ const Container = styled.div`
 
   box-shadow: 0px 0px 10px rgba(231, 221, 193, 0.5);
   border-radius: 15px;
+
+  animation: ${dramaticFlyIn} 1.3s ease-out;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
 `;
 
 const Main = styled.div`
@@ -26,7 +63,7 @@ const Main = styled.div`
   border-bottom: 0.5px solid #d3d3d3;
 `;
 
-const PhotoWrapper = styled.img`
+const PhotoWrapper = styled.div`
   margin-top: 3px;
 
   width: 286px;
@@ -46,7 +83,6 @@ const TextWrapper = styled.div`
 `;
 
 const Title = styled.div`
-  width: 99px;
   height: 40px;
 
   font-weight: 700;
@@ -94,13 +130,15 @@ const FooterContent = styled.div`
   flex-grow: 0;
 `;
 
-const RecoCard = () => {
+const RecoCard = ({ title, content, top, middle, base }) => {
   return (
     <Container>
       <Main>
-        <PhotoWrapper />
+        <PhotoWrapper>
+          <RecoCardImage title={title} />
+        </PhotoWrapper>
         <TextWrapper>
-          <Title>데이트 전날</Title>
+          <Title>{title}</Title>
           <Content>
             프루티, 민트, 플로럴이 어우러져
             <br />

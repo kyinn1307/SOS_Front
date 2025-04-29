@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import SosLetterLogo from "../../assets/main/sos_letter_logo";
-import { StyledBtn } from "../../components/UI/common/StyledBtn";
+import StyledBtn from "../../components/UI/common/StyledBtn";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../constants/routes";
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -41,6 +43,11 @@ const BtnWrapper = styled.div`
   margin-top: 27px;
 `;
 const MainContent = () => {
+  const navigate = useNavigate();
+
+  const handleBtnClick = () => {
+    navigate(ROUTES.FRAGRANCE);
+  };
   return (
     <ContentWrapper>
       <LogoWrapper>
@@ -54,8 +61,8 @@ const MainContent = () => {
         센트오브사운드와 시작해보세요! :{")"}
       </IntroText>
       <GradientText>오늘도 힘차게! 수고하시는 당신을 응원합니다!</GradientText>
-      <BtnWrapper>
-        <StyledBtn variant="black">향기 여정 시작하기 {">"}</StyledBtn>
+      <BtnWrapper onClick={handleBtnClick}>
+        <StyledBtn variant="black">향기 여정 시작하기</StyledBtn>
       </BtnWrapper>
     </ContentWrapper>
   );
