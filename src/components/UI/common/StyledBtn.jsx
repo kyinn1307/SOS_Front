@@ -40,7 +40,7 @@ export const StyledBtnWrapper = styled(Button)`
     `
     background-color: #fff;
     color: #000;
-    border: 1px solid #000;
+    border: 1.4px solid #000;
   `}
 
   &:disabled {
@@ -49,8 +49,24 @@ export const StyledBtnWrapper = styled(Button)`
     cursor: not-allowed;
   }
 `;
-const TextArea = styled.span`
+
+const TextArea = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+`;
+
+const Text = styled.span`
   display: inline-block;
+  font-weight: 350;
+  height: 30px;
+
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 150%;
+  letter-spacing: -0.011em;
 `;
 
 const ArrowWrapper = styled.div`
@@ -77,18 +93,20 @@ const StyledBtn = ({
       isModal={isModal}
       width={width}
     >
-      <TextArea>{children}</TextArea>
-      {!isDeleteModal && (
-        <ArrowWrapper>
-          {disabled ? (
-            <BtnDisabledArrow />
-          ) : variant === "black" ? (
-            <BtnBlackArrow />
-          ) : (
-            <BtnWhiteArrow />
-          )}
-        </ArrowWrapper>
-      )}
+      <TextArea>
+        <Text>{children}</Text>
+        {!isDeleteModal && (
+          <ArrowWrapper>
+            {disabled ? (
+              <BtnDisabledArrow />
+            ) : variant === "black" ? (
+              <BtnBlackArrow />
+            ) : (
+              <BtnWhiteArrow />
+            )}
+          </ArrowWrapper>
+        )}
+      </TextArea>
     </StyledBtnWrapper>
   );
 };

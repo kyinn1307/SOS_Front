@@ -42,6 +42,16 @@ const ChatInputField = styled.textarea`
 
   border: none;
   outline: none;
+
+  &::placeholder {
+    font-family: "Pretendard";
+
+    font-weight: 350;
+    font-size: 17px;
+    line-height: 170%;
+    letter-spacing: -0.011em;
+    color: #d3d3d3;
+  }
 `;
 
 const ChatSendBtnWrapper = styled.div`

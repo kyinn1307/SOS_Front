@@ -17,9 +17,10 @@ const TextContainer = styled.div`
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
-
+  font-weight: 350;
   font-size: 17px;
   line-height: 170%;
+  letter-spacing: -0.011em;
 `;
 
 const CommentBox = ({ children }) => {

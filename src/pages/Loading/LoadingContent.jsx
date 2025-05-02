@@ -48,6 +48,7 @@ const Text = styled.div`
   line-height: 150%;
   text-align: center;
   letter-spacing: -0.011em;
+  font-weight: 350;
   color: #2c2c2c;
   z-index: 1;
 `;
@@ -58,10 +59,14 @@ const IndicateText = styled.div`
   text-align: center;
   letter-spacing: -0.011em;
   color: #aaaaaa;
+  font-weight: 350;
   z-index: 1;
   margin-top: 7px;
 `;
 
+const SemiBoldText = styled.span`
+  font-weight: 450;
+`;
 const LoadingContent = () => {
   const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
@@ -103,8 +108,10 @@ const LoadingContent = () => {
           <TextWrapper>
             <Text>
               🎵 당신을 위한 향기가
-              <GradientText> 아름다운 멜로디처럼</GradientText> 은은하게 퍼지고
-              있어요... ✨
+              <SemiBoldText>
+                <GradientText> 아름다운 멜로디처럼 </GradientText>
+              </SemiBoldText>
+              은은하게 퍼지고 있어요... ✨
             </Text>
             <IndicateText>5-10초 정도 소요됩니다.</IndicateText>
           </TextWrapper>
