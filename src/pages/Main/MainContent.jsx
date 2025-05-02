@@ -3,6 +3,7 @@ import SosLetterLogo from "../../assets/main/sos_letter_logo";
 import StyledBtn from "../../components/UI/common/StyledBtn";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
+import BoldText from "../../components/UI/common/BoldText";
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -21,6 +22,7 @@ const LogoWrapper = styled.div`
 const IntroText = styled.div`
   margin-top: 61.05px;
   font-size: 20px;
+  font-weight: 350;
   line-height: 170%;
   letter-spacing: -0.011em;
   color: #2c2c2c;
@@ -28,7 +30,7 @@ const IntroText = styled.div`
 
 const GradientText = styled.div`
   margin-top: 61px;
-  font-weight: 600;
+  font-weight: 550;
   font-size: 17px;
   line-height: 26px;
 
@@ -39,6 +41,9 @@ const GradientText = styled.div`
   text-fill-color: transparent;
 `;
 
+const Text = styled.span`
+  font-weight: 500;
+`;
 const BtnWrapper = styled.div`
   margin-top: 27px;
 `;
@@ -56,7 +61,8 @@ const MainContent = () => {
       <IntroText>
         안녕하세요! 😊
         <br />
-        시향부터 향수 제작까지, 향과 함께하는 순간을
+        <Text>시향부터 향수 제작까지, </Text>
+        향과 함께하는 순간을
         <br />
         센트오브사운드와 시작해보세요! :{")"}
       </IntroText>

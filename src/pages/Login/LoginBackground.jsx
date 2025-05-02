@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import SosBgTop from "../../assets/main/sos_bg_top";
-import SosBgBottom from "../../assets/main/sos_bg_bottom";
+import SosLoginBgBottom from "../../assets/login/sos_login_bg_bottom";
+import SosLoginBgTop from "../../assets/login/sos_login_bg_top";
 
 const LoginBgWrapper = styled.div`
   position: fixed;
@@ -31,10 +31,10 @@ const LoginBackground = () => {
     <>
       <LoginBgWrapper>
         <WrapperTop>
-          <SosBgTop />
+          <SosLoginBgTop />
         </WrapperTop>
         <WrapperBottom>
-          <SosBgBottom />
+          <SosLoginBgBottom />
         </WrapperBottom>
       </LoginBgWrapper>
     </>
