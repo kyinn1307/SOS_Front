@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import StyledBtn from "../../components/UI/common/StyledBtn";
 import FragranceList from "../../components/UI/Fragrance/FragranceList";
 import FragranceQrCard from "../../components/UI/Fragrance/FragranceQrCard";
+import { ROUTES } from "../../constants/routes";
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -18,10 +19,9 @@ const ContentWrapper = styled.div`
 const IntroText = styled.div`
   font-family: "Pretendard";
   font-style: normal;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 17px;
   line-height: 170%;
-  /* or 29px */
   text-align: center;
   letter-spacing: -0.011em;
 `;
@@ -57,19 +57,56 @@ const QrArea = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
 `;
 
+const WS_BASE_URL = import.meta.env.VITE_WS_BASE_URL;
+
 const FragranceContent = () => {
   const [showQrCard, setShowQrCard] = useState(false);
-
+  const [fragranceInfo, setFragranceInfo] = useState(null);
+  const socketRef = useRef(null);
   const navigate = useNavigate();
 
   const handleBtnClick = () => {
-    navigate("/chatbot");
+    navigate(ROUTES.CHATBOT);
   };
 
   const handleQr = () => {
     setShowQrCard(true);
   };
 
+  const handleQrScan = (deviceId) => {
+    if (socketRef.current) {
+      socketRef.current.close();
+    }
+
+    const socket = new WebSocket(WS_BASE_URL);
+    socketRef.current = socket;
+
+    socket.onopen = () => {
+      console.log("WebSocket 연결 성공");
+
+      const subscribeMessage = {
+        action: "subscribe",
+        topic: `/fragrance/detail/${deviceId}`,
+      };
+      socket.send(JSON.stringify(subscribeMessage));
+    };
+
+    socket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.fragranceInfo) {
+        setFragranceInfo(data.fragranceInfo);
+        setShowQrCard(true);
+      }
+    };
+
+    socket.onerror = (error) => {
+      console.error("WebSocket 오류 발생", error);
+    };
+
+    socket.onclose = () => {
+      console.log("WebSocket 연결 종료");
+    };
+  };
   return (
     <>
       <ContentWrapper>
@@ -83,11 +120,16 @@ const FragranceContent = () => {
         <BtnWrapper onClick={handleBtnClick}>
           <StyledBtn variant="black">향기 여정 시작하기</StyledBtn>
         </BtnWrapper>
-        {/* qr 카드 테스트 확인용 버튼 */}
-        {/* <button onClick={handleQr}></button> */}
-        {showQrCard && (
+        {/* 테스트용 QR 스캔 버튼 */}
+        {/* <button onClick={() => handleQrScan("exampleDeviceId123")}>
+          QR 스캔 테스트
+        </button> */}
+        {showQrCard && fragranceInfo && (
           <QrArea>
-            <FragranceQrCard onClose={() => setShowQrCard(false)} />
+            <FragranceQrCard
+              fragranceInfo={fragranceInfo}
+              onClose={() => setShowQrCard(false)}
+            />
           </QrArea>
         )}
       </ContentWrapper>

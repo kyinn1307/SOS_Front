@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import CloseBtn from "../../../assets/close_btn";
-import { fragranceImagesMap } from "../../../constants/fragranceImageMap";
 
 const Container = styled.div`
   display: flex;
@@ -73,28 +72,21 @@ const BtnWrapper = styled.div`
   margin-top: 15px;
 `;
 
-const FragranceQrCard = ({ onClose }) => {
+const FragranceQrCard = ({ fragranceInfo, onClose }) => {
   return (
     <Container>
       <CardWrapper>
         <ImageWrapper>
           <img
-            src={fragranceImagesMap.anmokBeach}
-            alt="배롱나무"
+            src={fragranceInfo.imageUrl}
+            alt={fragranceInfo.realName}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </ImageWrapper>
-        <Title>배롱나무</Title>
-        <SubTitle>맑은 이슬을 머금은 배롱나무 생화 꽃 향기</SubTitle>
+        <Title>{fragranceInfo.name}</Title>
+        <SubTitle>{fragranceInfo.realName}</SubTitle>
         <Separator />
-        <Content>
-          초여름의 장맛비 속, 우산 너머로 배롱나무 꽃잎들이 쏟아질 듯 피어
-          있습니다.
-          <br />
-          굵은 빗방울이 꽃잎을 스치며 공기 속으로 번지는 건, <br />
-          촉촉하고 생생한 꽃 내음. 빗속에서도 환하게 피어 있는 그 향은, <br />
-          유난히 푸르고 투명한 감정으로 다가옵니다.
-        </Content>
+        <Content>{fragranceInfo.description}</Content>
       </CardWrapper>
       <BtnWrapper onClick={onClose}>
         <CloseBtn />
