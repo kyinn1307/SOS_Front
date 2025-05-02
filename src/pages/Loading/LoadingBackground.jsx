@@ -9,6 +9,7 @@ const LoadingBgWrapper = styled.div`
   justify-content: center;
   align-items: center;
   z-index: -1;
+  background-color: #edf6f8;
 `;
 
 const ImgWrapper = styled.div`
