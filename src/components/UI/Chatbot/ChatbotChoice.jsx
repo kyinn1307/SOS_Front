@@ -17,6 +17,7 @@ const Container = styled.div`
 `;
 
 const TextWrapper = styled.div`
+  font-weight: 350;
   font-size: 17px;
   line-height: 180%;
   text-align: center;

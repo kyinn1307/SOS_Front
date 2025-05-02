@@ -3,15 +3,15 @@ import { getData, patchData } from "../apiClient";
 export const getCartridges = (deviceId) =>
   getData(`/devices/${deviceId}/cartridges`);
 
-export const refillCartridge = (deviceId, data) =>
-  patchData(`/devices/${deviceId}/cartridges/add`, data);
+export const refillCartridge = (deviceId, catridgeId, data) =>
+  patchData(`/devices/${deviceId}/cartridges/${catridgeId}refill`, data);
 
-export const replaceCartridge = (deviceId, data) =>
-  patchData(`/devices/${deviceId}/cartridges/replace`, data);
+export const replaceCartridge = (deviceId, cartridgeId) =>
+  patchData(`/devices/${deviceId}/cartridges/${cartridgeId}/replace`);
 
-export const sendCartridgeWarning = (deviceId) => {
+export const sendCartridgeWarning = (deviceId, catridgeId) => {
   const socket = new WebSocket(
-    `wss://api.scentofsound.com/recipes/detail/${deviceId}`
+    `wss://api.scentofsound.com/alert/${deviceId}/${catridgeId}`
   );
 
   socket.onopen = () => {

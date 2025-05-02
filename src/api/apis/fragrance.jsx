@@ -4,7 +4,7 @@ export const fetchFragranceCategories = () => getData("/fragrances/category");
 
 export const sendFragranceDetails = (deviceId, fragranceDetails) => {
   const socket = new WebSocket(
-    `wss://api.scentofsound.com/ws/fragrances/detail${deviceId}`
+    `wss://api.scentofsound.com/ws/fragrance/detail${deviceId}`
   );
 
   socket.onopen = () => {
