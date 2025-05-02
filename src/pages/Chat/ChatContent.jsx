@@ -6,6 +6,8 @@ import ChatInput from "../../components/UI/Chatbot/ChatInput";
 import BlurLayer from "../../components/Layout/BlurLayer";
 import Modal from "../../components/UI/common/Modal";
 import BoldText from "../../components/UI/common/BoldText";
+import { startChatSession } from "../../api/apis/chatbot";
+import { useNavigate } from "react-router-dom";
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -41,6 +43,7 @@ const IntroText = styled.div`
   line-height: 180%;
   text-align: center;
   letter-spacing: -0.011em;
+  font-weight: 350;
   color: #2c2c2c;
 `;
 
@@ -53,45 +56,82 @@ const ModalWrapper = styled.div`
   z-index: 10;
 `;
 
-const WS_URL = "ws://localhost:8080/ws/chat";
-
 const ChatContent = () => {
-  const [isError, setIsError] = useState(false);
   const [question, setQuestion] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const [isError, setIsError] = useState(false);
   const socketRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const socket = new WebSocket(WS_URL);
-    socketRef.current = socket;
+    const initChatSession = async () => {
+      try {
+        const response = await startChatSession();
+        const { sessionId, initialMessage, websocketUrl } = response.data;
 
-    socket.onopen = () => {
-      console.log("WebSocket 연결");
-    };
+        setQuestion(initialMessage);
 
-    socket.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (data.question) {
-        setQuestion(data.question);
+        const socket = new WebSocket(websocketUrl);
+        socketRef.current = socket;
+
+        socket.onopen = () => {
+          console.log("WebSocket 연결 성공");
+        };
+
+        socket.onmessage = (event) => {
+          const response = JSON.parse(event.data);
+
+          if (response.type === "message" && response.data?.content) {
+            setIsTyping(false);
+            setQuestion(response.data.content);
+
+            if (response.data.conversationStatus?.complete) {
+              navigate("/loading");
+            }
+          } else if (
+            response.type === "status" &&
+            response.data?.status === "typing"
+          ) {
+            setIsTyping(true);
+          } else if (response.type === "error") {
+            console.error("서버 에러:", response.data.message);
+            setIsError(true);
+          }
+        };
+
+        socket.onerror = (error) => {
+          console.error("WebSocket 오류 발생", error);
+          setIsError(true);
+        };
+
+        socket.onclose = () => {
+          console.log("WebSocket 연결 종료");
+        };
+      } catch (error) {
+        console.error("채팅 세션 생성 실패", error);
+        setIsError(true);
       }
     };
 
-    socket.onerror = (error) => {
-      console.error("WebSocket 에러 발생", error);
-      setIsError(true);
-    };
-
-    socket.onclose = () => {
-      console.log("WebSocket 연결 종료");
-    };
+    initChatSession();
 
     return () => {
-      socket.close();
+      if (socketRef.current) {
+        socketRef.current.close();
+      }
     };
-  }, []);
+  }, [navigate]);
 
   const sendAnswer = (answer) => {
     if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
-      socketRef.current.send(JSON.stringify({ answer }));
+      const payload = {
+        type: "message",
+        data: {
+          content: answer,
+          timestamp: new Date().toISOString(),
+        },
+      };
+      socketRef.current.send(JSON.stringify(payload));
     } else {
       console.error("WebSocket이 연결되어 있지 않습니다.");
       setIsError(true);
@@ -122,7 +162,6 @@ const ChatContent = () => {
           <ChatbotWrapper>
             <ChatbotIcon size="small" />
           </ChatbotWrapper>
-          {/* 질문 말풍선 */}
           <QuestionWrapper>
             <QuestionBox>{question || "잠시만 기다려주세요..."}</QuestionBox>
           </QuestionWrapper>

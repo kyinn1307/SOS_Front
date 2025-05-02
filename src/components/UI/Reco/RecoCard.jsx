@@ -76,7 +76,8 @@ const PhotoWrapper = styled.div`
 const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 185px;
+  padding-left: 8px;
+  padding-right: 8px;
   margin-top: 15px;
   margin-bottom: 17px;
   align-items: center;
@@ -85,7 +86,7 @@ const TextWrapper = styled.div`
 const Title = styled.div`
   height: 40px;
 
-  font-weight: 700;
+  font-weight: 600;
   font-size: 22px;
   line-height: 180%;
 
@@ -96,10 +97,10 @@ const Title = styled.div`
 `;
 
 const Content = styled.div`
-  width: 185px;
   height: 52px;
 
   font-size: 15px;
+  font-weight: 350;
   line-height: 170%;
 
   text-align: center;
@@ -112,7 +113,7 @@ const Footer = styled.div`
   width: 258px;
   display: flex;
   flex-direction: row;
-  gap: 30px;
+  justify-content: space-between;
   margin-top: 8px;
 `;
 
@@ -124,32 +125,39 @@ const FooterContent = styled.div`
 
   color: #aaaaaa;
 
-  flex: none;
-  order: 1;
-  align-self: stretch;
-  flex-grow: 0;
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 350;
 `;
 
-const RecoCard = ({ title, content, top, middle, base }) => {
+const RecoCard = ({ recipeInfo }) => {
+  const { imageUrl, name, description, topNotes, middleNotes, baseNotes } =
+    recipeInfo;
+
   return (
     <Container>
       <Main>
         <PhotoWrapper>
-          <RecoCardImage title={title} />
+          <img
+            src={imageUrl}
+            alt="추천 레시피 이미지"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              borderRadius: "10px",
+            }}
+          />
         </PhotoWrapper>
         <TextWrapper>
-          <Title>{title}</Title>
-          <Content>
-            프루티, 민트, 플로럴이 어우러져
-            <br />
-            기분 좋은 설렘을 전달합니다.
-          </Content>
+          <Title>{name}</Title>
+          <Content>{description}</Content>
         </TextWrapper>
       </Main>
       <Footer>
-        <FooterContent>Top : 안목해변</FooterContent>
-        <FooterContent>Middle : 감나무, 벚꽃</FooterContent>
-        <FooterContent>Base : 차수국</FooterContent>
+        <FooterContent>Top: {topNotes?.[0] || "-"}</FooterContent>
+        <FooterContent>Middle: {middleNotes?.[0] || "-"}</FooterContent>
+        <FooterContent>Base: {baseNotes?.[0] || "-"}</FooterContent>
       </Footer>
     </Container>
   );
