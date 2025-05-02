@@ -29,7 +29,7 @@ const TextContainer = styled.div`
   margin-top: 219px;
 `;
 
-const StyledProduceLoadingCommentLayer = styled(ProduceLoadingCommentLayer)`
+const StyleProduceLoadingCommentLayer = styled(ProduceLoadingCommentLayer)`
   position: absolute;
   top: 0;
   left: 0;
@@ -163,7 +163,7 @@ const ProduceLoadingContent = () => {
                 당신의 이야기가 향기로 피어나는 중입니다. 💫🌸
               </Text>
             </TextWrapper> */}
-            <StyledProduceLoadingCommentLayer />
+            <StyleProduceLoadingCommentLayer />
           </TextContainer>
           <ProgressBar progress={progress} />
         </>
