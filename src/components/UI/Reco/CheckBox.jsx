@@ -7,7 +7,9 @@ const CheckboxContainer = styled.div`
   flex-direction: row;
   gap: 7px;
   align-items: center;
-  cursor: pointer;
+
+  font-family: "Pretendard";
+  font-style: normal;
 
   font-size: 15px;
   line-height: 180%;
@@ -20,10 +22,13 @@ const StyledCheckBox = styled.input`
   width: 15px;
   height: 15px;
   border: 1px solid #aaaaaa;
-  background-color: transparent;
+  background-color: #fafaf8;
   cursor: pointer;
   appearance: none;
   border-radius: 0;
+  margin: 0;
+
+  box-sizing: border-box;
 
   &:checked {
     background-image: url(${CheckedBox});

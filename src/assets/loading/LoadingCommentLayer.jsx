@@ -1,12 +1,10 @@
-import loading_blur from "./loading_blur.png";
+import loading_blur from "./loading_blur_text.png";
 import styled from "styled-components";
 
 const StyledImg = styled.img`
-  width: 644px;
-  height: 180px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  top: 0;
-  left: 0;
   z-index: 0;
 `;
 

@@ -4,7 +4,8 @@ const Container = styled.div`
   width: 768px;
   height: 7px;
   background: #fafaf8;
-  margin-top: 228px;
+  margin-top: 191px;
+  border-radius: 10px;
 `;
 
 const Filler = styled.div`
@@ -12,6 +13,7 @@ const Filler = styled.div`
   width: ${({ progress }) => progress}%;
   background: #2c2c2c;
   transition: width 0.3s ease-in-out;
+  border-radius: 10px;
 `;
 
 const ProgressBar = ({ progress }) => {

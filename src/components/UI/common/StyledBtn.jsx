@@ -31,7 +31,7 @@ export const StyledBtnWrapper = styled(Button)`
   ${({ variant }) =>
     variant === "black" &&
     `
-    background-color: #000;
+    background-color: #2C2C2C;
     color: #fff;
     border: none;
   `}
@@ -44,7 +44,7 @@ export const StyledBtnWrapper = styled(Button)`
   `}
 
   &:disabled {
-    background-color: #ccc;
+    background-color: #d3d3d3;
     color: #fafaf8;
     cursor: not-allowed;
   }
@@ -63,7 +63,6 @@ const Text = styled.span`
 
   font-family: "Pretendard";
   font-style: normal;
-  font-weight: 400;
   font-size: 20px;
   line-height: 150%;
   letter-spacing: -0.011em;
