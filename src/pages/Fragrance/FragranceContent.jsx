@@ -12,7 +12,6 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   z-index: 1;
-  padding: 20px;
   text-align: center;
 `;
 
