@@ -18,7 +18,7 @@ const DeviceContainer = styled.div`
 `;
 
 const Text = styled.div`
-  font-weight: 500;
+  font-weight: 400;
   font-size: 20px;
   line-height: 150%;
   letter-spacing: 0.01em;
@@ -28,9 +28,9 @@ const Text = styled.div`
 const Bar = styled.div`
   width: 590px;
   height: 0px;
-  border: 1px solid #d3d3d3;
+  border: 0.5px solid #d3d3d3;
   margin-top: 13px;
-  margin-bottom: 14px;
+  margin-bottom: 6px;
 `;
 
 const DeviceList = ({

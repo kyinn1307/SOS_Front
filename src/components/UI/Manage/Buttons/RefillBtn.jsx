@@ -25,7 +25,7 @@ const Container = styled.button`
   cursor: pointer;
 `;
 const Text = styled.div`
-  font-weight: 500;
+  font-weight: 400;
   font-size: 14px;
   line-height: 150%;
   letter-spacing: -0.011em;

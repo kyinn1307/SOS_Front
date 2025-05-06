@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useDeviceStore } from "../../context/deviceStore";
 import StyledBtn from "../../components/UI/common/StyledBtn";
 import { useState } from "react";
 import { ROUTES } from "../../constants/routes";
@@ -16,8 +17,11 @@ import {
   ModalOverlay,
   ModalContainer,
 } from "./AdminContent.styles";
+import BoldText from "../../components/UI/common/BoldText";
 
 const AdminContent = () => {
+  const { setDeviceId } = useDeviceStore();
+
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -47,13 +51,25 @@ const AdminContent = () => {
     if (!selectedDevice) {
       alert("기기를 선택해 주세요.");
     } else {
-      navigate(ROUTES.MANAGE.replace(":deviceId", selectedDevice.number));
+      console.log("선택한 device", selectedDevice);
+      navigate(`/manage/${selectedDevice.number}`);
+    }
+  };
+
+  const handleConnectToPad = () => {
+    if (!selectedDevice) {
+      alert("기기를 선택해주세요.");
+    } else {
+      setDeviceId(selectedDevice.number);
+      alert(`패드 연결 기기를 ${selectedDevice.name}로 설정했습니다.`);
     }
   };
 
   return (
     <ContentWrapper>
-      <Title>관리할 기기를 선택해 주세요.</Title>
+      <Title>
+        <BoldText>관리할</BoldText> 기기를 선택해 주세요.
+      </Title>
       <DeviceList
         selectedDevice={selectedDevice}
         onSelectDevice={handleSelectDevice}
@@ -74,6 +90,14 @@ const AdminContent = () => {
         <StyledBtn variant="black" isAdmin={true} onClick={handleManageClick}>
           기기 관리하기
         </StyledBtn>
+        {/* <StyledBtn
+          variant="black"
+          isAdmin={true}
+          onClick={handleConnectToPad}
+          style={{ marginTop: "10px" }}
+        >
+          선택한 기기로 패드 연결
+        </StyledBtn> */}
       </BtnContainer>
 
       {isDeleteModalOpen && (

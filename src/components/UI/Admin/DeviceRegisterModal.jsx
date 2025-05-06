@@ -116,7 +116,12 @@ const DeviceRegisterModal = ({ onClose }) => {
       </Row>
 
       <BtnWrapper>
-        <StyledBtn variant="black" isModal={true} disabled={!isValid}>
+        <StyledBtn
+          variant="black"
+          isModal={true}
+          isChangeModal={true}
+          disabled={!isValid}
+        >
           추가하기
         </StyledBtn>
       </BtnWrapper>

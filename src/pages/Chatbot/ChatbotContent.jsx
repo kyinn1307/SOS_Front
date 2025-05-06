@@ -21,7 +21,7 @@ const ChatbotContent = () => {
         <CommentBox>
           안녕하세요! 저는 당신의 감성을 향기로 연주해주는
           <br />
-          맞춤형 조향 도우미,{" "}
+          맞춤형 조향 도우미,
           <BoldText>
             <GradientText>센티</GradientText>
           </BoldText>

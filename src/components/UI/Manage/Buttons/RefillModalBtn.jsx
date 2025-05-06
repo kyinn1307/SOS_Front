@@ -1,7 +1,11 @@
 import styled from "styled-components";
+import BtnBlackArrow from "../../../assets/btn_black_arrow";
 
 const Container = styled.button`
   position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
   width: 250px;
   height: 40px;
   background: #2c2c2c;
@@ -9,7 +13,7 @@ const Container = styled.button`
   border-radius: 37.6404px;
   color: #fafaf8;
 
-  font-weight: 500;
+  font-weight: 400;
   font-size: 18px;
   line-height: 150%;
   letter-spacing: -0.011em;
@@ -18,7 +22,12 @@ const Container = styled.button`
 `;
 
 const RefillModalBtn = ({ onClick }) => {
-  return <Container onClick={onClick}>용액 추가 및 교체하기 {">"}</Container>;
+  return (
+    <Container onClick={onClick}>
+      <span>용액 추가 및 교체하기</span>
+      <BtnBlackArrow />
+    </Container>
+  );
 };
 
 export default RefillModalBtn;

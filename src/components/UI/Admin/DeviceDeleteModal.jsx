@@ -26,6 +26,7 @@ const Text = styled.div`
 
   font-size: 18px;
   line-height: 170%;
+  font-weight: 350;
   text-align: center;
   letter-spacing: -0.011em;
 
@@ -38,6 +39,7 @@ const SubText = styled.div`
   margin-top: 2px;
   font-size: 12px;
   line-height: 26px;
+  font-weight: 350;
   text-align: center;
   color: #afafaf;
 `;
@@ -73,7 +75,7 @@ const DeviceDeleteModal = ({ deviceId, onClose }) => {
       <IconWrapper>
         <AlertIcon />
       </IconWrapper>
-      <Text>기기를 삭제하시겠습니까?</Text>
+      <Text>해당 기기를 정말로 삭제하시겠습니까?</Text>
       <SubText>한번 삭제된 기기는 복구할 수 없습니다.</SubText>
       <BtnContainer>
         <StyledBtn
