@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import BtnBlackArrow from "../../../assets/btn_black_arrow";
+import BtnBlackArrow from "../../../../assets/btn_black_arrow";
 
 const Container = styled.button`
   position: relative;
