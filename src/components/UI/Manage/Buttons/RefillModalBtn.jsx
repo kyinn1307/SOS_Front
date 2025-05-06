@@ -12,12 +12,10 @@ const Container = styled.button`
   box-shadow: 0px 0px 8.55464px rgba(255, 255, 255, 0.25);
   border-radius: 37.6404px;
   color: #fafaf8;
-
   font-weight: 400;
   font-size: 18px;
   line-height: 150%;
   letter-spacing: -0.011em;
-
   cursor: pointer;
 `;
 
