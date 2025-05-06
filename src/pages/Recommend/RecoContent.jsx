@@ -30,7 +30,6 @@ const ContentWrapper = styled.div`
 `;
 
 const IntroText = styled.div`
-  width: 367px;
   height: 64px;
   font-size: 18px;
   line-height: 180%;

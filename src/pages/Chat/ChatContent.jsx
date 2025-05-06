@@ -14,7 +14,7 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 1; /* 기존 UI의 z-index */
+  z-index: 1;
   text-align: center;
 `;
 
@@ -38,7 +38,7 @@ const QuestionWrapper = styled.div`
 `;
 
 const IntroText = styled.div`
-  margin-top: 48px;
+  margin-top: 33px;
   font-size: 17px;
   line-height: 180%;
   text-align: center;
@@ -158,6 +158,7 @@ const ChatContent = () => {
           <BoldText>오늘의 이야기</BoldText>를 들려주시면, 그 감성을 담아
           어울리는 향을 연주해드릴게요. 💫🎵
         </IntroText>
+
         <ChatbotField>
           <ChatbotWrapper>
             <ChatbotIcon size="small" />

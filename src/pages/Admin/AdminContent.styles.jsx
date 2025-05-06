@@ -13,7 +13,7 @@ export const ContentWrapper = styled.div`
 export const Title = styled.div`
   position: relative;
   width: 400px;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 30px;
   line-height: 36px;
   color: #2c2c2c;

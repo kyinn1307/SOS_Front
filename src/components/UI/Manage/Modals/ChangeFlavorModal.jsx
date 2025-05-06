@@ -99,7 +99,7 @@ const ChangeFlavorModal = ({ onClose, onChangeComplete }) => {
           <Input placeholder="용량을 정확히 입력해 주세요." />
         </Row>
         <ChangeBtnWrapper onClick={handleChangeComplete}>
-          <StyledBtn variant="black" isModal={true}>
+          <StyledBtn variant="black" isModal={true} isChangeModal={true}>
             교체하기
           </StyledBtn>
         </ChangeBtnWrapper>

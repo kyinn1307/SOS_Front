@@ -6,7 +6,7 @@ const Container = styled.div`
   position: relative;
   display: flex;
   flex-direction: row;
-  margin-bottom: 16px;
+  padding: 8px;
   justify-content: space-between;
   cursor: pointer;
   background-color: ${({ selected }) => (selected ? "#ECF3F2" : "transparent")};
@@ -14,7 +14,7 @@ const Container = styled.div`
 
 const Index = styled.div`
   width: 50px;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 15px;
   line-height: 150%;
   text-align: left;
@@ -28,6 +28,7 @@ const Name = styled.div`
   font-size: 18px;
   line-height: 150%;
   letter-spacing: 0.01em;
+  font-weight: 350;
 `;
 
 const BtnContainer = styled.div`

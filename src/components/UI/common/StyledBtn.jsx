@@ -31,20 +31,20 @@ export const StyledBtnWrapper = styled(Button)`
   ${({ variant }) =>
     variant === "black" &&
     `
-    background-color: #000;
-    color: #fff;
+    background-color: #2C2C2C;
+    color: #FAFAF8;
     border: none;
   `}
   ${({ variant }) =>
     variant === "white" &&
     `
-    background-color: #fff;
-    color: #000;
-    border: 1.4px solid #000;
+    background-color: #FAFAF8;
+    color: #2C2C2C;
+    border: 1.4px solid #2c2c2c;
   `}
 
   &:disabled {
-    background-color: #ccc;
+    background-color: #d3d3d3;
     color: #fafaf8;
     cursor: not-allowed;
   }
@@ -58,13 +58,12 @@ const TextArea = styled.div`
 
 const Text = styled.span`
   display: inline-block;
-  font-weight: 350;
-  height: 30px;
+  font-weight: ${({ isAdmin }) => (isAdmin ? 400 : 350)};
 
   font-family: "Pretendard";
   font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
+  font-size: ${({ isChangeModal, isModal }) =>
+    isChangeModal ? "18px" : isModal ? "16px" : "20px"};
   line-height: 150%;
   letter-spacing: -0.011em;
 `;
@@ -82,8 +81,10 @@ const StyledBtn = ({
   onClick,
   disabled,
   isModal,
+  isAdmin,
   isDeleteModal,
   width,
+  isChangeModal,
 }) => {
   return (
     <StyledBtnWrapper
@@ -92,9 +93,14 @@ const StyledBtn = ({
       disabled={disabled}
       isModal={isModal}
       width={width}
+      isAdmin={isAdmin}
+      isChangeModal={isChangeModal}
     >
       <TextArea>
-        <Text>{children}</Text>
+        <Text isAdmin={isAdmin} isModal={isModal} isChangeModal={isChangeModal}>
+          {children}
+        </Text>
+
         {!isDeleteModal && (
           <ArrowWrapper>
             {disabled ? (

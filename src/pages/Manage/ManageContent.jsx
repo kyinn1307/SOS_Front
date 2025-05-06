@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getCartridges } from "../../api/apis/cartridge";
 import BlurLayer from "../../components/Layout/BlurLayer";
@@ -160,6 +160,11 @@ const ManageContent = ({ deviceId }) => {
     enabled: !!deviceId,
   });
 
+  const deviceName =
+    !error && data?.data?.device?.deviceName
+      ? data.data.device.deviceName
+      : "센트오브사운드 1호기";
+
   if (isLoading) return <div>로딩 중...</div>;
 
   const cartridgeList =
@@ -169,7 +174,7 @@ const ManageContent = ({ deviceId }) => {
     <ContentWrapper>
       <HeaderWrapper>
         <TextWrapper>
-          <Title>센트오브사운드 1호기</Title>
+          <Title>{deviceName}</Title>
           <BtnWrapper>
             <ScrollBtn onClick={handleScrollBtnClick} />
           </BtnWrapper>
@@ -195,6 +200,7 @@ const ManageContent = ({ deviceId }) => {
         </ModalOverlay>
       )}
 
+      {/* 초기 카트리지 채우기 (api x) */}
       {isFillModalOpen && (
         <ModalOverlay>
           <BlurLayer />
@@ -219,6 +225,7 @@ const ManageContent = ({ deviceId }) => {
         </ModalOverlay>
       )}
 
+      {/* 카트리지 교체 */}
       {isChangeModalOpen && (
         <ModalOverlay>
           <BlurLayer />
@@ -242,6 +249,7 @@ const ManageContent = ({ deviceId }) => {
         </ModalOverlay>
       )}
 
+      {/* 카트리지 용액 리필 */}
       {isRefillModalOpen && (
         <ModalOverlay>
           <BlurLayer />
@@ -262,7 +270,7 @@ const ManageContent = ({ deviceId }) => {
             <RefillCompleteModal
               beforeAmount={refillResult.beforeAmount}
               afterAmount={refillResult.afterAmount}
-              catridgeName={selectedCatridge.name}
+              catridgeName={selectedCatridge.fragranceName}
               onClose={() => setIsRefillCompleteOpen(false)}
             />
           </ModalContainer>

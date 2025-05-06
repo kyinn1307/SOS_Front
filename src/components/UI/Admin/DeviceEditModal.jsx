@@ -18,7 +18,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-  font-weight: 600;
+  font-weight: 500;
   font-size: 20px;
   line-height: 22px;
   text-align: center;
@@ -29,6 +29,7 @@ const Text = styled.div`
   position: relative;
   font-size: 18px;
   line-height: 170%;
+  font-weight: 350;
   text-align: center;
   letter-spacing: -0.011em;
   color: #000000;
@@ -52,6 +53,7 @@ const Input = styled.input`
   &::placeholder {
     font-size: 18px;
     line-height: 170%;
+    font-weight: 350;
     letter-spacing: -0.011em;
     color: #aaaaaa;
   }
@@ -116,7 +118,12 @@ const DeviceEditModal = ({ onClose, device }) => {
       </Row>
 
       <BtnWrapper onClick={onClose}>
-        <StyledBtn variant="black" isModal={true} disabled={!isValid}>
+        <StyledBtn
+          variant="black"
+          isModal={true}
+          isChangeModal={true}
+          disabled={!isValid}
+        >
           수정하기
         </StyledBtn>
       </BtnWrapper>
