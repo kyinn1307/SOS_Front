@@ -130,7 +130,11 @@ const RecoContent = () => {
           />
         </BoxWrapper>
         <BtnWrapper onClick={handleBtnClick}>
-          <StyledBtn variant="black" disabled={!isBtnOn}>
+          <StyledBtn
+            variant="black"
+            disabled={!isBtnOn}
+            paddingLeft={"52.93px"}
+          >
             오늘의 향 연주하기
           </StyledBtn>
         </BtnWrapper>

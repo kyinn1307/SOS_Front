@@ -30,6 +30,7 @@ const SettingBtn = styled.button`
   background: none;
   width: 56px;
   height: 19px;
+  color: #2c2c2c;
   font-size: 16px;
   cursor: pointer;
   font-weight: ${({ active }) => (active ? "bold" : "normal")};

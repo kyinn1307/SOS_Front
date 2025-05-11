@@ -52,10 +52,18 @@ const ChatbotChoice = () => {
         어떤 방법으로 나만의 향을 연주해 볼까요? 🎹🌸
       </TextWrapper>
       <ButtonContainer>
-        <StyledBtn variant="white" onClick={handleOriginBtnClick}>
+        <StyledBtn
+          variant="white"
+          onClick={handleOriginBtnClick}
+          paddingLeft={"44.93px"}
+        >
           오리지널 향수 만들기
         </StyledBtn>
-        <StyledBtn variant="black" onClick={handleChatBtnClick}>
+        <StyledBtn
+          variant="black"
+          onClick={handleChatBtnClick}
+          paddingLeft={"41.93px"}
+        >
           센티와 나만의 향 찾기
         </StyledBtn>
       </ButtonContainer>

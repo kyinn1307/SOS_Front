@@ -13,6 +13,7 @@ const ContentWrapper = styled.div`
   align-items: center;
   z-index: 1;
   text-align: center;
+  color: #2c2c2c;
 `;
 
 const IntroText = styled.div`
@@ -117,7 +118,9 @@ const FragranceContent = () => {
         </IntroText>
         <FragranceList />
         <BtnWrapper onClick={handleBtnClick}>
-          <StyledBtn variant="black">향기 여정 시작하기</StyledBtn>
+          <StyledBtn variant="black" paddingLeft={"52.93px"}>
+            향기 여정 시작하기
+          </StyledBtn>
         </BtnWrapper>
         {/* 테스트용 QR 스캔 버튼 */}
         {/* <button onClick={() => handleQrScan("exampleDeviceId123")}>
