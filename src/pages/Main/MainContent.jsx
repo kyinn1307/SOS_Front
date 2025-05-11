@@ -11,7 +11,6 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   z-index: 1;
-  padding: 20px;
   text-align: center;
 `;
 
@@ -68,7 +67,9 @@ const MainContent = () => {
       </IntroText>
       <GradientText>오늘도 힘차게! 수고하시는 당신을 응원합니다!</GradientText>
       <BtnWrapper onClick={handleBtnClick}>
-        <StyledBtn variant="black">향기 여정 시작하기</StyledBtn>
+        <StyledBtn variant="black" paddingLeft={"52.93px"}>
+          향기 여정 시작하기
+        </StyledBtn>
       </BtnWrapper>
     </ContentWrapper>
   );

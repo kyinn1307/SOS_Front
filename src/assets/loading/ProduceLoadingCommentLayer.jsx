@@ -1,4 +1,4 @@
-import loading_blur_text from "./loading_blur_text.png";
+import produce_loading_blur_text from "./produce_loading_blur_text.png";
 import styled from "styled-components";
 
 const StyledImg = styled.img`
@@ -9,7 +9,7 @@ const StyledImg = styled.img`
 `;
 
 const ProduceLoadingCommentLayer = () => {
-  return <StyledImg src={loading_blur_text} alt="로딩 배경" />;
+  return <StyledImg src={produce_loading_blur_text} alt="로딩 배경" />;
 };
 
 export default ProduceLoadingCommentLayer;

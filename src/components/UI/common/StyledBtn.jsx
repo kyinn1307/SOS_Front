@@ -6,6 +6,11 @@ import BtnDisabledArrow from "../../../assets/btn_disabled_arrow";
 
 export const StyledBtnWrapper = styled(Button)`
   position: relative;
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: ${({ paddingLeft }) => paddingLeft || "0"};
+
   width: ${({ width, isAdmin, isModal, isDeleteModal }) =>
     width
       ? width
@@ -22,8 +27,6 @@ export const StyledBtnWrapper = styled(Button)`
 
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 13px;
 
   border-radius: 44px;
   font-size: ${({ isModal }) => (isModal ? "18px" : "20px")};
@@ -40,7 +43,7 @@ export const StyledBtnWrapper = styled(Button)`
     `
     background-color: #FAFAF8;
     color: #2C2C2C;
-    border: 1.4px solid #2c2c2c;
+    border: 1.5px solid #2c2c2c;
   `}
 
   &:disabled {
@@ -53,12 +56,12 @@ export const StyledBtnWrapper = styled(Button)`
 const TextArea = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 11.5px;
 `;
 
 const Text = styled.span`
-  display: inline-block;
-  font-weight: ${({ isAdmin }) => (isAdmin ? 400 : 350)};
+  font-weight: ${({ isAdmin, variant }) =>
+    isAdmin ? 400 : variant === "black" ? 350 : 400};
 
   font-family: "Pretendard";
   font-style: normal;
@@ -85,6 +88,7 @@ const StyledBtn = ({
   isDeleteModal,
   width,
   isChangeModal,
+  paddingLeft,
 }) => {
   return (
     <StyledBtnWrapper
@@ -95,6 +99,7 @@ const StyledBtn = ({
       width={width}
       isAdmin={isAdmin}
       isChangeModal={isChangeModal}
+      paddingLeft={paddingLeft}
     >
       <TextArea>
         <Text isAdmin={isAdmin} isModal={isModal} isChangeModal={isChangeModal}>

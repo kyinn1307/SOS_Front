@@ -82,12 +82,18 @@ const AdminContent = () => {
             variant="white"
             isAdmin={true}
             onClick={handleRegisterDevice}
+            paddingLeft={"53.93px"}
           >
             기기 추가하기
           </StyledBtn>
           <IndicateText>등록되지 않은 기기를 추가해보세요!</IndicateText>
         </AddBtnContainer>
-        <StyledBtn variant="black" isAdmin={true} onClick={handleManageClick}>
+        <StyledBtn
+          variant="black"
+          isAdmin={true}
+          onClick={handleManageClick}
+          paddingLeft={"53.93px"}
+        >
           기기 관리하기
         </StyledBtn>
         {/* <StyledBtn
