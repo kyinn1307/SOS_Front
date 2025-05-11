@@ -43,7 +43,7 @@ export const StyledBtnWrapper = styled(Button)`
     `
     background-color: #FAFAF8;
     color: #2C2C2C;
-    border: 1.5px solid #2c2c2c;
+    border: 1px solid #2c2c2c;
   `}
 
   &:disabled {
