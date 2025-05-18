@@ -16,10 +16,13 @@ const ContentWrapper = styled.div`
 
 const CommentWrapper = styled.div`
   position: relative;
-  width: 644px;
-  margin-top: 186.5px;
+  width: 740px;
+  margin-top: 157.5px;
 `;
 
+const ProgressWrapper = styled.div`
+  margin-top: 156.5px;
+`;
 const LoadingContent = () => {
   const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
@@ -60,7 +63,9 @@ const LoadingContent = () => {
         <CommentWrapper>
           <LoadingCommentLayer />
         </CommentWrapper>
-        <ProgressBar progress={progress} />
+        <ProgressWrapper>
+          <ProgressBar progress={progress} />
+        </ProgressWrapper>
       </ContentWrapper>
     </>
   );

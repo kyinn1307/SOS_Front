@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "../../../api/apis/auth";
-import { useAuthStore } from "../../../context/authStore";
+import { useAuthStore } from "../../../store/authStore";
 
 import Button from "../common/Button";
 import Input from "../common/Input";
@@ -33,6 +33,7 @@ const LoginButton = styled(Button)`
   width: 372px;
   height: 47px;
   font-size: 18px;
+  font-weight: 600;
   font-family: "Pretendard", sans-serif;
 `;
 
@@ -43,7 +44,7 @@ const Text = styled.div`
   margin-right: 25px;
   top: 50%;
   transform: translateY(-50%);
-  font-weight: 650;
+  font-weight: 700;
   font-size: 17px;
   line-height: 20px;
   color: #2c2c2c;

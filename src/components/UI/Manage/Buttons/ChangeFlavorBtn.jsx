@@ -11,7 +11,7 @@ const Container = styled.div`
   font-size: 15px;
   background: #2c2c2c;
   border-radius: 5px;
-  font-weight: 350;
+  font-weight: 500;
 `;
 
 const ChangeFlavorBtn = () => {

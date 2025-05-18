@@ -14,7 +14,7 @@ const Container = styled.div`
 
 const Index = styled.div`
   width: 50px;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 15px;
   line-height: 150%;
   text-align: left;
@@ -28,7 +28,7 @@ const Name = styled.div`
   font-size: 18px;
   line-height: 150%;
   letter-spacing: 0.01em;
-  font-weight: 350;
+  font-weight: 400;
 `;
 
 const BtnContainer = styled.div`
@@ -40,20 +40,25 @@ const BtnContainer = styled.div`
 `;
 
 const DeviceItem = ({
-  idx,
-  name,
-  number,
+  index,
+  deviceId,
+  deviceName,
+  devicePhysicalId,
   selected,
   onSelect,
   onEdit,
   onDelete,
 }) => {
-  const handleClick = () => onSelect({ id: idx, name, number });
+  const handleClick = () => {
+    onSelect({ deviceId, deviceName, devicePhysicalId });
+  };
+
+  const formattedIndex = String(index + 1).padStart(3, "0");
   return (
     <Container selected={selected} onClick={handleClick}>
-      <Index>{idx}</Index>
+      <Index>{formattedIndex}</Index>
       <Name>
-        {name} - {number}
+        센트오브사운드 {deviceName} - {devicePhysicalId}
       </Name>
       <BtnContainer onClick={(e) => e.stopPropagation()}>
         <EditBtn onClick={onEdit} />

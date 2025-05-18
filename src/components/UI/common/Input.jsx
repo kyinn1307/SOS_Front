@@ -19,6 +19,7 @@ const StyledInput = styled.input`
   &:focus {
     outline: none;
   }
+
   ::placeholder {
     color: #d3d3d3;
     font-size: 17px;

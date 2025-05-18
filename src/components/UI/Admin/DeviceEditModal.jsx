@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
-import DeleteBtn from "../../../assets/admin/DeleteBtn";
-import DeviceSettingBtn from "./DeviceSettingBtn";
 import StyledBtn from "../common/StyledBtn";
+import ModalDeleteBtn from "../../../assets/modal_delete_btn";
 
 const Container = styled.div`
   display: flex;
@@ -18,7 +17,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-  font-weight: 500;
+  font-weight: 600;
   font-size: 20px;
   line-height: 22px;
   text-align: center;
@@ -29,7 +28,7 @@ const Text = styled.div`
   position: relative;
   font-size: 18px;
   line-height: 170%;
-  font-weight: 350;
+  font-weight: 400;
   text-align: center;
   letter-spacing: -0.011em;
   color: #000000;
@@ -53,7 +52,7 @@ const Input = styled.input`
   &::placeholder {
     font-size: 18px;
     line-height: 170%;
-    font-weight: 350;
+    font-weight: 400;
     letter-spacing: -0.011em;
     color: #aaaaaa;
   }
@@ -70,13 +69,13 @@ const Row = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
   margin-top: ${({ mt }) => mt || "10px"};
 `;
 
 const BtnWrapper = styled.div`
   position: relative;
-  margin-top: 20px;
+  margin-top: 18px;
 `;
 
 const DeleteBtnWrapper = styled.div`
@@ -96,7 +95,7 @@ const DeviceEditModal = ({ onClose, device }) => {
       <Row mt="20px">
         <Title>기기 수정하기</Title>
         <DeleteBtnWrapper onClick={onClose}>
-          <DeleteBtn />
+          <ModalDeleteBtn />
         </DeleteBtnWrapper>
       </Row>
 
@@ -123,6 +122,7 @@ const DeviceEditModal = ({ onClose, device }) => {
           isModal={true}
           isChangeModal={true}
           disabled={!isValid}
+          paddingLeft={"53.83px"}
         >
           수정하기
         </StyledBtn>

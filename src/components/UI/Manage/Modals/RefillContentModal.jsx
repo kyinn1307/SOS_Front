@@ -103,14 +103,17 @@ const RefillContentModal = ({ catridge, onClose, onComplete }) => {
   const [mode, setMode] = useState("refill");
   const [amount, setAmount] = useState("");
 
+  const beforeAmount = catridge.remainingAmount ?? 0;
+  const totalAmount = catridge.totalAmount ?? 200;
+
+  const afterAmount =
+    mode === "refill" && amount ? beforeAmount + Number(amount) : beforeAmount;
+
   const handleClick = async () => {
     if (!catridge?.deviceId || !catridge?.cartridgeId) {
       alert("기기 또는 카트리지 정보가 없습니다.");
       return;
     }
-
-    const beforeAmount = catridge.remainingAmount;
-    const totalAmount = catridge.totalAmount;
 
     if (mode === "refill") {
       if (!amount || isNaN(amount)) {
@@ -118,21 +121,19 @@ const RefillContentModal = ({ catridge, onClose, onComplete }) => {
         return;
       }
 
-      const addAmount = Number(amount);
-      const afterAmount = beforeAmount + addAmount;
+      const refillAmount = Number(amount);
 
       try {
-        await refillCartridge(catridge.deviceId, {
-          cartridgeId: catridge.cartridgeId,
-          amount: addAmount,
+        await refillCartridge(catridge.deviceId, catridge.cartridgeId, {
+          refilledAmount: refillAmount,
         });
 
         console.log("용액이 성공적으로 추가되었습니다!");
         if (onComplete) {
           onComplete({
-            beforeAmount,
-            afterAmount,
-            totalAmount,
+            flavorName: catridge.fragranceName,
+            beforeAmount: beforeAmount,
+            afterAmount: beforeAmount + refillAmount,
           });
         }
       } catch (error) {
@@ -141,16 +142,15 @@ const RefillContentModal = ({ catridge, onClose, onComplete }) => {
       }
     } else if (mode === "replace") {
       try {
-        await replaceCartridge(catridge.deviceId, {
-          cartridgeId: catridge.cartridgeId,
-        });
+        await replaceCartridge(catridge.deviceId, catridge.cartridgeId); // ✅ body 없이!
 
-        alert("카트리지가 성공적으로 교체되었습니다!");
+        console.log("카트리지 교체 성공");
+
         if (onComplete) {
           onComplete({
+            flavorName: catridge.fragranceName,
             beforeAmount,
-            afterAmount: 0,
-            totalAmount,
+            afterAmount: totalAmount,
           });
         }
       } catch (error) {
@@ -165,11 +165,12 @@ const RefillContentModal = ({ catridge, onClose, onComplete }) => {
       <Title>향료 추가하기</Title>
       <DeleteBtnWrapper onClick={onClose}>
         <DeleteBtn />
-      </DeleteBtnWrapper>{" "}
+      </DeleteBtnWrapper>
       <Row mt="16px">
         <Text>선택한 향료</Text>
-        <Input value={catridge?.name || ""} disabled />
+        <Input value={catridge?.fragranceName || ""} disabled />
       </Row>
+
       <ChoiceBtnContainer>
         <ChoiceBtnWrapper>
           <CircleInput
@@ -196,14 +197,14 @@ const RefillContentModal = ({ catridge, onClose, onComplete }) => {
         <Text>추가할 용량(ml)</Text>
         <Input
           placeholder="용량을 정확히 입력해 주세요."
-          disabled={mode !== "refill"}
           value={amount}
+          disabled={mode !== "refill"}
           onChange={(e) => setAmount(e.target.value)}
         />
       </Row>
       <Row mt="11px">
         <Text>총 용량(ml)</Text>
-        <Input disabled={mode !== "refill"} />
+        <Input value={mode === "refill" ? afterAmount : totalAmount} disabled />
       </Row>
       <BtnWrapper>
         <StyledBtn
