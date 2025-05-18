@@ -45,6 +45,37 @@ const ProduceLoadingContent = () => {
   const socketRef = useRef(null);
   const navigate = useNavigate();
 
+  // 1. progress 차오르게
+  useEffect(() => {
+    const duration = 3000; // 전체 진행 시간 (3초)
+    const intervalTime = 30; // 간격
+    const steps = duration / intervalTime;
+    const increment = 100 / steps;
+
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        const next = prev + increment;
+        if (next >= 100) {
+          clearInterval(interval);
+          return 100;
+        }
+        return next;
+      });
+    }, intervalTime);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // 2. 100% 후 1.5초 후 isDone true
+  useEffect(() => {
+    if (progress >= 100) {
+      const timeout = setTimeout(() => {
+        setIsDone(true);
+      }, 1500);
+      return () => clearTimeout(timeout);
+    }
+  }, [progress]);
+
   useEffect(() => {
     const deviceId = "exampleDeviceId123"; // TODO: 실제 deviceId 넘기기
     const socket = new WebSocket(WS_BASE_URL);
