@@ -6,7 +6,7 @@ import RecoCard from "../../components/UI/Reco/RecoCard";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
 import BoldText from "../../components/UI/common/BoldText";
-import { recoCardImageMap } from "../../constants/recoCardImageMap";
+
 // const titles = [
 //   "우울한 날",
 //   "기쁜 날",
@@ -34,7 +34,7 @@ const IntroText = styled.div`
   font-size: 18px;
   line-height: 180%;
   text-align: center;
-  font-weight: 350;
+  font-weight: 400;
   letter-spacing: -0.011em;
   color: #2c2c2c;
 `;
@@ -57,7 +57,7 @@ const RecoContent = () => {
   const navigate = useNavigate();
 
   const mockRecipeInfo = {
-    imageUrl: recoCardImageMap["우울한 날"],
+    imageUrl: ["우울한 날"],
     name: "우울한 날",
     description:
       "허브와 민트, 시트러스의 상쾌함이 중심이 되고, 우아한 로즈 향이 기분을 환기시켜줍니다.",

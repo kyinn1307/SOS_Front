@@ -16,7 +16,7 @@ export const Title = styled.div`
   font-size: 30px;
   line-height: 36px;
   color: #2c2c2c;
-  margin-top: 16px;
+  margin-top: 35px;
 `;
 
 export const AddBtnContainer = styled.div`

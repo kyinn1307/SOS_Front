@@ -1,6 +1,9 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import StyledBtn from "../common/StyledBtn";
+import { useQuery } from "@tanstack/react-query";
+import { fetchDevices } from "../../../api/apis/device";
 
 const Container = styled.div`
   display: flex;
@@ -60,36 +63,56 @@ const BtnWrapper = styled.div`
   position: relative;
 `;
 
-const DeviceChoice = ({ onClose }) => {
+const DeviceChoice = ({ deviceName, onClose }) => {
   const [selectedDevice, setSelectedDevice] = useState(null);
+  const navigate = useNavigate();
 
-  const deviceOptions = [
-    { name: "센트오브사운드 1호기", number: "3748B5" },
-    { name: "센트오브사운드 2호기", number: "3748B6" },
-    { name: "센트오브사운드 3호기", number: "3748B7" },
-    { name: "센트오브사운드 4호기", number: "3748B8" },
-  ];
+  const {
+    data: devicesData,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["devices"],
+    queryFn: fetchDevices,
+  });
+
+  if (isLoading) return <div>로딩 중...</div>;
+
   const handleSelect = (deviceName) => {
     setSelectedDevice((prev) => (prev === deviceName ? null : deviceName));
   };
+
+  const handleChange = () => {
+    const device = devicesData.find((d) => d.deviceName === selectedDevice);
+    if (device) {
+      navigate(`/manage/${device.deviceId}`);
+      onClose();
+    } else {
+      alert("기기를 선택해 주세요!");
+    }
+  };
+
   return (
     <Container>
-      <Title>
-        현재 선택된 기기 : {selectedDevice || "센트오브사운드 1호기"}
-      </Title>
+      <Title>현재 선택된 기기 : 센트오브사운드 {deviceName}</Title>
       <DeviceList>
-        {deviceOptions.map((device, index) => (
+        {devicesData.map((device, index) => (
           <DeviceInfo
             key={index}
-            selected={selectedDevice === device.name}
-            onClick={() => handleSelect(device.name)}
+            selected={selectedDevice === device.deviceName}
+            onClick={() => handleSelect(device.deviceName)}
           >
-            {device.name} - {device.number}
+            센트오브사운드 {device.deviceName} - {device.devicePhysicalId}
           </DeviceInfo>
         ))}
       </DeviceList>
       <BtnWrapper>
-        <StyledBtn variant="black" isModal={true} onClick={onClose}>
+        <StyledBtn
+          variant="black"
+          isModal={true}
+          onClick={handleChange}
+          paddingLeft={"55.83px"}
+        >
           변경하기
         </StyledBtn>
       </BtnWrapper>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getCartridges } from "../../api/apis/cartridge";
 import BlurLayer from "../../components/Layout/BlurLayer";
-import FlavorList from "../../components/UI/Manage/FlavorList";
+import CatridgeList from "../../components/UI/Manage/CatridgeList";
 import RefillContentModal from "../../components/UI/Manage/Modals/RefillContentModal";
 import RefillCompleteModal from "../../components/UI/Manage/Modals/RefillCompleteModal";
 import ChangeFlavorBtn from "../../components/UI/Manage/Buttons/ChangeFlavorBtn";
@@ -33,7 +33,7 @@ const HeaderWrapper = styled.div`
 
 const BtnWrapper = styled.div`
   position: absolute;
-  top: 3px;
+  top: 7px;
   right: 333.81px;
 `;
 
@@ -52,7 +52,6 @@ const TextWrapper = styled.div`
 
 const Title = styled.div`
   position: relative;
-  width: 258px;
 
   font-weight: 700;
   font-size: 30px;
@@ -63,10 +62,7 @@ const Title = styled.div`
 
 const DeviceId = styled.div`
   position: relative;
-
-  width: 73px;
   margin-top: 8px;
-
   font-size: 20px;
   line-height: 150%;
   letter-spacing: 0.01em;
@@ -89,18 +85,6 @@ const ModalContainer = styled.div`
   transform: translate(-50%, -50%);
   z-index: 11;
 `;
-const mockCartridge = [
-  { fragranceName: "배롱나무", currentAmount: 8, totalCapacity: 200 },
-  { fragranceName: "감나무", currentAmount: 200, totalCapacity: 200 },
-  { fragranceName: "경포대", currentAmount: 0, totalCapacity: 200 },
-  { fragranceName: "은행나무", currentAmount: 3, totalCapacity: 200 },
-  { fragranceName: "차수국", currentAmount: 0, totalCapacity: 200 },
-  { fragranceName: "태백산맥", currentAmount: 123, totalCapacity: 200 },
-  { fragranceName: "밤장미", currentAmount: 145, totalCapacity: 200 },
-  { fragranceName: "벚꽃", currentAmount: 123, totalCapacity: 200 },
-  { fragranceName: "안목해변", currentAmount: 123, totalCapacity: 200 },
-  { fragranceName: "소나무", currentAmount: 123, totalCapacity: 200 },
-];
 
 const ManageContent = ({ deviceId }) => {
   const [showDeviceChoice, setShowDeviceChoice] = useState(false);
@@ -160,33 +144,53 @@ const ManageContent = ({ deviceId }) => {
     enabled: !!deviceId,
   });
 
-  const deviceName =
-    !error && data?.data?.device?.deviceName
-      ? data.data.device.deviceName
-      : "센트오브사운드 1호기";
+  // 로딩 중이거나 데이터 없으면 처리
+  if (isLoading) return <div>로딩 중...</div>;
+  if (error) return <div>에러 발생: {error.message}</div>;
+  if (!data || !data.data) return <div>데이터 없음</div>;
+
+  const device = data.data.data.device;
+  const deviceName = device.deviceName;
+  const devicePhysicalId = device.devicePhysicalId;
 
   if (isLoading) return <div>로딩 중...</div>;
 
-  const cartridgeList =
-    !error && data ? data.data?.cartridgeDetails : mockCartridge;
+  const cartridgeList = data?.data?.data.cartridgeDetails ?? [];
+
+  const DEFAULT_CARTRIDGE_COUNT = 10;
+  const EMPTY_SLOT = {
+    fragranceName: "향료이름",
+    currentAmount: 0,
+    totalCapacity: 0,
+    cartridgeId: null,
+  };
+
+  const filledCartridgeList = Array.from(
+    { length: DEFAULT_CARTRIDGE_COUNT },
+    (_, index) => {
+      return (
+        cartridgeList[index] || { ...EMPTY_SLOT, cartridgeId: `empty-${index}` }
+      );
+    }
+  );
 
   return (
     <ContentWrapper>
       <HeaderWrapper>
         <TextWrapper>
-          <Title>{deviceName}</Title>
+          <Title>센트오브사운드 {deviceName}</Title>
           <BtnWrapper>
             <ScrollBtn onClick={handleScrollBtnClick} />
           </BtnWrapper>
-          <DeviceId>{deviceId}</DeviceId>
+          <DeviceId>{devicePhysicalId}</DeviceId>
         </TextWrapper>
         <ChangeBtnWrapper onClick={handleChangeBtn}>
           <ChangeFlavorBtn />
         </ChangeBtnWrapper>
       </HeaderWrapper>
-      <FlavorList
+      <CatridgeList
         deviceId={deviceId}
-        cartridgeList={cartridgeList}
+        cartridgeList={filledCartridgeList}
         openModalWithFlavor={openModalWithFlavor}
         openRefillModalWithFlavor={openRefillModalWithFlavor}
       />
@@ -195,7 +199,10 @@ const ManageContent = ({ deviceId }) => {
         <ModalOverlay>
           <BlurLayer />
           <ModalContainer>
-            <DeviceChoice onClose={() => setShowDeviceChoice(false)} />
+            <DeviceChoice
+              deviceName={deviceName}
+              onClose={() => setShowDeviceChoice(false)}
+            />
           </ModalContainer>
         </ModalOverlay>
       )}

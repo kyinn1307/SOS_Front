@@ -14,8 +14,6 @@ const Container = styled.div`
 `;
 
 const FlavorName = styled.div`
-  width: 52px;
-  height: 18px;
   font-size: 15px;
   line-height: 18px;
   color: #000000;
@@ -56,12 +54,15 @@ const CartridgeItem = ({
   openModalWithFlavor,
   openRefillModalWithFlavor,
 }) => {
-  const [rest, setRest] = useState(cartridge.currentAmount);
+  const neverFilled =
+    cartridge.cartridgeId === null ||
+    cartridge.totalCapacity === 0 ||
+    cartridge.currentAmount === null ||
+    cartridge.currentAmount === undefined;
+
+  const [rest, setRest] = useState(neverFilled ? 0 : cartridge.currentAmount);
   const [isAlert, setIsAlert] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
-  const [neverFilled, setNeverFilled] = useState(
-    rest === null || rest === undefined
-  );
 
   const handleClick = () => {
     if (neverFilled) {

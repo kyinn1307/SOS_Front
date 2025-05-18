@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useDeviceStore } from "../../context/deviceStore";
+import { useDeviceStore } from "../../store/deviceStore";
 import StyledBtn from "../../components/UI/common/StyledBtn";
 import { useState } from "react";
 import { ROUTES } from "../../constants/routes";
@@ -30,7 +30,9 @@ const AdminContent = () => {
   const navigate = useNavigate();
 
   const handleSelectDevice = (device) => {
-    setSelectedDevice((prev) => (prev?.id === device.id ? null : device));
+    setSelectedDevice((prev) =>
+      prev?.deviceId === device.deviceId ? null : device
+    );
   };
 
   const handleDeleteDevice = (deviceName) => {
@@ -52,18 +54,18 @@ const AdminContent = () => {
       alert("기기를 선택해 주세요.");
     } else {
       console.log("선택한 device", selectedDevice);
-      navigate(`/manage/${selectedDevice.number}`);
+      navigate(`/manage/${selectedDevice.deviceId}`);
     }
   };
 
-  const handleConnectToPad = () => {
-    if (!selectedDevice) {
-      alert("기기를 선택해주세요.");
-    } else {
-      setDeviceId(selectedDevice.number);
-      alert(`패드 연결 기기를 ${selectedDevice.name}로 설정했습니다.`);
-    }
-  };
+  // const handleConnectToPad = () => {
+  //   if (!selectedDevice) {
+  //     alert("기기를 선택해주세요.");
+  //   } else {
+  //     setDeviceId(selectedDevice.devicePhysicalId);
+  //     alert(`패드 연결 기기를 ${selectedDevice.deviceName}로 설정했습니다.`);
+  //   }
+  // };
 
   return (
     <ContentWrapper>

@@ -4,7 +4,7 @@ import { persist } from "zustand/middleware";
 export const useDeviceStore = create(
   persist(
     (set) => ({
-      deviceId: null,
+      deviceId: "DEVICE1",
       setDeviceId: (id) => set({ deviceId: id }),
       clearDeviceId: () => set({ deviceId: null }),
     }),

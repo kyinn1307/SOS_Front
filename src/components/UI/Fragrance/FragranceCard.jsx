@@ -10,6 +10,7 @@ const InfoCardWrapper = styled.div`
   box-shadow: 0px 0px 10px rgba(231, 221, 193, 0.5);
   padding: 15px 10px 8px 10px;
   border-radius: 10px;
+  color: #2c2c2c;
 `;
 
 const InfoContainer = styled.div`
@@ -18,8 +19,6 @@ const InfoContainer = styled.div`
   flex-direction: column;
   width: 184.5px;
   height: 190px;
-
-  border-bottom: 1px solid #d3d3d3;
 `;
 
 const NameArea = styled.div`
@@ -31,13 +30,13 @@ const NameArea = styled.div`
 const Name = styled.div`
   font-family: "Pretendard";
   font-style: normal;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 20px;
   line-height: 24px;
 `;
 
 const Info = styled.div`
-  font-weight: 400;
+  font-weight: 500;
   font-size: 14px;
   text-align: center;
   line-height: 17px;
@@ -65,7 +64,7 @@ const FragranceContainer = styled.div`
 const FragranceItem = styled.div`
   font-size: 16px;
   line-height: 19px;
-  font-weight: 350;
+  font-weight: 400;
   color: #2c2c2c;
 
   font-family: "Pretendard";
@@ -76,8 +75,10 @@ const FragranceItem = styled.div`
 
 const HashTagContainer = styled.div`
   display: flex;
-  margin-top: 6.5px;
   width: 100%;
+  padding: 6.5px 2px 0 2px;
+  border-top: 1px solid #d3d3d3;
+
   justify-content: ${(props) =>
     props.$count === 3 ? "space-between" : "space-around"};
 `;
@@ -85,7 +86,7 @@ const HashTagContainer = styled.div`
 const HashTag = styled.span`
   font-size: 12px;
   line-height: 14px;
-  font-weight: 350;
+  font-weight: 400;
   color: #aaaaaa;
 `;
 

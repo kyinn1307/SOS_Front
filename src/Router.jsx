@@ -6,7 +6,7 @@ import MainPage from "./pages/Main/MainPage";
 import FragrancePage from "./pages/Fragrance/FragrancePage";
 import ChatbotPage from "./pages/Chatbot/ChatbotPage";
 import ChatPage from "./pages/Chat/ChatPage";
-import ChoicePage from "./pages/Choice/ChoicePage";
+import { SignupPage } from "./pages/Signup/SignupPage";
 import LoadingPage from "./pages/Loading/LoadingPage";
 import RecoPage from "./pages/Recommend/RecoPage";
 import ProduceLoadingPage from "./pages/Loading/ProduceLoadingPage";
@@ -18,10 +18,12 @@ const AppRouter = () => {
     <Router>
       <Routes>
         <Route path={ROUTES.HOME} element={<MainPage />} />
+        <Route path={"/signup"} element={<SignupPage />} />
         <Route path={ROUTES.LOGIN} element={<LoginPage />} />
         <Route path={ROUTES.FRAGRANCE} element={<FragrancePage />} />
         <Route path={ROUTES.CHATBOT} element={<ChatbotPage />} />
-        <Route path={ROUTES.CHAT} element={<ChatPage />} />
+        <Route path={ROUTES.CUSTOM_CHAT} element={<ChatPage />} />
+        <Route path={ROUTES.ORIGINAL_CHAT} element={<ChatPage />} />
         <Route path={ROUTES.LOADING} element={<LoadingPage />} />
         <Route path={ROUTES.RECOMMEND} element={<RecoPage />} />
         <Route path={ROUTES.PRODUCE_LOADING} element={<ProduceLoadingPage />} />

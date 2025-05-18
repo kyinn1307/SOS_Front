@@ -19,10 +19,10 @@ const ContentWrapper = styled.div`
 
 const CommentWrapper = styled.div`
   position: relative;
-  width: 604px;
-  height: 200px;
+  width: 700px;
+  height: 260px;
   z-index: 1;
-  margin-top: 206px;
+  margin-top: 175.5px;
 `;
 
 const ModalWrapper = styled.div`
@@ -30,6 +30,9 @@ const ModalWrapper = styled.div`
   width: 442px;
 `;
 
+const ProgressBarWrapper = styled.div`
+  margin-top: 169.5px;
+`;
 const BtnWrapper = styled.div`
   margin-top: 183px;
 `;
@@ -102,7 +105,11 @@ const ProduceLoadingContent = () => {
             <Modal isDone={isDone} />
           </ModalWrapper>
           <BtnWrapper>
-            <StyledBtn variant="black" onClick={handleComplete}>
+            <StyledBtn
+              variant="black"
+              onClick={handleComplete}
+              paddingLeft={"63.93px"}
+            >
               체험 마무리하기
             </StyledBtn>
           </BtnWrapper>
@@ -112,8 +119,9 @@ const ProduceLoadingContent = () => {
           <CommentWrapper>
             <ProduceLoadingCommentLayer />
           </CommentWrapper>
-
-          <ProgressBar progress={progress} />
+          <ProgressBarWrapper>
+            <ProgressBar progress={progress} />
+          </ProgressBarWrapper>
         </>
       )}
     </ContentWrapper>

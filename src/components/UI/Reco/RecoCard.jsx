@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import RecoCardImage from "./RecoCardImage";
+import { recoCardImageMap } from "../../../constants/recoCardImageMap";
 
 const dramaticFlyIn = keyframes`
   0% {
@@ -118,12 +118,15 @@ const RecoCard = ({ recipeInfo }) => {
   const { imageUrl, name, description, topNotes, middleNotes, baseNotes } =
     recipeInfo;
 
+  const imageKey = Array.isArray(imageUrl) ? imageUrl[0] : imageUrl;
+  const resolvedImageUrl = recoCardImageMap[imageKey];
+
   return (
     <Container>
       <Main>
         <PhotoWrapper>
           <img
-            src={imageUrl}
+            src={resolvedImageUrl}
             alt="추천 레시피 이미지"
             style={{
               width: "100%",

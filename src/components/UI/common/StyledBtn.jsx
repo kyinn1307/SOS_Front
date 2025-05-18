@@ -43,7 +43,7 @@ export const StyledBtnWrapper = styled(Button)`
     `
     background-color: #FAFAF8;
     color: #2C2C2C;
-    border: 1.5px solid #2c2c2c;
+    border: 1px solid #2c2c2c;
   `}
 
   &:disabled {
@@ -60,8 +60,7 @@ const TextArea = styled.div`
 `;
 
 const Text = styled.span`
-  font-weight: ${({ isAdmin, variant }) =>
-    isAdmin ? 400 : variant === "black" ? 350 : 400};
+  font-weight: 500;
 
   font-family: "Pretendard";
   font-style: normal;
@@ -96,6 +95,7 @@ const StyledBtn = ({
       onClick={onClick}
       disabled={disabled}
       isModal={isModal}
+      isDeleteModal={isDeleteModal}
       width={width}
       isAdmin={isAdmin}
       isChangeModal={isChangeModal}

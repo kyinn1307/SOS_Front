@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
 import { getCartridges } from "../../../api/apis/cartridge";
-import FlavorItem from "./FlavorItem";
+import CartridgeItem from "./Catridgetem";
 
 const Container = styled.div`
   position: relative;
@@ -18,7 +18,7 @@ const Container = styled.div`
   border-radius: 10px;
 `;
 
-const FlavorList = ({
+const CatridgeList = ({
   cartridgeList,
   openModalWithFlavor,
   openRefillModalWithFlavor,
@@ -26,7 +26,7 @@ const FlavorList = ({
   return (
     <Container>
       {cartridgeList.map((cartridge) => (
-        <FlavorItem
+        <CartridgeItem
           key={cartridge.cartridgeId}
           cartridge={{
             fragranceName: cartridge.fragranceName,
@@ -41,4 +41,4 @@ const FlavorList = ({
   );
 };
 
-export default FlavorList;
+export default CatridgeList;
