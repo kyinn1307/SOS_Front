@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
+import { useDeviceStore } from "../../store/deviceStore";
 import styled from "styled-components";
 import ChatbotIcon from "../../assets/chatbot/ChatbotIcon";
 import QuestionBox from "../../assets/chatbot/QuestionBox";
@@ -33,8 +35,8 @@ const ChatbotWrapper = styled.div`
 const QuestionWrapper = styled.div`
   position: absolute;
   left: 100%;
-  top: -18px;
-  margin-left: 5px;
+
+  margin-left: 30px;
 `;
 
 const IntroText = styled.div`
@@ -43,7 +45,7 @@ const IntroText = styled.div`
   line-height: 180%;
   text-align: center;
   letter-spacing: -0.011em;
-  font-weight: 350;
+  font-weight: 400;
   color: #2c2c2c;
 `;
 
@@ -60,17 +62,16 @@ const ChatContent = () => {
   const [question, setQuestion] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [isError, setIsError] = useState(false);
+  const { deviceId } = useDeviceStore();
+  const location = useLocation();
+
   const socketRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const initChatSession = async () => {
       try {
-        const response = await startChatSession();
-        const { sessionId, initialMessage, websocketUrl } = response.data;
-
-        setQuestion(initialMessage);
-
+        const websocketUrl = `${import.meta.env.VITE_WEBSOCKET_URL}`;
         const socket = new WebSocket(websocketUrl);
         socketRef.current = socket;
 
@@ -125,12 +126,15 @@ const ChatContent = () => {
   const sendAnswer = (answer) => {
     if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
       const payload = {
-        type: "message",
-        data: {
-          content: answer,
-          timestamp: new Date().toISOString(),
-        },
+        sessionId: "1",
+        message: answer,
+        messageType: "USER",
+        timestamp: new Date().toISOString(),
+        fragranceType: location.pathname.includes("original")
+          ? "ORIGINAL"
+          : "CUSTOM",
       };
+
       socketRef.current.send(JSON.stringify(payload));
     } else {
       console.error("WebSocket이 연결되어 있지 않습니다.");

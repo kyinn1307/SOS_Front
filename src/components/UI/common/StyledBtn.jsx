@@ -60,8 +60,7 @@ const TextArea = styled.div`
 `;
 
 const Text = styled.span`
-  font-weight: ${({ isAdmin, variant }) =>
-    isAdmin ? 400 : variant === "black" ? 350 : 400};
+  font-weight: 500;
 
   font-family: "Pretendard";
   font-style: normal;
@@ -96,6 +95,7 @@ const StyledBtn = ({
       onClick={onClick}
       disabled={disabled}
       isModal={isModal}
+      isDeleteModal={isDeleteModal}
       width={width}
       isAdmin={isAdmin}
       isChangeModal={isChangeModal}

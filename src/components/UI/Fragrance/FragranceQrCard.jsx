@@ -5,12 +5,12 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
 `;
 
 const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 599px;
   height: 619px;
   padding: 20px;
   border-radius: 15px;
@@ -20,7 +20,6 @@ const CardWrapper = styled.div`
 
 const ImageWrapper = styled.div`
   position: relative;
-  width: 579px;
   height: 327px;
   border-radius: 10px;
   overflow: hidden;
@@ -58,6 +57,8 @@ const Separator = styled.div`
 `;
 
 const Content = styled.div`
+  white-space: pre-wrap; /* 줄바꿈 처리 핵심 */
+
   position: relative;
   width: 474px;
   font-size: 16px;

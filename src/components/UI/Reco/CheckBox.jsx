@@ -14,7 +14,7 @@ const CheckboxContainer = styled.div`
   font-size: 15px;
   line-height: 180%;
   letter-spacing: -0.011em;
-  font-weight: 350;
+  font-weight: 400;
   color: #aaaaaa;
 `;
 

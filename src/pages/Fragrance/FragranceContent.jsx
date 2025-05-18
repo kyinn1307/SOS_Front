@@ -5,6 +5,7 @@ import StyledBtn from "../../components/UI/common/StyledBtn";
 import FragranceList from "../../components/UI/Fragrance/FragranceList";
 import FragranceQrCard from "../../components/UI/Fragrance/FragranceQrCard";
 import { ROUTES } from "../../constants/routes";
+import { qrCardImageMap } from "../../constants/recoCardImageMap";
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -19,7 +20,7 @@ const ContentWrapper = styled.div`
 const IntroText = styled.div`
   font-family: "Pretendard";
   font-style: normal;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 17px;
   line-height: 170%;
   text-align: center;
@@ -28,7 +29,7 @@ const IntroText = styled.div`
 
 const GradientText = styled.span`
   margin-top: 61px;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 17px;
   line-height: 26px;
 
@@ -53,24 +54,27 @@ const QrArea = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  backdrop-filter: blur(2px);
   background-color: rgba(0, 0, 0, 0.3);
 `;
 
 const WS_BASE_URL = import.meta.env.VITE_WS_BASE_URL;
 
 const FragranceContent = () => {
-  const [showQrCard, setShowQrCard] = useState(false);
-  const [fragranceInfo, setFragranceInfo] = useState(null);
+  const [showQrCard, setShowQrCard] = useState(true);
+  // const [fragranceInfo, setFragranceInfo] = useState(null);
   const socketRef = useRef(null);
   const navigate = useNavigate();
 
-  const handleBtnClick = () => {
-    navigate(ROUTES.CHATBOT);
+  const fragranceInfo = {
+    imageUrl: qrCardImageMap["배롱나무"],
+    name: "배롱나무",
+    realName: "맑은 이슬을 머금은 배롱나무 생화 꽃 향기",
+    description:
+      "초여름의 장맛비 속, 우산 너머로 배롱나무 꽃잎들이 쏟아질 듯 피어 있습니다.굵은 빗방울이 꽃잎을 스치며 공기 속으로 번지는 건,\n촉촉하고 생생한 꽃 내음.빗속에서도 환하게 피어 있는 그 향은,\n유난히 푸르고 투명한 감정으로 다가옵니다.",
   };
 
-  const handleQr = () => {
-    setShowQrCard(true);
+  const handleBtnClick = () => {
+    navigate(ROUTES.CHATBOT);
   };
 
   const handleQrScan = (deviceId) => {
@@ -94,7 +98,7 @@ const FragranceContent = () => {
     socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
       if (data.fragranceInfo) {
-        setFragranceInfo(data.fragranceInfo);
+        // setFragranceInfo(data.fragranceInfo);
         setShowQrCard(true);
       }
     };

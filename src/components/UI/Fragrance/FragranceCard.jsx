@@ -30,13 +30,13 @@ const NameArea = styled.div`
 const Name = styled.div`
   font-family: "Pretendard";
   font-style: normal;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 20px;
   line-height: 24px;
 `;
 
 const Info = styled.div`
-  font-weight: 400;
+  font-weight: 500;
   font-size: 14px;
   text-align: center;
   line-height: 17px;
@@ -64,7 +64,7 @@ const FragranceContainer = styled.div`
 const FragranceItem = styled.div`
   font-size: 16px;
   line-height: 19px;
-  font-weight: 350;
+  font-weight: 400;
   color: #2c2c2c;
 
   font-family: "Pretendard";
@@ -86,7 +86,7 @@ const HashTagContainer = styled.div`
 const HashTag = styled.span`
   font-size: 12px;
   line-height: 14px;
-  font-weight: 350;
+  font-weight: 400;
   color: #aaaaaa;
 `;
 

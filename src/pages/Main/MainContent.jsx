@@ -21,7 +21,7 @@ const LogoWrapper = styled.div`
 const IntroText = styled.div`
   margin-top: 61.05px;
   font-size: 20px;
-  font-weight: 350;
+  font-weight: 400;
   line-height: 170%;
   letter-spacing: -0.011em;
   color: #2c2c2c;
@@ -29,7 +29,7 @@ const IntroText = styled.div`
 
 const GradientText = styled.div`
   margin-top: 61px;
-  font-weight: 550;
+  font-weight: 600;
   font-size: 17px;
   line-height: 26px;
 
@@ -41,7 +41,7 @@ const GradientText = styled.div`
 `;
 
 const Text = styled.span`
-  font-weight: 500;
+  font-weight: 600;
 `;
 const BtnWrapper = styled.div`
   margin-top: 27px;

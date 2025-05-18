@@ -9,7 +9,7 @@ const ChatInputContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 11px;
+  padding: 13px;
   margin-top: 50.92px;
   gap: 13px;
 
@@ -46,7 +46,7 @@ const ChatInputField = styled.textarea`
   &::placeholder {
     font-family: "Pretendard";
 
-    font-weight: 350;
+    font-weight: 400;
     font-size: 17px;
     line-height: 170%;
     letter-spacing: -0.011em;
@@ -56,9 +56,8 @@ const ChatInputField = styled.textarea`
 
 const ChatSendBtnWrapper = styled.div`
   display: flex;
+  height: 35px;
   align-self: flex-end;
-  justify-content: center;
-  padding: 2px;
 `;
 const ChatInput = ({ onSend }) => {
   const [inputValue, setInputValue] = useState("");

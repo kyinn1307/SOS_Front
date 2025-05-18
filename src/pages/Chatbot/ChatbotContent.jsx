@@ -23,7 +23,7 @@ const ChatbotContent = () => {
           <br />
           맞춤형 조향 도우미,
           <BoldText>
-            <GradientText>센티</GradientText>
+            <GradientText> 센티</GradientText>
           </BoldText>
           예요. 🌿✨
         </CommentBox>
