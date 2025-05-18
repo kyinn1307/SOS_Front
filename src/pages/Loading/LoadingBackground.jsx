@@ -12,10 +12,6 @@ const LoadingBgWrapper = styled.div`
   align-items: center;
   z-index: -1;
   background-color: #edf6f8;
-
-  @media (min-width: 768px) and (max-width: 1200px) {
-    top: -65px;
-  }
 `;
 
 const ImgWrapper = styled.div`
