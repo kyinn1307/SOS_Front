@@ -4,7 +4,6 @@ import ProduceLoadingBg from "../../assets/loading/produce_loading_layer.png";
 const LoadingBgWrapper = styled.div`
   position: fixed;
   width: 100%;
-  top: 0; /* ✅ 데스크톱과 모바일 기본값 */
 
   height: 100dvh;
   display: flex;
@@ -16,7 +15,7 @@ const LoadingBgWrapper = styled.div`
 const StyledImg = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
 `;
 
 const ProduceLoadingBackground = () => {
