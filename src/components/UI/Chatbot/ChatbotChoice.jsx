@@ -17,7 +17,7 @@ const Container = styled.div`
 `;
 
 const TextWrapper = styled.div`
-  font-weight: 350;
+  font-weight: 400;
   font-size: 17px;
   line-height: 180%;
   text-align: center;
@@ -37,10 +37,10 @@ const ChatbotChoice = () => {
   const navigate = useNavigate();
 
   const handleOriginBtnClick = () => {
-    navigate(ROUTES.CHAT);
+    navigate(ROUTES.ORIGINAL_CHAT);
   };
   const handleChatBtnClick = () => {
-    navigate(ROUTES.CHAT);
+    navigate(ROUTES.CUSTOM_CHAT);
   };
   return (
     <Container>
@@ -62,7 +62,7 @@ const ChatbotChoice = () => {
         <StyledBtn
           variant="black"
           onClick={handleChatBtnClick}
-          paddingLeft={"41.93px"}
+          paddingLeft={"39.93px"}
         >
           센티와 나만의 향 찾기
         </StyledBtn>

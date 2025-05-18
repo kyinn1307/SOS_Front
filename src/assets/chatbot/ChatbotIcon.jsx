@@ -1,8 +1,9 @@
 import chatbotIcon from "./chatbot_icon.svg";
 import styled from "styled-components";
-import IconLayer from "./IconLayer";
+import IconBigLayer from "./IconBigLayer";
 import IconShadow from "./IconShadow";
 import IconBigShadow from "./IconBigShadow";
+import IconLayer from "./IconLayer";
 
 const IconWrapper = styled.div`
   position: relative;
@@ -37,7 +38,7 @@ const ChatbotIcon = ({ size = "big" }) => {
   return (
     <IconWrapper>
       <IconLayerWrapper>
-        <IconLayer size={size} />
+        {size === "small" ? <IconLayer /> : <IconBigLayer />}
       </IconLayerWrapper>
       <IconShadowWrapper>
         {size === "small" ? <IconShadow /> : <IconBigShadow />}
