@@ -10,8 +10,8 @@ const Container = styled.div`
 const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 599px;
-  height: 619px;
+  width: 619px;
+  height: 599px;
   padding: 20px;
   border-radius: 15px;
   background-color: #fafaf8;
@@ -39,6 +39,8 @@ const Title = styled.div`
 
 const SubTitle = styled.div`
   position: relative;
+  white-space: pre-wrap;
+
   font-weight: 500;
   font-size: 18px;
   line-height: 170%;
@@ -50,9 +52,8 @@ const SubTitle = styled.div`
 const Separator = styled.div`
   position: relative;
   width: 12px;
-  height: 0px;
 
-  border: 2px solid #2c2c2c;
+  border: 1px solid #2c2c2c;
   margin-top: 16px;
 `;
 
@@ -70,7 +71,7 @@ const Content = styled.div`
 `;
 
 const BtnWrapper = styled.div`
-  margin-top: 15px;
+  margin-top: 5px;
 `;
 
 const FragranceQrCard = ({ fragranceInfo, onClose }) => {
