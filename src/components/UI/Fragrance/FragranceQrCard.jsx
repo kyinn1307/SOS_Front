@@ -17,6 +17,7 @@ const CardWrapper = styled.div`
   border-radius: 15px;
   background-color: #fafaf8;
   align-items: center;
+  margin-top: 10px;
 `;
 
 const ImageWrapper = styled.div`
