@@ -121,6 +121,7 @@ const DeviceRegisterModal = ({ onClose }) => {
           isModal={true}
           isChangeModal={true}
           disabled={!isValid}
+          paddingLeft={"55.83px"}
         >
           추가하기
         </StyledBtn>

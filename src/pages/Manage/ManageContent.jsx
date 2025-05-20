@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getCartridges } from "../../api/apis/cartridge";
 import BlurLayer from "../../components/Layout/BlurLayer";
@@ -102,6 +102,43 @@ const ManageContent = ({ deviceId }) => {
     beforeAmount: 0,
     afterAmount: 0,
   });
+  const [alertedCartridgeIds, setAlertedCartridgeIds] = useState([]); // 경고 카트리지 ID 목록
+
+  const socketRef = useRef(null);
+
+  useEffect(() => {
+    const ws = new WebSocket("ws://3.39.64.81:8080/api/admin/ws");
+    socketRef.current = ws;
+
+    ws.onopen = () => {
+      console.log("WebSocket 연결 성공");
+    };
+
+    ws.onmessage = (event) => {
+      const msg = event.data;
+
+      try {
+        const json = JSON.parse(msg);
+
+        // 실제 경고 메시지 구조에 따라 처리
+        if (json?.alert?.cartridgeId) {
+          console.log("받은 alert 데이터:", json.alert);
+          console.log("기기 ID:", json.deviceId);
+          setAlertedCartridgeIds((prev) =>
+            prev.includes(json.alert.cartridgeId)
+              ? prev
+              : [...prev, json.alert.cartridgeId]
+          );
+        }
+      } catch (e) {
+        // JSON 형식이 아니면 무시
+        console.warn("⚠️ JSON 아님:", msg);
+      }
+    };
+    return () => {
+      ws.close();
+    };
+  }, []);
 
   const handleScrollBtnClick = () => {
     setShowDeviceChoice((prev) => !prev);
@@ -115,6 +152,7 @@ const ManageContent = ({ deviceId }) => {
   const handleChangeComplete = () => {
     setIsChangeModalOpen(false);
     setIsChangeCompleteOpen(true);
+    refetch();
   };
 
   const openModalWithFlavor = (flavor) => {
@@ -130,21 +168,22 @@ const ManageContent = ({ deviceId }) => {
   const handleFillComplete = () => {
     setIsFillModalOpen(false);
     setIsFillCompleteModalOpen(true);
+    refetch();
   };
 
   const handleRefillComplete = ({ beforeAmount, afterAmount }) => {
     setIsRefillModalOpen(false);
     setRefillResult({ beforeAmount, afterAmount });
     setIsRefillCompleteOpen(true);
+    refetch();
   };
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["cartridges", deviceId],
     queryFn: () => getCartridges(deviceId),
     enabled: !!deviceId,
   });
 
-  // 로딩 중이거나 데이터 없으면 처리
   if (isLoading) return <div>로딩 중...</div>;
   if (error) return <div>에러 발생: {error.message}</div>;
   if (!data || !data.data) return <div>데이터 없음</div>;
@@ -168,9 +207,20 @@ const ManageContent = ({ deviceId }) => {
   const filledCartridgeList = Array.from(
     { length: DEFAULT_CARTRIDGE_COUNT },
     (_, index) => {
-      return (
-        cartridgeList[index] || { ...EMPTY_SLOT, cartridgeId: `empty-${index}` }
-      );
+      const cartridge = cartridgeList[index];
+
+      if (cartridge) {
+        return {
+          ...cartridge,
+          deviceId: device.deviceId, // ✅ deviceId 추가
+        };
+      }
+
+      return {
+        ...EMPTY_SLOT,
+        cartridgeId: `empty-${index}`,
+        deviceId: device.deviceId, // ✅ 빈 슬롯에도 deviceId 포함
+      };
     }
   );
 
@@ -190,6 +240,7 @@ const ManageContent = ({ deviceId }) => {
       </HeaderWrapper>
       <CatridgeList
         deviceId={deviceId}
+        alertedCartridgeIds={alertedCartridgeIds} // 전달
         cartridgeList={filledCartridgeList}
         openModalWithFlavor={openModalWithFlavor}
         openRefillModalWithFlavor={openRefillModalWithFlavor}

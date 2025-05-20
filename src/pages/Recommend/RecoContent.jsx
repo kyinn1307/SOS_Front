@@ -6,6 +6,13 @@ import RecoCard from "../../components/UI/Reco/RecoCard";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
 import BoldText from "../../components/UI/common/BoldText";
+import { useRecoStore } from "../../store/recoStore";
+import axios from "axios";
+import OriginalRecoCard from "../../components/UI/Reco/OriginalRecoCard"; // 새로 만들 컴포넌트
+
+import BlurLayer from "../../components/Layout/BlurLayer";
+import CatridgeModal from "../../components/UI/Reco/CatridgeModal";
+import axiosInstance from "../../api/axiosInstance";
 
 // const titles = [
 //   "우울한 날",
@@ -46,82 +53,77 @@ const BtnWrapper = styled.div`
   margin-top: 10px;
 `;
 
+const ModalWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* 중심 정렬 추가 */
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const WS_BASE_URL = import.meta.env.VITE_WS_BASE_URL;
 
 const RecoContent = () => {
+  const [isCatridgeError, setIsCatridgeError] = useState(false);
   const [isBtnOn, setIsBtnOn] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-  const [recipeInfo, setRecipeInfo] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(0); // 삭제 예정
-  const socketRef = useRef(null);
+
+  const { recommendationData, sessionId, productionType } = useRecoStore();
   const navigate = useNavigate();
 
-  const mockRecipeInfo = {
-    imageUrl: ["우울한 날"],
-    name: "우울한 날",
-    description:
-      "허브와 민트, 시트러스의 상쾌함이 중심이 되고, 우아한 로즈 향이 기분을 환기시켜줍니다.",
-    topNotes: ["경포대"],
-    middleNotes: ["은행나무,벚꽃"],
-    baseNotes: ["밤장미"],
+  const handleBtnClick = async () => {
+    if (!sessionId) {
+      console.error("sessionId가 유효하지 않습니다:", sessionId);
+      return;
+    }
+
+    try {
+      const response = await axiosInstance.post("/production", {
+        sessionId,
+      });
+
+      console.log("성공", response.data);
+      navigate(ROUTES.PRODUCE_LOADING);
+    } catch (err) {
+      console.log("실패", sessionId);
+      console.error("향수 제작 요청 실패", err);
+    }
   };
 
-  const handleBtnClick = () => {
-    navigate(ROUTES.PRODUCE_LOADING);
+  const handleCloseBtnClick = () => {
+    setIsCatridgeError(false);
   };
 
   useEffect(() => {
     setIsBtnOn(isChecked);
   }, [isChecked]);
 
-  useEffect(() => {
-    const deviceId = "exampleDeviceId123";
-
-    const socket = new WebSocket(WS_BASE_URL);
-    socketRef.current = socket;
-
-    socket.onopen = () => {
-      console.log("WebSocket 연결 성공");
-
-      // 연결 후 구독 요청
-      const subscribeMessage = {
-        action: "subscribe",
-        topic: `/recipe/detail/${deviceId}`,
-      };
-      socket.send(JSON.stringify(subscribeMessage));
-    };
-
-    socket.onmessage = (event) => {
-      const response = JSON.parse(event.data);
-
-      if (response.recipeInfo) {
-        setRecipeInfo(response.recipeInfo);
-      }
-    };
-
-    socket.onerror = (error) => {
-      console.error("WebSocket 오류 발생:", error);
-    };
-
-    socket.onclose = () => {
-      console.log("WebSocket 연결 종료");
-    };
-
-    return () => {
-      if (socketRef.current) {
-        socketRef.current.close();
-      }
-    };
-  }, []);
-
   return (
     <>
+      {isCatridgeError && (
+        <>
+          <ModalWrapper>
+            <BlurLayer />
+            <CatridgeModal onClose={handleCloseBtnClick} />
+          </ModalWrapper>
+        </>
+      )}
       <ContentWrapper>
         <IntroText>
           🌟 당신을 위한 오늘의 향이 <BoldText>완성</BoldText>됐어요! 🌟
           <br />이 향이 오늘의 당신을 더욱 빛나게 해줄 거예요! 💖💫
         </IntroText>
-        <RecoCard recipeInfo={recipeInfo || mockRecipeInfo} />
+        {productionType === "ORIGINAL" ? (
+          <OriginalRecoCard recipeInfo={recommendationData} />
+        ) : (
+          <RecoCard recipeInfo={recommendationData} />
+        )}
         <BoxWrapper>
           <Checkbox
             isChecked={isChecked}

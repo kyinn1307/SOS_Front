@@ -22,6 +22,8 @@ const ChatInputContainer = styled.div`
 `;
 
 const ChatInputField = styled.textarea`
+  font-family: "Pretendard";
+
   position: relative;
   width: 798px;
   min-height: 155px;
@@ -77,8 +79,8 @@ const ChatInput = ({ onSend }) => {
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
       />
-      <ChatSendBtnWrapper onClick={handleSendBtnClick}>
-        <ChatSendBtn />
+      <ChatSendBtnWrapper>
+        <ChatSendBtn onClick={handleSendBtnClick} />
       </ChatSendBtnWrapper>
     </ChatInputContainer>
   );

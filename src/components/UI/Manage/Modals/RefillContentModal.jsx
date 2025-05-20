@@ -103,15 +103,24 @@ const RefillContentModal = ({ catridge, onClose, onComplete }) => {
   const [mode, setMode] = useState("refill");
   const [amount, setAmount] = useState("");
 
-  const beforeAmount = catridge.remainingAmount ?? 0;
-  const totalAmount = catridge.totalAmount ?? 200;
+  const beforeAmount = catridge.currentAmount ?? 0;
+  const totalAmount = catridge.totalCapacity ?? 200;
+
+  const refilledAmount = Number(amount);
 
   const afterAmount =
-    mode === "refill" && amount ? beforeAmount + Number(amount) : beforeAmount;
+    mode === "refill" && !isNaN(refilledAmount)
+      ? Math.min(beforeAmount + refilledAmount, totalAmount)
+      : mode === "replace"
+      ? totalAmount
+      : beforeAmount;
 
   const handleClick = async () => {
-    if (!catridge?.deviceId || !catridge?.cartridgeId) {
+    const { deviceId, cartridgeId, fragranceName } = catridge;
+
+    if (!deviceId || !cartridgeId) {
       alert("기기 또는 카트리지 정보가 없습니다.");
+      console.log(deviceId, cartridgeId);
       return;
     }
 
@@ -121,19 +130,20 @@ const RefillContentModal = ({ catridge, onClose, onComplete }) => {
         return;
       }
 
-      const refillAmount = Number(amount);
+      const refilledAmount = Number(amount) + beforeAmount;
 
       try {
-        await refillCartridge(catridge.deviceId, catridge.cartridgeId, {
-          refilledAmount: refillAmount,
+        // console.log(refilledAmount);
+        await refillCartridge(deviceId, cartridgeId, {
+          refilledAmount: refilledAmount,
         });
 
         console.log("용액이 성공적으로 추가되었습니다!");
         if (onComplete) {
           onComplete({
             flavorName: catridge.fragranceName,
-            beforeAmount: beforeAmount,
-            afterAmount: beforeAmount + refillAmount,
+            beforeAmount,
+            afterAmount,
           });
         }
       } catch (error) {
@@ -142,7 +152,7 @@ const RefillContentModal = ({ catridge, onClose, onComplete }) => {
       }
     } else if (mode === "replace") {
       try {
-        await replaceCartridge(catridge.deviceId, catridge.cartridgeId); // ✅ body 없이!
+        await replaceCartridge(deviceId, cartridgeId);
 
         console.log("카트리지 교체 성공");
 
@@ -200,6 +210,17 @@ const RefillContentModal = ({ catridge, onClose, onComplete }) => {
           value={amount}
           disabled={mode !== "refill"}
           onChange={(e) => setAmount(e.target.value)}
+          onBlur={() => {
+            const refillAmountNum = Number(amount);
+            if (
+              mode === "refill" &&
+              !isNaN(refillAmountNum) &&
+              refillAmountNum + beforeAmount > totalAmount
+            ) {
+              const maxAvailable = totalAmount - beforeAmount;
+              setAmount(String(maxAvailable));
+            }
+          }}
         />
       </Row>
       <Row mt="11px">
@@ -212,6 +233,7 @@ const RefillContentModal = ({ catridge, onClose, onComplete }) => {
           isModal={true}
           onClick={handleClick}
           width="250px"
+          paddingLeft={"42.83px"}
         >
           용액 추가 및 교체하기
         </StyledBtn>

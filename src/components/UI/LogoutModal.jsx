@@ -25,7 +25,7 @@ const Text = styled.div`
 
   font-size: 18px;
   line-height: 170%;
-  font-weight: 350;
+  font-weight: 400;
   text-align: center;
   letter-spacing: -0.011em;
 
@@ -54,6 +54,7 @@ const LogoutModal = ({ onClose }) => {
           isModal={true}
           onClick={onClose}
           isDeleteModal={true}
+          paddingLeft={"64px"}
         >
           아니오
         </StyledBtn>
@@ -62,6 +63,7 @@ const LogoutModal = ({ onClose }) => {
           isModal={true}
           onClick={onClose}
           isDeleteModal={true}
+          paddingLeft={"78px"}
         >
           예
         </StyledBtn>

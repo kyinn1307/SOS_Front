@@ -8,8 +8,12 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const Modal = ({ isDone }) => {
-  return <Container>{isDone ? <CompleteModal /> : <ErrorModal />}</Container>;
+const Modal = ({ isDone, onClose }) => {
+  return (
+    <Container>
+      {isDone ? <CompleteModal /> : <ErrorModal onClose={onClose} />}
+    </Container>
+  );
 };
 
 export default Modal;

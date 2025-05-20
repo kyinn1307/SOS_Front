@@ -1,5 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { recoCardImageMap } from "../../../constants/recoCardImageMap";
+import { mockRecoCardInfoList } from "../../../constants/mockRecoCardInfoList";
 
 const dramaticFlyIn = keyframes`
   0% {
@@ -97,7 +98,7 @@ const Footer = styled.div`
   width: 258px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-top: 8px;
 `;
 
@@ -114,8 +115,13 @@ const FooterContent = styled.div`
   font-weight: 400;
 `;
 
-const RecoCard = ({ recipeInfo }) => {
+const OriginalRecoCard = ({ recipeInfo }) => {
   const resolvedImageUrl = recoCardImageMap[recipeInfo.name];
+
+  // ✅ name을 기준으로 mockFragranceInfoList에서 description 추출
+  const matchedFragrance = mockRecoCardInfoList[recipeInfo.name];
+  const description = matchedFragrance?.description || "설명 없음";
+
   return (
     <Container>
       <Main>
@@ -133,22 +139,16 @@ const RecoCard = ({ recipeInfo }) => {
         </PhotoWrapper>
         <TextWrapper>
           <Title>{recipeInfo.name}</Title>
-          <Content>{recipeInfo.description}</Content>
+          <Content>{description}</Content>
         </TextWrapper>
       </Main>
       <Footer>
-        <FooterContent>
-          Top: {recipeInfo.topNotes?.join(", ") || "-"}
-        </FooterContent>
-        <FooterContent>
-          Middle: {recipeInfo.middleNotes?.join(", ") || "-"}
-        </FooterContent>
-        <FooterContent>
-          Base: {recipeInfo.baseNotes?.join(", ") || "-"}
-        </FooterContent>
+        {recipeInfo.hashtags?.map((tag, idx) => (
+          <FooterContent key={idx}>#{tag}</FooterContent>
+        ))}
       </Footer>
     </Container>
   );
 };
 
-export default RecoCard;
+export default OriginalRecoCard;

@@ -26,15 +26,16 @@ const CommentWrapper = styled.div`
 `;
 
 const ModalWrapper = styled.div`
-  margin-top: 205px;
+  margin-top: 195px;
   width: 442px;
+  height: 197px;
 `;
 
 const ProgressBarWrapper = styled.div`
   margin-top: 169.5px;
 `;
 const BtnWrapper = styled.div`
-  margin-top: 183px;
+  margin-top: 173px;
 `;
 
 const WS_BASE_URL = import.meta.env.VITE_WS_BASE_URL;
@@ -45,10 +46,9 @@ const ProduceLoadingContent = () => {
   const socketRef = useRef(null);
   const navigate = useNavigate();
 
-  // 1. progress 차오르게
   useEffect(() => {
-    const duration = 3000; // 전체 진행 시간 (3초)
-    const intervalTime = 30; // 간격
+    const duration = 30000;
+    const intervalTime = 30;
     const steps = duration / intervalTime;
     const increment = 100 / steps;
 
@@ -66,7 +66,6 @@ const ProduceLoadingContent = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // 2. 100% 후 1.5초 후 isDone true
   useEffect(() => {
     if (progress >= 100) {
       const timeout = setTimeout(() => {
@@ -77,7 +76,7 @@ const ProduceLoadingContent = () => {
   }, [progress]);
 
   useEffect(() => {
-    const deviceId = "exampleDeviceId123"; // TODO: 실제 deviceId 넘기기
+    const deviceId = "exampleDeviceId123";
     const socket = new WebSocket(WS_BASE_URL);
 
     socketRef.current = socket;

@@ -50,10 +50,10 @@ const LoadingContent = () => {
   useEffect(() => {
     if (progress >= 100) {
       const timeout = setTimeout(() => {
-        // navigate(ROUTES.RECOMMEND);
+        navigate(ROUTES.RECOMMEND);
       }, 1000);
 
-      return () => clearTimeout(timeout); // cleanup
+      return () => clearTimeout(timeout);
     }
   }, [progress, navigate]);
 

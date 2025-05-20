@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDeviceStore } from "../../store/deviceStore";
+import { useRecoStore } from "../../store/recoStore";
 import styled from "styled-components";
 import ChatbotIcon from "../../assets/chatbot/ChatbotIcon";
 import QuestionBox from "../../assets/chatbot/QuestionBox";
@@ -9,7 +10,6 @@ import BlurLayer from "../../components/Layout/BlurLayer";
 import Modal from "../../components/UI/common/Modal";
 import BoldText from "../../components/UI/common/BoldText";
 import { startChatSession } from "../../api/apis/chatbot";
-import { useNavigate } from "react-router-dom";
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -34,9 +34,10 @@ const ChatbotWrapper = styled.div`
 
 const QuestionWrapper = styled.div`
   position: absolute;
+  top: 0%;
   left: 100%;
 
-  margin-left: 30px;
+  margin-left: 35px;
 `;
 
 const IntroText = styled.div`
@@ -51,82 +52,127 @@ const IntroText = styled.div`
 
 const ModalWrapper = styled.div`
   position: absolute;
-  top: 33%;
-  left: 32%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
   z-index: 10;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ChatContent = () => {
   const [question, setQuestion] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [sessionId, setSessionId] = useState("");
+  const {
+    setSessionId: setRecoSessionId,
+    setRecommendationData,
+    setProductionType,
+  } = useRecoStore();
+  const socketRef = useRef(null);
+  const chatSocketRef = useRef(null);
   const { deviceId } = useDeviceStore();
   const location = useLocation();
-
-  const socketRef = useRef(null);
   const navigate = useNavigate();
 
+  const WS_BASE_URL = import.meta.env.VITE_API_BASE_WS;
+
   useEffect(() => {
-    const initChatSession = async () => {
+    const initChat = async () => {
       try {
-        const websocketUrl = `${import.meta.env.VITE_WEBSOCKET_URL}`;
-        const socket = new WebSocket(websocketUrl);
+        const productionType = location.pathname.includes("original")
+          ? "ORIGINAL"
+          : "CUSTOM";
+
+        setProductionType(productionType);
+
+        const sessionRes = await startChatSession({
+          deviceId: deviceId || "DEVICE1",
+          type: productionType,
+        });
+
+        const newSessionId = sessionRes.data.data.sessionId;
+        setRecoSessionId(newSessionId);
+        setSessionId(newSessionId);
+
+        // 첫 메시지 수신 WebSocket
+        const wsUrl = `${WS_BASE_URL}/api/session/ws?sessionId=${newSessionId}`;
+        const socket = new WebSocket(wsUrl);
         socketRef.current = socket;
 
-        socket.onopen = () => {
-          console.log("WebSocket 연결 성공");
-        };
-
         socket.onmessage = (event) => {
-          const response = JSON.parse(event.data);
+          const data = JSON.parse(event.data);
+          console.log("🟦 InitSocket Message:", data);
 
-          if (response.type === "message" && response.data?.content) {
-            setIsTyping(false);
-            setQuestion(response.data.content);
-
-            if (response.data.conversationStatus?.complete) {
-              navigate("/loading");
-            }
-          } else if (
-            response.type === "status" &&
-            response.data?.status === "typing"
-          ) {
-            setIsTyping(true);
-          } else if (response.type === "error") {
-            console.error("서버 에러:", response.data.message);
-            setIsError(true);
+          if (data.messageType === "BOT" && data.message) {
+            setQuestion(data.message);
           }
+
+          // 이후 메시지 송수신용 WebSocket 연결
+          const chatSocket = new WebSocket(
+            `${WS_BASE_URL}/api/session/chat/ws`
+          );
+
+          chatSocketRef.current = chatSocket;
+
+          chatSocket.onmessage = (event) => {
+            try {
+              const res = JSON.parse(event.data);
+              console.log("ChatSocket Message:", res);
+
+              if (res.status === "error") {
+                console.error("서버 응답 오류:", res.details.message);
+                setIsError(true);
+                return;
+              }
+
+              if (res.isRecommended === true) {
+                setRecommendationData(res.recommendationData);
+                navigate("/loading");
+              }
+
+              if (res.messageType === "BOT" && res.message) {
+                setQuestion(res.message);
+              }
+            } catch (err) {
+              console.error("메시지 파싱 오류", err);
+              setIsError(true);
+            }
+          };
+
+          chatSocket.onerror = () => setIsError(true);
+          chatSocket.onclose = () => console.log("Chat WebSocket 종료");
         };
 
-        socket.onerror = (error) => {
-          console.error("WebSocket 오류 발생", error);
-          setIsError(true);
-        };
-
-        socket.onclose = () => {
-          console.log("WebSocket 연결 종료");
-        };
-      } catch (error) {
-        console.error("채팅 세션 생성 실패", error);
+        socket.onerror = () => setIsError(true);
+        socket.onclose = () => console.log("Init WebSocket 종료");
+      } catch (err) {
+        console.error("채팅 초기화 실패:", err);
         setIsError(true);
       }
     };
 
-    initChatSession();
+    initChat();
 
     return () => {
-      if (socketRef.current) {
-        socketRef.current.close();
-      }
+      socketRef.current?.close();
+      chatSocketRef.current?.close();
     };
-  }, [navigate]);
+  }, [deviceId, location, navigate, setRecoSessionId, setRecommendationData]);
 
   const sendAnswer = (answer) => {
-    if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
+    if (
+      chatSocketRef.current &&
+      chatSocketRef.current.readyState === WebSocket.OPEN
+    ) {
+      setQuestion("잠시만 기다려주세요...");
+
       const payload = {
-        sessionId: "1",
+        sessionId,
         message: answer,
         messageType: "USER",
         timestamp: new Date().toISOString(),
@@ -135,24 +181,24 @@ const ChatContent = () => {
           : "CUSTOM",
       };
 
-      socketRef.current.send(JSON.stringify(payload));
+      chatSocketRef.current.send(JSON.stringify(payload));
     } else {
-      console.error("WebSocket이 연결되어 있지 않습니다.");
+      console.error("WebSocket 연결이 되어 있지 않음");
       setIsError(true);
     }
   };
 
   return (
     <>
+      {isError && (
+        <>
+          <ModalWrapper>
+            <BlurLayer />
+            <Modal isDone={!isError} onClose={() => setIsError(false)} />
+          </ModalWrapper>
+        </>
+      )}
       <ContentWrapper>
-        {/* {isError && (
-          <>
-            <ModalWrapper>
-              <BlurLayer />
-              <Modal isDone={!isError} />
-            </ModalWrapper>
-          </>
-        )} */}
         <IntroText>
           저, 센티와 함께 당신만을 위한 향을 찾아보고 싶군요!
           <br />

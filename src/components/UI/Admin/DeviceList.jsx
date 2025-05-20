@@ -66,7 +66,7 @@ const DeviceList = ({
             selected={selectedDevice?.deviceId === device.deviceId}
             onSelect={onSelectDevice}
             onEdit={() => onEditDevice(device)}
-            onDelete={() => onDeleteDevice(device.deviceName)}
+            onDelete={onDeleteDevice}
           />
         );
       })}

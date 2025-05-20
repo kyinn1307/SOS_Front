@@ -53,6 +53,7 @@ const CartridgeItem = ({
   cartridge,
   openModalWithFlavor,
   openRefillModalWithFlavor,
+  isExternallyAlerted = false,
 }) => {
   const neverFilled =
     cartridge.cartridgeId === null ||
@@ -61,8 +62,11 @@ const CartridgeItem = ({
     cartridge.currentAmount === undefined;
 
   const [rest, setRest] = useState(neverFilled ? 0 : cartridge.currentAmount);
-  const [isAlert, setIsAlert] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
+
+  const isLowVolume = rest <= 50 && !neverFilled;
+
+  const isAlert = isLowVolume || isExternallyAlerted; // ✅ 외부 경고 포함
 
   const handleClick = () => {
     if (neverFilled) {
@@ -73,7 +77,6 @@ const CartridgeItem = ({
   };
 
   useEffect(() => {
-    setIsAlert(rest <= 50 && !neverFilled);
     setIsEmpty(rest === 0 && !neverFilled);
   }, [rest, neverFilled]);
 

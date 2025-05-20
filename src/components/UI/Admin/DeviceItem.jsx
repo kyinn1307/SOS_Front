@@ -62,7 +62,7 @@ const DeviceItem = ({
       </Name>
       <BtnContainer onClick={(e) => e.stopPropagation()}>
         <EditBtn onClick={onEdit} />
-        <DeleteBtn onClick={() => onDelete(name)} />
+        <DeleteBtn onClick={() => onDelete({ deviceId, deviceName })} />
       </BtnContainer>
     </Container>
   );

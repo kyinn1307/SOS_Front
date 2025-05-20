@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { useDeviceStore } from "../../store/deviceStore";
 import StyledBtn from "../../components/UI/common/StyledBtn";
 import { useState } from "react";
-import { ROUTES } from "../../constants/routes";
 import DeviceList from "../../components/UI/Admin/DeviceList";
 import BlurLayer from "../../components/Layout/BlurLayer";
 import DeviceDeleteModal from "../../components/UI/Admin/DeviceDeleteModal";
@@ -35,9 +34,9 @@ const AdminContent = () => {
     );
   };
 
-  const handleDeleteDevice = (deviceName) => {
+  const handleDeleteDevice = ({ deviceId, deviceName }) => {
     setIsDeleteModalOpen(true);
-    console.log(deviceName);
+    setSelectedDevice({ deviceId, deviceName });
   };
 
   const handleRegisterDevice = () => {
@@ -57,15 +56,6 @@ const AdminContent = () => {
       navigate(`/manage/${selectedDevice.deviceId}`);
     }
   };
-
-  // const handleConnectToPad = () => {
-  //   if (!selectedDevice) {
-  //     alert("기기를 선택해주세요.");
-  //   } else {
-  //     setDeviceId(selectedDevice.devicePhysicalId);
-  //     alert(`패드 연결 기기를 ${selectedDevice.deviceName}로 설정했습니다.`);
-  //   }
-  // };
 
   return (
     <ContentWrapper>
@@ -98,14 +88,6 @@ const AdminContent = () => {
         >
           기기 관리하기
         </StyledBtn>
-        {/* <StyledBtn
-          variant="black"
-          isAdmin={true}
-          onClick={handleConnectToPad}
-          style={{ marginTop: "10px" }}
-        >
-          선택한 기기로 패드 연결
-        </StyledBtn> */}
       </BtnContainer>
 
       {isDeleteModalOpen && (
@@ -113,7 +95,7 @@ const AdminContent = () => {
           <BlurLayer />
           <ModalContainer>
             <DeviceDeleteModal
-              deviceId={selectedDevice.id}
+              deviceId={selectedDevice.deviceId}
               onClose={() => setIsDeleteModalOpen(false)}
             />
           </ModalContainer>

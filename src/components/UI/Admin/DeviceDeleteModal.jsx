@@ -56,9 +56,10 @@ const DeviceDeleteModal = ({ deviceId, onClose }) => {
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
-    mutationFn: deleteDevice,
+    mutationFn: () => deleteDevice(deviceId),
     onSuccess: () => {
       queryClient.invalidateQueries(["devices"]);
+      console.log(`${deviceId}삭제완료`);
       onClose();
     },
     onError: (error) => {

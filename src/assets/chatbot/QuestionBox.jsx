@@ -6,23 +6,27 @@ const QuestionContainer = styled.div`
   align-items: center;
   justify-content: center;
 
-  width: 347px;
+  width: 400px;
   padding: 20px 24px;
   box-sizing: border-box;
   background-color: #fafaf8;
-  border-radius: 16px 16px 16px 0;
+  border-radius: 16px;
   box-shadow: 0 0 15px rgba(231, 221, 193, 0.5);
   z-index: 1;
 
-  &::after {
+  &::before {
     content: "";
     position: absolute;
-    bottom: -0.1px;
-    left: -12px;
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+
     width: 0;
     height: 0;
-    border-top: 16px solid transparent;
-    border-right: 16px solid #fafaf8;
+
+    border-top: 14px solid transparent;
+    border-bottom: 14px solid transparent;
+    border-right: 20px solid #fafaf8;
   }
 `;
 

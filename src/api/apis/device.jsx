@@ -2,10 +2,10 @@ import { getData, deleteData } from "../apiClient";
 
 export const fetchDevices = async () => {
   const response = await getData("/devices");
-  console.log("📦 fetchDevices 응답:", response.data); // 여기 추가
+  console.log("fetchDevices 응답:", response.data);
 
   const deviceList = response.data.data;
-  console.log("fetchDevices 응답:", deviceList); // ✅ 콘솔 확인
+  console.log("fetchDevices 응답:", deviceList);
 
   return deviceList.map((item) => ({
     deviceId: item.deviceId,

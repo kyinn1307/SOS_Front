@@ -22,17 +22,17 @@ const CatridgeList = ({
   cartridgeList,
   openModalWithFlavor,
   openRefillModalWithFlavor,
+  alertedCartridgeIds = [],
 }) => {
   return (
     <Container>
       {cartridgeList.map((cartridge) => (
         <CartridgeItem
           key={cartridge.cartridgeId}
-          cartridge={{
-            fragranceName: cartridge.fragranceName,
-            currentAmount: cartridge.currentAmount,
-            totalCapacity: cartridge.totalCapacity,
-          }}
+          cartridge={cartridge}
+          isExternallyAlerted={alertedCartridgeIds.includes(
+            cartridge.cartridgeId
+          )}
           openModalWithFlavor={openModalWithFlavor}
           openRefillModalWithFlavor={openRefillModalWithFlavor}
         />

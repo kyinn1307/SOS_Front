@@ -10,14 +10,14 @@ import qrPineTree from "../assets/qrCardImages/qr_pine_tree.png";
 import qrTaebaekMountain from "../assets/qrCardImages/qr_taebaek_mountain.png";
 
 export const fragranceImagesMap = {
-  qrAnmokBeach,
-  qrCherryBlossom,
-  qrCrapeMyrtle,
-  qrDarkRose,
-  qrGinkgoTree,
-  qrGyeongpodae,
-  qrHydrangea,
-  qrPersimmonTree,
-  qrPineTree,
-  qrTaebaekMountain,
+  배롱나무: qrCrapeMyrtle,
+  감나무: qrPersimmonTree,
+  경포대: qrGyeongpodae,
+  은행나무: qrGinkgoTree,
+  차수국: qrHydrangea,
+  태백산맥: qrTaebaekMountain,
+  밤장미: qrDarkRose,
+  벚꽃: qrCherryBlossom,
+  안목해변: qrAnmokBeach,
+  소나무: qrPineTree,
 };

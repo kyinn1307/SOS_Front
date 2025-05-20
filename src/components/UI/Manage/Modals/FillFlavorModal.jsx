@@ -81,7 +81,12 @@ const FillFlavorModal = ({ catridgeName, onClose, onComplete }) => {
         <Input placeholder="용량을 정확히 입력해 주세요." />
       </Row>
       <ChangeBtnWrapper onClick={onComplete}>
-        <StyledBtn variant="black" isModal={true} isChangeModal={true}>
+        <StyledBtn
+          variant="black"
+          isModal={true}
+          isChangeModal={true}
+          paddingLeft={"42.83px"}
+        >
           추가하기
         </StyledBtn>
       </ChangeBtnWrapper>

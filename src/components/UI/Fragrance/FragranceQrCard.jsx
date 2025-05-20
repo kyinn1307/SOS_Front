@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import CloseBtn from "../../../assets/close_btn";
+import { mockFragranceInfoList } from "../../../constants/mockFragranceInfoList";
 
 const Container = styled.div`
   display: flex;
@@ -75,20 +76,22 @@ const BtnWrapper = styled.div`
 `;
 
 const FragranceQrCard = ({ fragranceInfo, onClose }) => {
+  const matchedMock = mockFragranceInfoList[fragranceInfo.name];
+
   return (
     <Container>
       <CardWrapper>
         <ImageWrapper>
           <img
-            src={fragranceInfo.imageUrl}
-            alt={fragranceInfo.realName}
+            src={matchedMock.imageUrl}
+            alt={matchedMock.realName}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </ImageWrapper>
-        <Title>{fragranceInfo.name}</Title>
-        <SubTitle>{fragranceInfo.realName}</SubTitle>
+        <Title>{matchedMock.name}</Title>
+        <SubTitle>{matchedMock.realName}</SubTitle>
         <Separator />
-        <Content>{fragranceInfo.description}</Content>
+        <Content>{matchedMock.description}</Content>
       </CardWrapper>
       <BtnWrapper onClick={onClose}>
         <CloseBtn />
