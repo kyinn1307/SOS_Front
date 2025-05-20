@@ -107,7 +107,10 @@ const ManageContent = ({ deviceId }) => {
   const socketRef = useRef(null);
 
   useEffect(() => {
-    const ws = new WebSocket("ws://3.39.64.81:8080/api/admin/ws");
+    const ws = new WebSocket(
+      `${import.meta.env.VITE_API_BASE_WS}/api/admin/ws`
+    );
+
     socketRef.current = ws;
 
     ws.onopen = () => {
