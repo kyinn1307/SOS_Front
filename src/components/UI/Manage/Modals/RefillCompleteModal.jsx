@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import ChangeIcon from "../../../../assets/manage/ChangeIcon";
-import DeleteBtn from "../../../../assets/admin/DeleteBtn";
+import DeleteBtn from "../../../../assets/manage/DeleteBtn";
 
 const Container = styled.div`
   display: flex;

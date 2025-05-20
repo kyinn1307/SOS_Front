@@ -231,6 +231,7 @@ const RefillContentModal = ({ catridge, onClose, onComplete }) => {
         <StyledBtn
           variant="black"
           isModal={true}
+          isChangeModal={true}
           onClick={handleClick}
           width="250px"
           paddingLeft={"42.83px"}

@@ -37,7 +37,7 @@ const QuestionWrapper = styled.div`
   top: 0%;
   left: 100%;
 
-  margin-left: 35px;
+  margin-left: 42px;
 `;
 
 const IntroText = styled.div`

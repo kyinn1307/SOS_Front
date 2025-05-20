@@ -6,11 +6,11 @@ const QuestionContainer = styled.div`
   align-items: center;
   justify-content: center;
 
-  width: 400px;
+  width: 350px;
   padding: 20px 24px;
   box-sizing: border-box;
   background-color: #fafaf8;
-  border-radius: 16px;
+  border-radius: 16px 16px 16px 0;
   box-shadow: 0 0 15px rgba(231, 221, 193, 0.5);
   z-index: 1;
 
@@ -18,14 +18,14 @@ const QuestionContainer = styled.div`
     content: "";
     position: absolute;
     left: -15px;
-    top: 50%;
-    transform: translateY(-50%);
+    bottom: 0;
+    // transform: translateY(-50%);
 
     width: 0;
     height: 0;
 
-    border-top: 14px solid transparent;
-    border-bottom: 14px solid transparent;
+    border-top: 19px solid transparent;
+
     border-right: 20px solid #fafaf8;
   }
 `;

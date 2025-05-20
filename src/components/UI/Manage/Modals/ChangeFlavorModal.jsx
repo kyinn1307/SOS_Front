@@ -103,7 +103,7 @@ const ChangeFlavorModal = ({ onClose, onChangeComplete }) => {
             variant="black"
             isModal={true}
             isChangeModal={true}
-            paddingLeft={"42.83px"}
+            paddingLeft={"53.83px"}
           >
             교체하기
           </StyledBtn>
