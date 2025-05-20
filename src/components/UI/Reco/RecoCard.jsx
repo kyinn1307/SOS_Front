@@ -1,5 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { recoCardImageMap } from "../../../constants/recoCardImageMap";
+import { useState } from "react";
 
 const dramaticFlyIn = keyframes`
   0% {
@@ -116,6 +117,7 @@ const FooterContent = styled.div`
 
 const RecoCard = ({ recipeInfo }) => {
   const resolvedImageUrl = recoCardImageMap[recipeInfo.name];
+
   return (
     <Container>
       <Main>

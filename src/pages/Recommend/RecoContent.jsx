@@ -7,25 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
 import BoldText from "../../components/UI/common/BoldText";
 import { useRecoStore } from "../../store/recoStore";
-import axios from "axios";
-import OriginalRecoCard from "../../components/UI/Reco/OriginalRecoCard"; // 새로 만들 컴포넌트
-
+import OriginalRecoCard from "../../components/UI/Reco/OriginalRecoCard";
 import BlurLayer from "../../components/Layout/BlurLayer";
 import CatridgeModal from "../../components/UI/Reco/CatridgeModal";
 import axiosInstance from "../../api/axiosInstance";
-
-// const titles = [
-//   "우울한 날",
-//   "기쁜 날",
-//   "결혼식 전날",
-//   "상사에게 혼난 날",
-//   "데이트 전날",
-//   "스트레스 받는 날",
-//   "여행 떠나기 전날",
-//   "중요한 발표를 앞둔 날",
-//   "새 출발을 앞둔 날",
-//   "생각 정리가 필요한 날",
-// ];
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -68,6 +53,16 @@ const ModalWrapper = styled.div`
 `;
 
 const WS_BASE_URL = import.meta.env.VITE_WS_BASE_URL;
+
+const mockRecoCardInfoList = [
+  {
+    name: "스트레스 받는 날",
+    description: "그린과 플로럴의 조합으로\n차분한 안정감을 선사합니다.",
+    topNotes: ["경포대"],
+    middleNotes: ["배롱나무", "은행나무"],
+    baseNotes: ["태백산맥"],
+  },
+];
 
 const RecoContent = () => {
   const [isCatridgeError, setIsCatridgeError] = useState(false);
@@ -119,11 +114,11 @@ const RecoContent = () => {
           🌟 당신을 위한 오늘의 향이 <BoldText>완성</BoldText>됐어요! 🌟
           <br />이 향이 오늘의 당신을 더욱 빛나게 해줄 거예요! 💖💫
         </IntroText>
-        {productionType === "ORIGINAL" ? (
-          <OriginalRecoCard recipeInfo={recommendationData} />
-        ) : (
-          <RecoCard recipeInfo={recommendationData} />
-        )}
+        {/* {productionType === "ORIGINAL" ? ( */}
+        {/* <OriginalRecoCard recipeInfo={recommendationData} /> */}
+        {/* ) : ( */}
+        <RecoCard recipeInfo={mockRecoCardInfoList[0]} />
+        {/* )} */}
         <BoxWrapper>
           <Checkbox
             isChecked={isChecked}

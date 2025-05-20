@@ -6,6 +6,7 @@ import FragranceList from "../../components/UI/Fragrance/FragranceList";
 import FragranceQrCard from "../../components/UI/Fragrance/FragranceQrCard";
 import { ROUTES } from "../../constants/routes";
 import { useDeviceStore } from "../../store/deviceStore";
+import { mockFragranceInfoList } from "../../constants/mockFragranceInfoList";
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -57,21 +58,40 @@ const QrArea = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
 `;
 
-const Temp = styled.div`
+const NextBtn = styled.button`
   position: absolute;
-  bottom: 0;
-  right: 0;
+
+  left: 1000px;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #2c2c2c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 `;
 
 const WS_BASE_URL = import.meta.env.VITE_WEBSOCKET_URL;
 
 const FragranceContent = () => {
   const [showQrCard, setShowQrCard] = useState(false);
+  const [isTestCard, setIsTestCard] = useState(true);
   const [fragranceInfo, setFragranceInfo] = useState(null);
   const socketRef = useRef(null);
   const navigate = useNavigate();
   const deviceId = useDeviceStore((state) => state.deviceId);
+  const fragranceNames = Object.keys(mockFragranceInfoList);
+  const [index, setIndex] = useState(0);
 
+  const currentFragrance = mockFragranceInfoList[fragranceNames[index]];
+
+  const handleNext = () => {
+    if (index < fragranceNames.length - 1) {
+      setIndex((prev) => prev + 1);
+    } else {
+      alert("마지막 향기입니다!");
+    }
+  };
   useEffect(() => {
     const socketUrl = `${WS_BASE_URL}/device/ws?deviceId=${deviceId}`;
     const socket = new WebSocket(socketUrl);
@@ -139,6 +159,16 @@ const FragranceContent = () => {
             fragranceInfo={fragranceInfo}
             onClose={() => setShowQrCard(false)}
           />
+        </QrArea>
+      )}
+
+      {isTestCard && (
+        <QrArea>
+          <FragranceQrCard
+            fragranceInfo={currentFragrance}
+            onClose={() => setIsTestCard(false)}
+          />
+          <NextBtn onClick={handleNext}>다음 향기 보기</NextBtn>
         </QrArea>
       )}
     </ContentWrapper>

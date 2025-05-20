@@ -118,7 +118,6 @@ const FooterContent = styled.div`
 const OriginalRecoCard = ({ recipeInfo }) => {
   const resolvedImageUrl = recoCardImageMap[recipeInfo.name];
 
-  // ✅ name을 기준으로 mockFragranceInfoList에서 description 추출
   const matchedFragrance = mockRecoCardInfoList[recipeInfo.name];
   const description = matchedFragrance?.description || "설명 없음";
 
