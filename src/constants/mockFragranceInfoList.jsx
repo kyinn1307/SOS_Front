@@ -43,7 +43,7 @@ export const mockFragranceInfoList = {
     imageUrl: fragranceImagesMap["태백산맥"],
     name: "태백산맥",
     realName:
-      "차가운 산 공기 속 맑은 시트러스와 초록 이슬 향이 어우러진,\n태백의 청명함을 담은 향기.",
+      "차가운 산 공기 속 맑은 시트러스와 초록 이슬 향이 어우러진,\n태백의 청명함을 담은 향기",
     description:
       "해가 막 떠오른 태백산 정상.\n차가운 공기 속에 시트러스의 밝은 향이 번지며\n맑은 숨처럼 가슴 깊숙이 스며듭니다.",
   },

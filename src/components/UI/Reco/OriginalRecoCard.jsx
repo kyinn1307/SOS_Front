@@ -92,6 +92,7 @@ const Content = styled.div`
   letter-spacing: -0.011em;
 
   color: #2c2c2c;
+  white-space: pre-line;
 `;
 
 const Footer = styled.div`
@@ -117,9 +118,8 @@ const FooterContent = styled.div`
 
 const OriginalRecoCard = ({ recipeInfo }) => {
   const resolvedImageUrl = recoCardImageMap[recipeInfo.name];
-
   const matchedFragrance = mockRecoCardInfoList[recipeInfo.name];
-  const description = matchedFragrance?.description || "설명 없음";
+  const description = matchedFragrance?.description;
 
   return (
     <Container>

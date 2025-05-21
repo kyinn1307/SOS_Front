@@ -1,7 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { recoCardImageMap } from "../../../constants/recoCardImageMap";
-import { useState } from "react";
-
+import { mockCustomCardInfoList } from "../../../constants/mockCustomCardData";
 const dramaticFlyIn = keyframes`
   0% {
     transform: perspective(1200px) rotateY(270deg) scale(0.4) translateZ(-300px);
@@ -92,6 +91,7 @@ const Content = styled.div`
   letter-spacing: -0.011em;
 
   color: #2c2c2c;
+  white-space: pre-line;
 `;
 
 const Footer = styled.div`
@@ -117,6 +117,8 @@ const FooterContent = styled.div`
 
 const RecoCard = ({ recipeInfo }) => {
   const resolvedImageUrl = recoCardImageMap[recipeInfo.name];
+  const matchedFragrance = mockCustomCardInfoList[recipeInfo.name];
+  const description = matchedFragrance?.description;
 
   return (
     <Container>
@@ -135,7 +137,7 @@ const RecoCard = ({ recipeInfo }) => {
         </PhotoWrapper>
         <TextWrapper>
           <Title>{recipeInfo.name}</Title>
-          <Content>{recipeInfo.description}</Content>
+          <Content>{description}</Content>
         </TextWrapper>
       </Main>
       <Footer>
