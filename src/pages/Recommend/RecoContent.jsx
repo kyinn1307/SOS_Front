@@ -114,11 +114,11 @@ const RecoContent = () => {
           🌟 당신을 위한 오늘의 향이 <BoldText>완성</BoldText>됐어요! 🌟
           <br />이 향이 오늘의 당신을 더욱 빛나게 해줄 거예요! 💖💫
         </IntroText>
-        {/* {productionType === "ORIGINAL" ? ( */}
-        {/* <OriginalRecoCard recipeInfo={recommendationData} /> */}
-        {/* ) : ( */}
-        <RecoCard recipeInfo={mockRecoCardInfoList[0]} />
-        {/* )} */}
+        {productionType === "ORIGINAL" ? (
+          <OriginalRecoCard recipeInfo={recommendationData} />
+        ) : (
+          <RecoCard recipeInfo={recommendationData} />
+        )}
         <BoxWrapper>
           <Checkbox
             isChecked={isChecked}

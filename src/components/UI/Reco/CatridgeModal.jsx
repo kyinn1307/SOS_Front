@@ -38,6 +38,7 @@ const CatridgeModal = ({ onClose }) => {
           stroke-linecap="round"
           stroke-linejoin="round"
           onClick={onClose}
+          style={{ cursor: "pointer" }}
         />
         <defs>
           <filter

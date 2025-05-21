@@ -122,7 +122,7 @@ const ChatContent = () => {
           chatSocket.onmessage = (event) => {
             try {
               const res = JSON.parse(event.data);
-              console.log("ChatSocket Message:", res);
+              // console.log("ChatSocket Message:", res);
 
               if (res.status === "error") {
                 console.error("서버 응답 오류:", res.details.message);
