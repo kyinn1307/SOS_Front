@@ -185,6 +185,7 @@ const ManageContent = ({ deviceId }) => {
     queryKey: ["cartridges", deviceId],
     queryFn: () => getCartridges(deviceId),
     enabled: !!deviceId,
+    refetchInterval: 10000,
   });
 
   if (isLoading) return <div>로딩 중...</div>;
