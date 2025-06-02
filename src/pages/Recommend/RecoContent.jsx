@@ -88,6 +88,16 @@ const RecoContent = () => {
     } catch (err) {
       console.log("실패", sessionId);
       console.error("향수 제작 요청 실패", err);
+
+      const errorCode = err?.response?.data?.error?.code;
+      const errorMessage = err?.response?.data?.error?.message;
+
+      if (errorCode === "CART_400_2") {
+        setIsCatridgeError(true);
+      } else {
+        console.log("🔥 기타 에러 코드:", errorCode);
+        console.log("🔥 기타 에러 메시지:", errorMessage);
+      }
     }
   };
 
