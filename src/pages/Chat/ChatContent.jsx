@@ -122,14 +122,29 @@ const ChatContent = () => {
           chatSocket.onmessage = (event) => {
             try {
               const res = JSON.parse(event.data);
-              // console.log("ChatSocket Message:", res);
 
               if (res.status === "error") {
-                console.error("서버 응답 오류:", res.details.message);
-                setIsError(true);
+                const code = res.details?.code;
+                const message = res.details?.message;
+
+                console.error("서버 응답 오류:", message);
+
+                switch (code) {
+                  case "CHAT_429_1":
+                    alert("메시지 전송 가능 횟수를 초과하였습니다");
+                    break;
+                  case "CHAT_400_1":
+                    setIsError(true);
+                    break;
+                  case "CHAT_400_2":
+                    alert("메시지 전송에 실패했습니다");
+                    break;
+                  default:
+                    alert(message || "알 수 없는 오류가 발생했습니다");
+                }
+
                 return;
               }
-
               if (res.isRecommended === true) {
                 setRecommendationData(res.recommendationData);
                 navigate("/loading");

@@ -72,12 +72,20 @@ const ChatInput = ({ onSend }) => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSendBtnClick();
+    }
+  };
+
   return (
     <ChatInputContainer>
       <ChatInputField
         placeholder="당신의 감정을 자유롭게 표현해보세요! (모르겠음, 별로와 같은 간단한 답변은 피해주세요.)"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
+        onKeyDown={handleKeyDown}
       />
       <ChatSendBtnWrapper>
         <ChatSendBtn onClick={handleSendBtnClick} />
