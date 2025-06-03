@@ -77,6 +77,7 @@ const ChatInput = ({ onSend }) => {
 
   // 엔터키 전송 함수
   const handleKeyDown = (e) => {
+    if (e.nativeEvent.isComposing) return; // 한글 입력 중이면 무시
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSendBtnClick();

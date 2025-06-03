@@ -133,6 +133,8 @@ const ChatContent = () => {
             try {
               const res = JSON.parse(event.data);
 
+              console.log(res);
+              console.log(res.details);
               if (res.status === "error") {
                 const code = res.details?.code;
                 const message = res.details?.message;
