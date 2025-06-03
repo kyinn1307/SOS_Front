@@ -13,6 +13,7 @@ import ProduceLoadingPage from "./pages/Loading/ProduceLoadingPage";
 import AdminPage from "./pages/Admin/AdminPage";
 import ManagePage from "./pages/Manage/ManagePage";
 
+// 라우팅 설정
 const AppRouter = () => {
   return (
     <Router>

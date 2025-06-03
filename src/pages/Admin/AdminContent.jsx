@@ -18,6 +18,7 @@ import {
 } from "./AdminContent.styles";
 import BoldText from "../../components/UI/common/BoldText";
 
+// 디바이스 관리용 페이지
 const AdminContent = () => {
   const { setDeviceId } = useDeviceStore();
 

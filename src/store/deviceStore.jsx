@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+// device id 전역 상태 관리
 export const useDeviceStore = create(
   persist(
     (set) => ({

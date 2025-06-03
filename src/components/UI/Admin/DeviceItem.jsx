@@ -39,6 +39,7 @@ const BtnContainer = styled.div`
   padding: 6px;
 `;
 
+// 디바이스 컴포넌트
 const DeviceItem = ({
   index,
   deviceId,
@@ -52,7 +53,7 @@ const DeviceItem = ({
   const handleClick = () => {
     onSelect({ deviceId, deviceName, devicePhysicalId });
   };
-
+  // index 아이디 파싱
   const formattedIndex = String(index + 1).padStart(3, "0");
   return (
     <Container selected={selected} onClick={handleClick}>

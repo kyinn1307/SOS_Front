@@ -1,5 +1,6 @@
 import { fragranceImagesMap } from "./fragranceQrImageMap";
 
+// 실제 레시피 매핑 데이터
 export const mockFragranceInfoList = {
   배롱나무: {
     imageUrl: fragranceImagesMap["배롱나무"],

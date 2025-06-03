@@ -33,6 +33,7 @@ const ButtonContainer = styled.div`
   margin-bottom: 56px;
 `;
 
+// chatbot page 오리지널 or custom 선택
 const ChatbotChoice = () => {
   const navigate = useNavigate();
 

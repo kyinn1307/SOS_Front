@@ -15,6 +15,7 @@ const Filler = styled.div`
   border-radius: 10px;
 `;
 
+// 챗봇 결과 로딩창 + 실제 향수 제작 로딩창 progress bar
 const ProgressBar = ({ progress }) => {
   return (
     <Container>

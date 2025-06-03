@@ -1,3 +1,4 @@
+// route constant 설정
 export const ROUTES = {
   HOME: "/",
   LOGIN: "/login",

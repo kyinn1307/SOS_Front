@@ -52,7 +52,9 @@ const BtnContainer = styled.div`
   gap: 15px;
 `;
 
+// 디바이스 삭제 버튼
 const DeviceDeleteModal = ({ deviceId, onClose }) => {
+  // 서버 데이터 상태 관리 (기기 삭제 요청 관련)
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
@@ -71,6 +73,7 @@ const DeviceDeleteModal = ({ deviceId, onClose }) => {
   const handleDelete = () => {
     mutate(deviceId);
   };
+
   return (
     <Container>
       <IconWrapper>

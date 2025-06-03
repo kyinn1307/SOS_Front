@@ -58,15 +58,20 @@ const QrArea = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
 `;
 
-const WS_BASE_URL = import.meta.env.VITE_WEBSOCKET_URL;
+const WS_BASE_URL = import.meta.env.VITE_WEBSOCKET_URL; // 웹소켓 base 주소
 
+// 향료 그룹화 페이지 and qr 팝업 모달 띄우는 페이지
 const FragranceContent = () => {
+  // qr 카드 숨김 여부 관리
   const [showQrCard, setShowQrCard] = useState(false);
   const [fragranceInfo, setFragranceInfo] = useState(null);
+  // qr 정보 받을 웹소켓 객체 관리
   const socketRef = useRef(null);
   const navigate = useNavigate();
+  // 전역 상태 저장소 변수 가져오기
   const deviceId = useDeviceStore((state) => state.deviceId);
 
+  // 웹소켓 초기 연결 과정
   useEffect(() => {
     const socketUrl = `${WS_BASE_URL}/device/ws?deviceId=${deviceId}`;
     const socket = new WebSocket(socketUrl);
@@ -78,9 +83,11 @@ const FragranceContent = () => {
 
     socket.onmessage = (event) => {
       try {
+        // 웹소켓으로 받은 응답 json 형식 파싱
         const data = JSON.parse(event.data);
         console.log("수신된 데이터:", data);
 
+        // 받은 qr 정보 상태값으로 관리
         if (data.fragranceInfo) {
           console.log("향기 정보 수신됨");
           setFragranceInfo(data.fragranceInfo);
@@ -128,6 +135,7 @@ const FragranceContent = () => {
         </StyledBtn>
       </BtnWrapper>
 
+      {/* qr 정보를 받았을 경우 화면에 qr 카드 렌더링 */}
       {showQrCard && fragranceInfo && (
         <QrArea>
           <FragranceQrCard

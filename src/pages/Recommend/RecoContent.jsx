@@ -52,26 +52,19 @@ const ModalWrapper = styled.div`
   align-items: center;
 `;
 
-const WS_BASE_URL = import.meta.env.VITE_WS_BASE_URL;
-
-const mockRecoCardInfoList = [
-  {
-    name: "스트레스 받는 날",
-    description: "그린과 플로럴의 조합으로\n차분한 안정감을 선사합니다.",
-    topNotes: ["경포대"],
-    middleNotes: ["배롱나무", "은행나무"],
-    baseNotes: ["태백산맥"],
-  },
-];
-
 const RecoContent = () => {
+  // 카트리지 에러 모달 표시 여부
   const [isCatridgeError, setIsCatridgeError] = useState(false);
+  // 버튼 활성화 여부
   const [isBtnOn, setIsBtnOn] = useState(false);
+  // 체크박스 상태
   const [isChecked, setIsChecked] = useState(false);
 
+  // Zustand에서 데이터 가져오기
   const { recommendationData, sessionId, productionType } = useRecoStore();
   const navigate = useNavigate();
 
+  // 버튼 클릭 시 향수 제작 요청
   const handleBtnClick = async () => {
     if (!sessionId) {
       console.error("sessionId가 유효하지 않습니다:", sessionId);
@@ -84,6 +77,7 @@ const RecoContent = () => {
       });
 
       console.log("성공", response.data);
+      // 로딩 화면으로 이동
       navigate(ROUTES.PRODUCE_LOADING);
     } catch (err) {
       console.log("실패", sessionId);
@@ -92,6 +86,7 @@ const RecoContent = () => {
       const errorCode = err?.response?.data?.error?.code;
       const errorMessage = err?.response?.data?.error?.message;
 
+      // 서버에서 지정한 에러 코드가 카트리지 문제일 경우
       if (errorCode === "CART_400_2") {
         setIsCatridgeError(true);
       } else {
@@ -101,16 +96,19 @@ const RecoContent = () => {
     }
   };
 
+  // 카트리지 에러 모달 닫기
   const handleCloseBtnClick = () => {
     setIsCatridgeError(false);
   };
 
+  // 체크박스 상태 변경 시 버튼 활성화 여부 설정
   useEffect(() => {
     setIsBtnOn(isChecked);
   }, [isChecked]);
 
   return (
     <>
+      {/* 에러 모달 */}
       {isCatridgeError && (
         <>
           <ModalWrapper>
@@ -119,16 +117,22 @@ const RecoContent = () => {
           </ModalWrapper>
         </>
       )}
+
+      {/* 메인 콘텐츠 */}
       <ContentWrapper>
         <IntroText>
           🌟 당신을 위한 오늘의 향이 <BoldText>완성</BoldText>됐어요! 🌟
           <br />이 향이 오늘의 당신을 더욱 빛나게 해줄 거예요! 💖💫
         </IntroText>
+
+        {/* 향 추천 카드: ORIGINAL or CUSTOM 여부에 따라 다르게 렌더링 */}
         {productionType === "ORIGINAL" ? (
           <OriginalRecoCard recipeInfo={recommendationData} />
         ) : (
           <RecoCard recipeInfo={recommendationData} />
         )}
+
+        {/* 체크박스 영역 */}
         <BoxWrapper>
           <Checkbox
             isChecked={isChecked}
@@ -136,6 +140,8 @@ const RecoContent = () => {
             content="투입구에 공병을 넣으셨나요?"
           />
         </BoxWrapper>
+
+        {/* 향 연주 버튼 */}
         <BtnWrapper onClick={handleBtnClick}>
           <StyledBtn
             variant="black"

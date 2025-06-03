@@ -64,21 +64,30 @@ const ModalWrapper = styled.div`
   align-items: center;
 `;
 
+// 챗봇 채팅 페이지
 const ChatContent = () => {
+  // 채팅 input 값 상태 관리
   const [question, setQuestion] = useState("");
   const [isError, setIsError] = useState(false);
+  // 채팅 세션 아이디 상태 관리
   const [sessionId, setSessionId] = useState("");
+  // 채팅 세션 전역 상태 관리
   const {
     setSessionId: setRecoSessionId,
     setRecommendationData,
     setProductionType,
   } = useRecoStore();
+  // 최초 채팅 웹소켓 객체 관리 (첫번째 질문용)
   const socketRef = useRef(null);
+  // 이후 추가 질문을 위한 웹소켓 객체 관리
   const chatSocketRef = useRef(null);
+  // 기기 아이디 전역 관리
   const { deviceId } = useDeviceStore();
+  // original or custom 값 관리
   const location = useLocation();
   const navigate = useNavigate();
 
+  // 웹소켓 기본 주소
   const WS_BASE_URL = import.meta.env.VITE_API_BASE_WS;
 
   useEffect(() => {
@@ -119,6 +128,7 @@ const ChatContent = () => {
 
           chatSocketRef.current = chatSocket;
 
+          // 채팅 메시지 보냈을 경우
           chatSocket.onmessage = (event) => {
             try {
               const res = JSON.parse(event.data);
@@ -128,7 +138,7 @@ const ChatContent = () => {
                 const message = res.details?.message;
 
                 console.error("서버 응답 오류:", message);
-
+                // 에러 처리
                 switch (code) {
                   case "CHAT_429_1":
                     alert("메시지 전송 가능 횟수를 초과하였습니다");
@@ -145,11 +155,12 @@ const ChatContent = () => {
 
                 return;
               }
+              // 향수 추천이 완료 되었을 경우
               if (res.isRecommended === true) {
                 setRecommendationData(res.recommendationData);
                 navigate("/loading");
               }
-
+              // 서버의 응답 메세지가 왔을 경우
               if (res.messageType === "BOT" && res.message) {
                 setQuestion(res.message);
               }
@@ -158,11 +169,11 @@ const ChatContent = () => {
               setIsError(true);
             }
           };
-
+          // 2번째 채팅에 대한 소켓 에러 발생 or 채팅 종료 시
           chatSocket.onerror = () => setIsError(true);
           chatSocket.onclose = () => console.log("Chat WebSocket 종료");
         };
-
+        // 최초 채팅에 대한 소켓 에러 발생 or 채팅 종료 시
         socket.onerror = () => setIsError(true);
         socket.onclose = () => console.log("Init WebSocket 종료");
       } catch (err) {
@@ -179,6 +190,7 @@ const ChatContent = () => {
     };
   }, [deviceId, location, navigate, setRecoSessionId, setRecommendationData]);
 
+  // 채팅 input 웹소켓을 통한 전송
   const sendAnswer = (answer) => {
     if (
       chatSocketRef.current &&
@@ -205,6 +217,7 @@ const ChatContent = () => {
 
   return (
     <>
+      {/* 에러 발생 모달 */}
       {isError && (
         <>
           <ModalWrapper>
@@ -228,10 +241,12 @@ const ChatContent = () => {
           <ChatbotWrapper>
             <ChatbotIcon size="small" />
           </ChatbotWrapper>
+          {/* 서버에서 받은 챗봇 질문 렌더링 */}
           <QuestionWrapper>
             <QuestionBox>{question || "잠시만 기다려주세요..."}</QuestionBox>
           </QuestionWrapper>
         </ChatbotField>
+        {/* 챗봇 질문 입력창 */}
         <ChatInput onSend={sendAnswer} />
       </ContentWrapper>
     </>

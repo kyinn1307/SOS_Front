@@ -1,4 +1,4 @@
-// 테스트 용 mock data
+// 향료 그룹화 페이지 하드코딩 데이터
 const FragranceMockData = [
   {
     name: "Floral",

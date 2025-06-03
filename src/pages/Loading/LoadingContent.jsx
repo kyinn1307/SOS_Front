@@ -23,6 +23,7 @@ const CommentWrapper = styled.div`
 const ProgressWrapper = styled.div`
   margin-top: 156.5px;
 `;
+// 향수 추천 결과 로딩창
 const LoadingContent = () => {
   const [progress, setProgress] = useState(0);
   const navigate = useNavigate();

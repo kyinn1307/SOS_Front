@@ -9,6 +9,7 @@ import qrPersimmonTree from "../assets/qrCardImages/qr_persimmon_tree.png";
 import qrPineTree from "../assets/qrCardImages/qr_pine_tree.png";
 import qrTaebaekMountain from "../assets/qrCardImages/qr_taebaek_mountain.png";
 
+// qr 카드 이미지 경로 매핑 데이터
 export const fragranceImagesMap = {
   배롱나무: qrCrapeMyrtle,
   감나무: qrPersimmonTree,

@@ -90,6 +90,7 @@ const HashTag = styled.span`
   color: #aaaaaa;
 `;
 
+// 향료 그룹화 페이지 개별 카드
 const FragranceCard = ({ name, description, fragrances, hashtags }) => {
   return (
     <InfoCardWrapper>
@@ -101,6 +102,7 @@ const FragranceCard = ({ name, description, fragrances, hashtags }) => {
 
         <FragranceArea>
           <FragranceContainer $count={fragrances.length}>
+            {/* fragrance 객체 정보 출력 */}
             {fragrances.map((item, index) => (
               <FragranceItem key={index}>{item}</FragranceItem>
             ))}

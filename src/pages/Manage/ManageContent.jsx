@@ -87,6 +87,7 @@ const ModalContainer = styled.div`
 `;
 
 const ManageContent = ({ deviceId }) => {
+  // UI 상태 관리
   const [showDeviceChoice, setShowDeviceChoice] = useState(false);
   // modal 상태 관리
   const [isRefillModalOpen, setIsRefillModalOpen] = useState(false);
@@ -102,10 +103,13 @@ const ManageContent = ({ deviceId }) => {
     beforeAmount: 0,
     afterAmount: 0,
   });
-  const [alertedCartridgeIds, setAlertedCartridgeIds] = useState([]); // 경고 카트리지 ID 목록
 
+  // WebSocket으로 받은 경고 카트리지 ID 목록
+  const [alertedCartridgeIds, setAlertedCartridgeIds] = useState([]);
+  // WebSocket 객체 관리용 ref
   const socketRef = useRef(null);
 
+  // WebSocket 연결 설정 및 메시지 처리
   useEffect(() => {
     const ws = new WebSocket(
       `${import.meta.env.VITE_API_BASE_WS}/api/admin/ws`
@@ -139,25 +143,29 @@ const ManageContent = ({ deviceId }) => {
       }
     };
     return () => {
-      ws.close();
+      ws.close(); // 컴포넌트 언마운트 시 WebSocket 닫기
     };
   }, []);
 
+  // Scroll 버튼 클릭 시 디바이스 선택 창 표시 여부 토글
   const handleScrollBtnClick = () => {
     setShowDeviceChoice((prev) => !prev);
   };
 
+  // 향료 교체 버튼 클릭 시 모달 열기
   const handleChangeBtn = () => {
     setIsChangeModalOpen(true);
     setIsChangeCompleteOpen(false);
   };
 
+  // 향료 교체 완료 시 처리
   const handleChangeComplete = () => {
     setIsChangeModalOpen(false);
     setIsChangeCompleteOpen(true);
     refetch();
   };
 
+  // 초기 향료 채우기 모달 열기
   const openModalWithFlavor = (flavor) => {
     setSelectedCatridge(flavor);
     setIsRefillModalOpen(true);
@@ -168,12 +176,14 @@ const ManageContent = ({ deviceId }) => {
     setIsFillModalOpen(true);
   };
 
+  // 향료 채우기 완료 처리
   const handleFillComplete = () => {
     setIsFillModalOpen(false);
     setIsFillCompleteModalOpen(true);
     refetch();
   };
 
+  // 리필 완료 처리
   const handleRefillComplete = ({ beforeAmount, afterAmount }) => {
     setIsRefillModalOpen(false);
     setRefillResult({ beforeAmount, afterAmount });
@@ -181,6 +191,7 @@ const ManageContent = ({ deviceId }) => {
     refetch();
   };
 
+  // 카트리지 API 호출 (React Query)
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["cartridges", deviceId],
     queryFn: () => getCartridges(deviceId),
@@ -200,6 +211,7 @@ const ManageContent = ({ deviceId }) => {
 
   const cartridgeList = data?.data?.data.cartridgeDetails ?? [];
 
+  // 슬롯이 비어 있는 경우 기본 값으로 채워 10개 리스트 구성
   const DEFAULT_CARTRIDGE_COUNT = 10;
   const EMPTY_SLOT = {
     fragranceName: "향료이름",
@@ -242,6 +254,7 @@ const ManageContent = ({ deviceId }) => {
           <ChangeFlavorBtn />
         </ChangeBtnWrapper>
       </HeaderWrapper>
+      {/* 카트리지 리스트 */}
       <CatridgeList
         deviceId={deviceId}
         alertedCartridgeIds={alertedCartridgeIds} // 전달
@@ -250,6 +263,7 @@ const ManageContent = ({ deviceId }) => {
         openRefillModalWithFlavor={openRefillModalWithFlavor}
       />
 
+      {/* 디바이스 선택 모달 */}
       {showDeviceChoice && (
         <ModalOverlay>
           <BlurLayer />

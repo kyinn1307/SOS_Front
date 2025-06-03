@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+// 모달창 배경 설정
 const Layer = styled.div`
   position: fixed;
   top: 0;

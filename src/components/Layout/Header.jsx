@@ -36,11 +36,13 @@ const SettingBtn = styled.button`
   font-weight: ${({ active }) => (active ? "bold" : "normal")};
 `;
 
+// 공통 헤더 컴포넌트
 const Header = ({ openLogoutModal }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
+  // 기본 route와 admin 페이지 기기관리, 로그아웃 버튼 활성화
   const shouldShowSettings =
     location.pathname === "/" ||
     location.pathname === "/admin" ||
@@ -50,6 +52,7 @@ const Header = ({ openLogoutModal }) => {
     navigate(path);
   };
 
+  // 로그아웃 모달 닫는 함수 (나중)
   const handleCloseModal = () => {
     setShowLogoutModal(false);
   };

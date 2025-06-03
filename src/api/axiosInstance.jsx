@@ -1,14 +1,16 @@
 import axios from "axios";
 import { useAuthStore } from "../store/authStore";
 
+// 서버 통신 설정 axios 객체
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: import.meta.env.VITE_API_BASE_URL, // .env 파일 api 통신 주소
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true,
+  withCredentials: true, // 쿠키 포함
 });
 
+// refresh token과 access token 관리 (향후)
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = useAuthStore.getState().accessToken;

@@ -61,10 +61,13 @@ const ChatSendBtnWrapper = styled.div`
   height: 35px;
   align-self: flex-end;
 `;
+
+// 채팅 입력창
 const ChatInput = ({ onSend }) => {
   const [inputValue, setInputValue] = useState("");
   const navigate = useNavigate();
 
+  // 실제 채팅 입력값 전송 함수
   const handleSendBtnClick = () => {
     if (inputValue.trim() !== "") {
       onSend(inputValue.trim());
@@ -72,6 +75,7 @@ const ChatInput = ({ onSend }) => {
     }
   };
 
+  // 엔터키 전송 함수
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();

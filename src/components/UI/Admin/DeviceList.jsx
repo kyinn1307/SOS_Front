@@ -34,12 +34,14 @@ const Bar = styled.div`
   margin-bottom: 6px;
 `;
 
+// admin 페이지 기기 리스트 컴포넌트 (서버 api 연동)
 const DeviceList = ({
   selectedDevice,
   onSelectDevice,
   onDeleteDevice,
   onEditDevice,
 }) => {
+  // 기기 정보 api 관리
   const {
     data: devicesData,
     isLoading,
@@ -49,12 +51,14 @@ const DeviceList = ({
     queryFn: fetchDevices,
   });
 
+  // 데이터 로딩 처리
   if (isLoading) return <div>로딩 중...</div>;
 
   return (
     <DeviceContainer>
       <Text>내 기기</Text>
       <Bar />
+      {/* 기기 데이터를 통한 기기 리스트 컴포넌트 렌더링 */}
       {devicesData.map((device, index) => {
         return (
           <DeviceItem

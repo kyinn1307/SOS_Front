@@ -20,6 +20,7 @@ import newBeginning from "../assets/fragranceReceiptImages/new_beginning.png?url
 import scoldedByBoss from "../assets/fragranceReceiptImages/scolded_by_boss.png?url";
 import stressfulDay from "../assets/fragranceReceiptImages/stressful_day.png?url";
 
+// 레시피 카드 이미지 경로 매핑 데이터
 export const recoCardImageMap = {
   안목해변: anmokBeach,
   벚꽃: cherryBlossom,

@@ -41,14 +41,17 @@ const BtnWrapper = styled.div`
 
 const WS_BASE_URL = import.meta.env.VITE_WEBSOCKET_URL;
 
+// 실제 향수 제작 로딩창
 const ProduceLoadingContent = () => {
   const [progress, setProgress] = useState(0);
+  // 향수 제작 완료 여부 상태 관리
   const [isDone, setIsDone] = useState(false);
   const socketRef = useRef(null);
   const navigate = useNavigate();
   const { sessionId } = useRecoStore();
   const intervalRef = useRef(null);
 
+  // 웹소켓 연결 과정
   useEffect(() => {
     const socketUrl = `${WS_BASE_URL}/session/ws?sessionId=${sessionId}`;
     const socket = new WebSocket(socketUrl);

@@ -1,4 +1,6 @@
 import { recoCardImageMap } from "./recoCardImageMap";
+
+// 실제 레시피 매핑 데이터
 export const mockCustomCardInfoList = {
   "우울한 날": {
     imageUrl: recoCardImageMap["우울한 날"],

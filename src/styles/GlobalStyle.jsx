@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
+// global 스타일 요소
 const GlobalStyle = createGlobalStyle`
   * {
     padding: 0;

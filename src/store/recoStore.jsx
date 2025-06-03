@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+// 향수 추천 종류 상태 관리
 export const useRecoStore = create(
   persist(
     (set) => ({

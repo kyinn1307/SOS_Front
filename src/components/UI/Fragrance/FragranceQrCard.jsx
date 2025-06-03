@@ -76,6 +76,7 @@ const BtnWrapper = styled.div`
   margin-top: 5px;
 `;
 
+// 하드웨어 qr 스캔 시, 렌더링 되는 qr 카드
 const FragranceQrCard = ({ fragranceInfo, onClose }) => {
   const matchedMock = mockFragranceInfoList[fragranceInfo.name];
 

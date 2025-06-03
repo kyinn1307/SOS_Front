@@ -21,6 +21,7 @@ const ModalContainer = styled.div`
   z-index: 11;
 `;
 
+// 페이지 별 기본 레이아웃
 const MainLayout = ({ children, BackgroundComponent }) => {
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   return (

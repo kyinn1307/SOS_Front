@@ -83,10 +83,11 @@ const DeleteBtnWrapper = styled.div`
   right: 25px;
 `;
 
+// 기기 등록용 모달창
 const DeviceRegisterModal = ({ onClose }) => {
   const [deviceName, setDeviceName] = useState("");
   const [deviceNumber, setDeviceNumber] = useState("");
-
+  // 버튼 활성화
   const isValid = deviceName.trim() !== "" && deviceNumber.trim() !== "";
 
   return (

@@ -84,10 +84,12 @@ const DeleteBtnWrapper = styled.div`
   right: 25px;
 `;
 
+// 기기 수정 모달
 const DeviceEditModal = ({ onClose, device }) => {
+  // 기기명, 기기번호 관리
   const [deviceName, setDeviceName] = useState(device?.name || "");
   const [deviceNumber, setDeviceNumber] = useState(device?.number || "");
-
+  // 버튼 활성화 조건
   const isValid = deviceName.trim() !== "" && deviceNumber.trim() !== "";
 
   return (

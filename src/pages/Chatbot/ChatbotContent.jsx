@@ -28,6 +28,7 @@ const ChatbotContent = () => {
           예요. 🌿✨
         </CommentBox>
         <ChatbotIcon size="big" />
+        {/* original or custom 채팅 방식 선택 */}
         <ChatbotChoice />
       </ContentWrapper>
     </>
